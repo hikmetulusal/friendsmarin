@@ -185,39 +185,6 @@
  </head>
 <body>
 
-<script>
-async function sha256(text) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-(async () => {
-  const STORED = localStorage.getItem("fm_auth");
-
-  const PASSWORD_HASH = "REPLACE_WITH_HASH";
-
-  if (STORED !== "ok") {
-    const input = prompt("Şifre:");
-    if (!input) deny();
-
-    const hash = await sha256(input);
-    if (hash !== PASSWORD_HASH) deny();
-
-    localStorage.setItem("fm_auth", "ok");
-  }
-
-  function deny() {
-    document.documentElement.innerHTML = "";
-    alert("Yetkisiz erişim");
-    throw new Error("Access denied");
-  }
-})();
-</script>
-
   <div class="page-title">Denizcilik İngilizcesi 2025 Deneme Sınavı</div>
 
   <div class="exam-box">
@@ -495,3 +462,4 @@ async function sha256(text) {
  </script>
 </body>
 </html>
+
