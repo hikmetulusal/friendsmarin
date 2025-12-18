@@ -1,0 +1,3798 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Denizcilik İngilizcesi 2025 Deneme Sınavı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+
+    .header {
+  max-width: 900px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header img {
+  height: 42px;
+}
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #e0e0e0;            /* gri arka plan (görseldeki gibi) */
+      color: #222;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .exam-box {
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .question-header {
+      background: #98dfa1;            /* açık yeşil şerit */
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-body {
+      padding: 16px 18px 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .question-text {
+      margin-bottom: 12px;
+    }
+
+    .meta-line {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .section-label {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 sütun */
+      column-gap: 60px;
+      row-gap: 8px;
+      padding: 0 10px 12px;
+      font-size: 14px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .option-row.disabled {
+      cursor: default;
+    }
+
+    .radio-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #c4c4c4;
+      background: #f9f9f9;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .option-row.selected .radio-circle::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: #007bff;
+    }
+
+    .option-row.correct .radio-circle {
+      border-color: #1f9d55;
+    }
+
+    .option-row.incorrect .radio-circle {
+      border-color: #e3342f;
+    }
+
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 18px 12px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      background: #f5f5f5;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stats-block {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .timer-line {
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    button {
+      border-radius: 4px;
+      border: 1px solid #b0b0b0;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #ffffff;
+      margin-left: 4px;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+    }
+
+    .feedback {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .feedback.correct { color: #1f9d55; }
+    .feedback.incorrect { color: #e3342f; }
+
+    @media (max-width: 700px) {
+      .options-grid {
+        grid-template-columns: 1fr;  /* mobilde tek sütun */
+        column-gap: 20px;
+      }
+      .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+ <script>
+(function () {
+  const SESSION_KEY = "fma_demo_authed";
+  const SESSION_TTL = 6 * 60 * 60 * 1000; // 6 saat
+  const t = Number(localStorage.getItem(SESSION_KEY) || 0);
+
+  // ✅ login sayfasına, geri döneceği sayfayı da ekleyerek gönder
+  if (!t || (Date.now() - t) > SESSION_TTL) {
+    const loginUrl = new URL("login.html", window.location.href);
+    loginUrl.searchParams.set("next", window.location.pathname + window.location.search + window.location.hash);
+    window.location.replace(loginUrl.toString());
+  }
+})();
+</script>
+
+ </head>
+<body>
+
+ <div class="header">
+  <img src="assets/friendsmarin-logo.png" alt="Friends Marin Akademi">
+  <div class="page-title">Denizcilik İngilizcesi 2025 Deneme Sınavı</div>
+ </div>
+
+  <div class="exam-box">
+    <div class="question-header" id="questionHeader">
+      <span>Soru 1</span>
+      <span id="questionProgress"></span>
+    </div>
+
+    <div class="question-body">
+      <div class="meta-line" id="metaLine"></div>
+
+      <div class="question-text" id="questionText"></div>
+
+      <div id="questionSub" style="font-size:13px;color:#666;margin-bottom:8px;"></div>
+
+      <div class="section-label">cevap seçenekleri</div>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- JS ile doldurulacak -->
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="stats-block">
+        <div>Doğru cevap sayısı : <span id="statCorrect">0</span></div>
+        <div>Yanlış cevap sayısı : <span id="statWrong">0</span></div>
+        <div>Toplam soru sayısı : <span id="statTotal">0</span></div>
+        <div>Şu anki soru : <span id="statCurrent">1</span>/<span id="statTotal2">0</span></div>
+        <div class="timer-line">Geçen süre : <span id="timer">00:00</span></div>
+      </div>
+
+      <div>
+        <button id="btnShowAnswer" type="button">Cevabı Göster</button>
+        <button id="btnNext" type="button">Sonraki Soru</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+
+const questions = [
+
+{
+  id: 1,
+  question: "The unit of measurement used in navigation which is one tenth of a nautical mile is called ______",
+  options: ["a fathom", "an inch", "a foot", "a shackle", "a cable"],
+  correctIndex: 4
+},
+
+{
+  id: 2,
+  question: "If your distance to anchoring point is 1400 yards then your distance to that point is ______",
+  options: ["14 cables", "1,4 cables", "5 cables", "6 cables", "7 cables"],
+  correctIndex: 4
+},
+
+{
+  id: 4,
+  question: "What is the maximum possible latitude?",
+  options: ["90 degrees east", "90 degrees south", "180 degrees west", "180 degrees south", "270 degrees south"],
+  correctIndex: 1
+},
+
+{
+  id: 5,
+  question: "What would the SW direction be in degrees?",
+  options: ["270°", "315°", "110°", "225°", "170°"],
+  correctIndex: 3
+},
+
+{
+  id: 6,
+  question: "What is not used to describe a mark in IALA System?",
+  options: ["Shape", "Distance", "Colour", "Top mark", "Light"],
+  correctIndex: 1
+},
+
+{
+  id: 8,
+  question: "Under the IALA-B Buoyage System, a buoy displaying a red light will _____.",
+  options: ["be lettered", "show a light characteristic of Morse Code \"A\"", "have a racon", "have a radar reflector", "be left to starboard when entering from seaward"],
+  correctIndex: 4
+},
+
+{
+  id: 9,
+  question: "Sailing Directions ______ when new data requires extensive revision of an existing text. These data are obtained from several sources, including pilots and foreign Sailing Directions.",
+  options: ["are never corrected", "are updated", "are permanent", "are removed", "are wiped out"],
+  correctIndex: 1
+},
+
+{
+  id: 13,
+  question: "_____ is the bearing in the direction the current is flowing.",
+  options: ["Fall", "Set", "Diurnal", "Course", "Running"],
+  correctIndex: 1
+},
+
+{
+  id: 14,
+  question: "The magnitude or speed of current is _____.",
+  options: ["Drift", "Squat", "Datum", "Sweep", "Swift"],
+  correctIndex: 0
+},
+
+{
+  id: 19,
+  question: "_____ is the vertical rise and fall of the water because of the movement of the moon.",
+  options: ["Hinder", "Thunder", "Coriolis", "Hamper", "Tide"],
+  correctIndex: 4
+},
+
+{
+  id: 21,
+  question: "The _____ is the height difference between a HW height and the preceding or following LW height at a particular place.",
+  options: ["crest of tide", "trough of tide", "peak of tide", "slack of tide", "range of tide"],
+  correctIndex: 4
+},
+
+{
+  id: 22,
+  question: "In the _____ tide, only a single high and single low water occur each tidal day.",
+  options: ["diurnal", "prevalent", "dual", "mixed", "slack"],
+  correctIndex: 0
+},
+
+{
+  id: 27,
+  question: "What is an ebb current?",
+  options: ["A current coming in", "A current at maximum flow", "A current anomaly", "A current at minimum flow", "A current going out"],
+  correctIndex: 4
+},
+
+{
+  id: 28,
+  question: "What describes an ebb current?",
+  options: ["Horizontal movement of the water toward the land following low tide", "Horizontal movement of the water away from the land following high tide", "Horizontal movement of the water toward the land following high tide", "Horizontal movement of the water toward the land following spring tide", "Horizontal movement of the water away from the land following low tide"],
+  correctIndex: 1
+},
+
+{
+  id: 29,
+  question: "Conditions for crossing a rough bar are usually best at ______",
+  options: ["low water slack", "high water slack", "low water ebb", "high water ebb", "low water flood"],
+  correctIndex: 1
+},
+
+{
+  id: 30,
+  question: "Fill in the blank with correct selected choice from the list: “Means to assist a navigator to determine safe course or warn of dangers to navigation” defines ______",
+  options: ["deduced reckoning", "communication instructions", "dead reckoning", "navigation aids", "compasses"],
+  correctIndex: 3
+},
+
+{
+  id: 31,
+  question: "Navigator finds his position by using coastal navigation when ______",
+  options: ["land is out of sight", "land is in sight", "land is out of mind", "land is too far away", "land is invisible"],
+  correctIndex: 1
+},
+
+{
+  id: 32,
+  question: "What is the primary function of GPS?",
+  options: ["Determine the wind speed", "Determine the position of ship", "Determine course of ship", "Determine depth of water", "Determine the temperature of atmosphere"],
+  correctIndex: 1
+},
+
+{
+  id: 34,
+  question: "Depths are measured in a variety of ways. In modern times, a/an ______ is used for measuring depth of seabed",
+  options: ["direction finder", "echo sounder", "compass direction", "safe sounder", "anemometer"],
+  correctIndex: 1
+},
+
+{
+  id: 35,
+  question: "Nautical charts are divided into two types: paper and ______ charts.",
+  options: ["handmade", "conventional", "scaled", "environmental", "electronic"],
+  correctIndex: 4
+},
+
+{
+  id: 36,
+  question: "Charts should be corrected by using information published in the ______",
+  options: ["Notice to Mariners", "Notice of Readiness", "Navigational Notices", "Chart Correction Logs", "Pilot Charts"],
+  correctIndex: 0
+},
+
+{
+  id: 38,
+  question: "Nautical charts are based on ______ and issued by national hydrographic office.",
+  options: ["land surveys", "hydrographic surveys", "only topographic maps", "computerized observation data", "available tide tables"],
+  correctIndex: 1
+},
+
+{
+  id: 40,
+  question: "Depths which have been measured are indicated by the ______ shown on the chart in most of the world.",
+  options: ["letter of the alphabet", "figures", "symbols", "numbers", "dots"],
+  correctIndex: 3
+},
+
+{
+  id: 41,
+  question: "Chart legends printed in capital letters show that the associated landmark is ______.",
+  options: ["a radio transmitter", "a government facility or station", "conspicuous", "inconspicuous", "submerged"],
+  correctIndex: 3
+},
+
+{
+  id: 42,
+  question: "A ______ is essential tool for navigation showing depths, seabed, hazards, tides, coastline, human structures.",
+  options: ["nautical chart", "binoculars", "Admiralty List of Lights and Fog Signals", "sextant", "steering gear"],
+  correctIndex: 0
+},
+
+{
+  id: 43,
+  question: "Nautical charts give information on ______, sea state, tidal streams, landmarks etc. useful to mariners.",
+  options: ["seabed information", "sea state", "waves", "sea life", "marine life"],
+  correctIndex: 0
+},
+
+{
+  id: 44,
+  question: "Some chart symbols show buoys, light ______, coastal/land features useful for fixing.",
+  options: ["waves", "sea life", "lighthouses", "tides", "fog"],
+  correctIndex: 2
+},
+
+{
+  id: 45,
+  question: "Charts may also describe sea bed materials + hazards such as ______",
+  options: ["lights", "buoys", "shipwrecks", "fishing vessels", "lighthouses"],
+  correctIndex: 2
+},
+
+{
+  id: 46,
+  question: "If a chart has extensive corrections › new print › this issue is called ______",
+  options: ["new edition", "first edition", "revised edition", "reprint", "remix edition"],
+  correctIndex: 0
+},
+
+{
+  id: 48,
+  question: "Electronic charts use computers to provide navigation. They sometimes replace paper charts but mariners carry backup because system may ______",
+  options: ["improves", "luxurious to use", "fails", "expensive to buy", "prints"],
+  correctIndex: 2
+},
+
+{
+  id: 49,
+  question: "Tide tables, lists, almanacs used to navigate ______",
+  options: ["Nautical Charts", "Nautical Publications", "Sight Reduction Tables", "Notice to Mariners", "Local Notice to Mariners"],
+  correctIndex: 1
+},
+
+{
+  id: 50,
+  question: "Routine events of voyage, cargo, watch, etc. are recorded in ______",
+  options: ["The official Log Book", "The Scrap Log Book", "The Engine Room Log Book", "The Ship’s Log Book", "Manuals"],
+  correctIndex: 3
+},
+
+{
+  id: 51,
+  question: "Because logbooks are vital documents, they must be well protected. Especially useful in court when ______ occurs.",
+  options: ["an incident", "routine job", "drills", "berthing operations", "fire drills"],
+  correctIndex: 0
+},
+
+{
+  id: 52,
+  question: "The Nautical Almanac is published annually and used for ______ navigation.",
+  options: ["any kind of", "celestial", "air", "ice", "electronic"],
+  correctIndex: 1
+},
+
+{
+  id: 53,
+  question: "The Nautical Almanac contains info on sunrise, ______, moonrise, moonset, sight reduction.",
+  options: ["swells", "ocean basin", "sea fog", "sunset", "atmospheric pressure"],
+  correctIndex: 3
+},
+
+{
+  id: 54,
+  question: "If a vessel, through exceptional circumstances, is unable to manoeuvre as required by COLREGs, this vessel is _________",
+  options: ["giving way", "dropping back", "standing on", "closing up", "not under command"],
+  correctIndex: 4
+},
+
+{
+  id: 57,
+  question: "Ship A has Ship C ahead of her so Ship C is _______ of Ship A.",
+  options: ["ahead", "astern", "abeam", "on the bow", "on the quarter"],
+  correctIndex: 3
+},
+
+{
+  id: 60,
+  question: "What whistle signal if any would be sounded when two vessels are meeting, but will pass clear starboard to starboard?",
+  options: ["No signal is required", "One short blast", "Two short blasts", "Five or more short blasts", "One long blast"],
+  correctIndex: 2
+},
+
+{
+  id: 61,
+  question: "You are underway in a narrow channel, and you are being overtaken by a vessel astern. After the overtaking vessel sounds the proper signal indicating his intention to pass your vessel on your starboard side, you signal your agreement by sounding ________.",
+  options: ["two short blasts", "two prolonged blasts", "two prolonged followed by two short blasts", "one prolonged, one short, one prolonged, and one short blast", "one short blast"],
+  correctIndex: 3
+},
+
+{
+  id: 62,
+  question: "Any alteration of ship’s ____ to avoid collision must if the circumstances of case admit be large enough to be readily apparent to another vessel observing visually or by radar.",
+  options: ["draught", "abaft", "abeam", "schooner guy", "course"],
+  correctIndex: 4
+},
+
+{
+  id: 67,
+  question: "A navigator needs to know both the identity of light and when s/he can expect to see it. If lights are not sighted when predicted, vessel may be significantly __________ and running into danger.",
+  options: ["on route", "on the way", "safe", "off course", "on the desired direction"],
+  correctIndex: 3
+},
+
+{
+  id: 69,
+  question: "Which statement is TRUE concerning light signals?",
+  options: ["The light signals are to be used when not using sound signals", "The time between successive signals shall be not less than ten seconds", "The time between successive signals shall be not less than two seconds", "The time between flashes shall be about five seconds", "The time between flashes shall be about ten seconds"],
+  correctIndex: 1
+},
+
+{
+  id: 70,
+  question: "Draft marks are numbers marked on each side of the bow and ______ of the vessel",
+  options: ["abaft", "rear", "behind", "poop", "stern"],
+  correctIndex: 4
+},
+
+{
+  id: 71,
+  question: "The state of a ship, when her aft draft and forward draft are the same, is referred as _______",
+  options: ["half trim", "no list", "even list", "even keel", "trimmed"],
+  correctIndex: 3
+},
+
+{
+  id: 72,
+  question: "Fill in the blanks with appropriate word. The depth of the keel below waterline at any point along the hull is __________",
+  options: ["freeboard", "draught", "heel", "trim", "depth"],
+  correctIndex: 1
+},
+
+{
+  id: 73,
+  question: "Draft marks show the distance from the bottom of the keel to the _______.",
+  options: ["beam", "freeboard", "waterline", "stem", "after part"],
+  correctIndex: 2
+},
+
+{
+  id: 74,
+  question: "Choose the correct answer below. Draft (or draught) of a ship is _______.",
+  options: ["the distance between the main deck and the bottom of the ship", "the maximum length of a ship from stern to stern", "the distance from the waterline to the keel of the ship", "the distance from the waterline to the main deck", "the length of the hull of a ship at surface of the water"],
+  correctIndex: 2
+},
+
+{
+  id: 75,
+  question: "What term indicates the length measured along the summer load line from the intersection of that load line with the foreside of _________",
+  options: ["Length between perpendiculars", "Length overall", "Register length", "Length on the waterline", "Design length"],
+  correctIndex: 3
+},
+
+{
+  id: 78,
+  question: "A ship’s length overall is measured from the extreme forward end of the ____ to the extreme aft end of the stern",
+  options: ["bow", "course", "main", "heading", "stem"],
+  correctIndex: 4
+},
+
+{
+  id: 79,
+  question: "A ship’s ______ is measured from the extreme forward end of the ship to the extreme aft end of the stern.",
+  options: ["LBP", "LOA", "LWL", "DRAFT", "FREEBOARD"],
+  correctIndex: 1
+},
+
+{
+  id: 80,
+  question: "Which one of the following measurements of a ship does not change with the amount of cargo loaded?",
+  options: ["airdraft", "LWL", "draft", "freeboard", "LOA"],
+  correctIndex: 4
+},
+
+{
+  id: 81,
+  question: "Moulded depth is measured from the __________",
+  options: ["Inside of the shell", "Outside of the shell", "Top of the center vertical keel", "Top of the garboard strake", "Top of the stringer plate"],
+  correctIndex: 2
+},
+
+{
+  id: 84,
+  question: "What includes the weight of fuel, stores and other provisions?",
+  options: ["deadweight", "light displacement", "gross tonnage", "tonnage", "net tonnage"],
+  correctIndex: 0
+},
+
+{
+  id: 87,
+  question: "The measurement of the enclosed volume of a ship used to describe cargo capacity is:",
+  options: ["net tonnage", "load displacement", "tonnage", "light displacement", "deadweight"],
+  correctIndex: 0
+},
+
+{
+  id: 88,
+  question: "Which of the following statement is true for the Net Tonnage of a ship?",
+  options: ["The weight of living spaces and navigational spaces", "The total volume of all cargo holds", "The weight of cargo", "The total volume of all closed spaces of a ship in ft³, divided by hundred", "The weight of fuel, fresh water and water tanks"],
+  correctIndex: 1
+},
+
+{
+  id: 89,
+  question: "Which of the followings is the volumetric capacity of a ship?",
+  options: ["Deadweight", "Lightweight", "Gross tonnage", "Displacement", "Full Displacement"],
+  correctIndex: 2
+},
+
+{
+  id: 92,
+  question: "The Stowage Factor of cargo allows calculation space is needed in the cargo holds for the given weight of cargo. Which of following statement is true?",
+  options: ["The space occupied by a unit weight of cargo", "The ratio of total volume of lost space to total grain capacity", "The ratio of any cargo hold to total grain capacity of the vessel", "The weight of a unit volume of cargo", "None of above"],
+  correctIndex: 0
+},
+
+{
+  id: 94,
+  question: "Space lost in cargo holds due to the uneven shape of the cargo or unavoidable gaps in the cargo stowage is called __________.",
+  options: ["negligible stowage", "uneven stowage", "odd stowage", "broken stowage", "less stowage"],
+  correctIndex: 3
+},
+
+{
+  id: 96,
+  question: "What document is issued after the final check discharged cargo at the port of destination?",
+  options: ["Cargo manifest", "Mate’s receipt", "The outturn report", "Fixture note", "The disbursement account"],
+  correctIndex: 2
+},
+
+{
+  id: 97,
+  question: "The chief officer is responsible for all cargo operations. While loading s/he should take part in all operations and prepare the __________ describing the time used in loading or discharging.",
+  options: ["Notice of readiness", "Time sheet", "Booking note", "Crew list", "Cargo damage report"],
+  correctIndex: 1
+},
+
+{
+  id: 100,
+  question: "Cargo can be loaded or discharged by;",
+  options: ["holds", "cranes", "hatches", "rudders", "anchors"],
+  correctIndex: 1
+},
+
+{
+  id: 101,
+  question: "Which of the following is true for cargo gears?",
+  options: ["Protects the cargo tanks", "Provides ventilation in the tanks", "Provides position of ship", "Used for cargo heating", "Used for purposes of loading and discharging"],
+  correctIndex: 4
+},
+
+{
+  id: 102,
+  question: "Cargo gear;",
+  options: ["provides ventilation in the holds", "sometimes called manholes leading to the lower compartments", "protects the weather compartments below deck from waves", "is a vital concern both for good seamanship and for the seaworthiness of the vessel", "is used for purposes of loading and discharging"],
+  correctIndex: 4
+},
+
+{
+  id: 104,
+  question: "“strap, dunnage, chain, rope, wire” are materials for;",
+  options: ["shifting", "refrigeration", "chocking", "securing cargo", "cushioning"],
+  correctIndex: 4
+},
+
+{
+  id: 106,
+  question: "The terms “coaming” and “tweendeck” are associated with the vessel’s __________",
+  options: ["cargo tank", "cargo hold", "double bottom tank", "tonnage hold", "deep hold"],
+  correctIndex: 3
+},
+
+{
+  id: 108,
+  question: "What is/are the advantage(s) of cranes over conventional cargo booms?",
+  options: ["Increased safety because the deck is clear of running and standing rigging", "Quicker set up and operation", "Cranes are able to pick up and drop loads over a greater spotting area", "Simplicity of operation of the crane by its operator", "All of the above"],
+  correctIndex: 0
+},
+
+{
+  id: 109,
+  question: "What is the main purpose of dunnage?",
+  options: ["To provide ventilation and drainage for cargo", "To increase the weight of total cargo", "To act as ballast for light vessels", "To support weakened bulkheads", "To secure the tarpaulins in place"],
+  correctIndex: 1
+},
+
+{
+  id: 110,
+  question: "Damage to cargo caused by dust is known as _______.",
+  options: ["contamination", "oxidation", "tainting", "vaporization", "combustion"],
+  correctIndex: 1
+},
+
+{
+  id: 111,
+  question: "Barges and vessels are ballasted before departure to ______________.",
+  options: ["improve their stability", "avoid polluting waters where liquid ballast may not be discharged", "prevent free surface effects", "allow movement of liquids within the barge for tank cleaning", "None of answers"],
+  correctIndex: 4
+},
+
+{
+  id: 112,
+  question: "The capacity of a ship’s hold ventilation fans is normally expressed in _______ that can be achieved in an empty hold per hour.",
+  options: ["Natural ventilation", "Cargo sweat", "Through ventilation", "The amount of air changes", "Surface ventilation"],
+  correctIndex: 0
+},
+
+{
+  id: 113,
+  question: "To avoid contamination, a material which is indicated as toxic should be stowed ______ all foodstuffs.",
+  options: ["rehearsal to", "disposal of", "seperated from", "dissatisfaction of", "penetration into"],
+  correctIndex: 0
+},
+
+{
+  id: 116,
+  question: "Segregation of cargoes refers to __________",
+  options: ["seperating cargoes so that the inherent characteristics of one cannot damage the other", "seperating cargoes by destination", "classifying cargoes according to their toxicity", "listing the cargoes in order of their flammability", "grouping the cargo by order of loading"],
+  correctIndex: 2
+},
+
+{
+  id: 117,
+  question: "Ferrous metals are metals containing __________",
+  options: ["a large percentage of aluminium", "a large percentage of brass", "no iron", "a large percentage of copper", "a large percentage of iron"],
+  correctIndex: 0
+},
+
+{
+  id: 120,
+  question: "Odorous cargoes are those that __________",
+  options: ["Are exceptionally dusty and leave a residue", "Are susceptible to damage by tainting", "Are susceptible to damage by vermin", "Are liquid but are in containers", "Give off fumes that may damage other cargoes"],
+  correctIndex: 4
+},
+
+{
+  id: 121,
+  question: "A hygroscopic cargo is defined as a cargo __________",
+  options: ["capable of giving off moisture in the form of a liquid", "that excretes hygroscopic particles", "that is shipped in a liquid state", "capable of absorbing moisture in the form of a gas", "that will ignite in contact with water"],
+  correctIndex: 0
+},
+
+{
+  id: 122,
+  question: "If reefer spaces are not properly cleaned prior to loading cargo, it will most likely cause __________",
+  options: ["malfunction of the main engine", "cargo shift due to motion", "pilferage of cargo", "spillage of the cargo in the space", "mold to develop on commodities"],
+  correctIndex: 1
+},
+
+{
+  id: 123,
+  question: "To \"shore up\" the main deck for the stowage of deck cargo means to __________",
+  options: ["Lay cardboard separation pieces placed between deck loads to prevent chafing", "Strengthen the main deck by placing pillars underneath it in the tween-decks", "Distribute the weight of the cargo by placing fore-and-aft planks on the main deck", "Weld pad eyes on deck in proper position to secure the cargo", "Package the cargo in wooden crates so it will not damage the deck"],
+  correctIndex: 4
+},
+
+{
+  id: 124,
+  question: "\"__________\" means the ballast water introduced into a tank which is completely separated from the cargo oil and fuel system and which is permanently carriage of ballast or to the carriage of cargoes other than oil.",
+  options: ["Clean ballast", "Segregated ballast", "Treated ballast water", "Separated ballast", "Sludge"],
+  correctIndex: 3
+},
+
+{
+  id: 125,
+  question: "The ________ is the range of a concentration of a gas or vapor that will burn if an ignition source is introduced.",
+  options: ["Egglier Viscosity", "Open Cup", "Flammable Range", "Closed Cup", "Boiling Limit"],
+  correctIndex: 4
+},
+
+{
+  id: 126,
+  question: "Which instrument is suitable for determining the presence of explosive concentrations of fuel oil vapors in tanks?",
+  options: ["A combustible gas indicator", "A liquid cargo meter", "An oxygen meter", "A flame safety lamp", "All of the above"],
+  correctIndex: 1
+},
+
+{
+  id: 128,
+  question: "Which of the following statements best describes the flash point?",
+  options: ["It is the temperature at which it can change state from a gas to a liquid", "It is the lowest temperature at which a combination of the fuel’s vapour and air can spontaneously ignite without a spark or flame", "It is the highest temperature at which a combination of the fuel’s vapour and air can spontaneously ignite without a spark or flame", "It is the lowest temperature at which it can vaporize to form an ignitable mixture in air", "It is the temperature at which it can change state from a liquid to a gas"],
+  correctIndex: 2
+},
+
+{
+  id: 129,
+  question: "The atmosphere in a tank is too rich when it is __________",
+  options: ["in a noncombustible state which can be relied on to occur naturally on a regular basis", "incapable of supporting combustion because the hydrocarbon vapor content makes the atmosphere above the UFL (Upper Flammable Limit)", "incapable of supporting combustion because the hydrocarbon vapor content makes the atmosphere below the LFL (Lower Flammable Level)", "incapable of supporting combustion because the oxygen content makes the atmosphere below the LFL (Lower Flammable Level)", "Capable of supporting combustion"],
+  correctIndex: 0
+},
+
+{
+  id: 130,
+  question: "Choose the correct answer below. Class of a ship covers;",
+  options: ["hull only", "engines and the hull", "electrical installations and the hull", "only engines", "hull, engines and electrical installations"],
+  correctIndex: 3
+},
+
+{
+  id: 131,
+  question: "The main body of a ship called;",
+  options: ["keel", "bottom", "deck", "beam", "hull"],
+  correctIndex: 3
+},
+
+{
+  id: 132,
+  question: "A hull requires high durability and resistence to prevent structural damage in case of ______ or grounding.",
+  options: ["collision", "resistence", "construction", "structure", "forces"],
+  correctIndex: 1
+},
+
+{
+  id: 133,
+  question: "The term “strake” is used in reference to __________.",
+  options: ["vessel framing", "anchor gear", "rudder mountings", "hull plating", "deck plating"],
+  correctIndex: 4
+},
+
+{
+  id: 134,
+  question: "There are three (3) types of periodical surveys, these are:",
+  options: ["Annual-Monthly-Weekly", "Annual-Intermediate-Monthly", "Annual-Class renewal-Weekly", "Annual-Intermediate-Class renewal", "Annual-Semi annual-Every two (2) weeks"],
+  correctIndex: 4
+},
+
+{
+  id: 135,
+  question: "Fill in the blank with appropriate word. The continuous horizontal surface of ship are called _______.",
+  options: ["hatches", "forecastle", "poop", "decks", "bridges"],
+  correctIndex: 0
+},
+
+{
+  id: 136,
+  question: "Choose the correct answer below. A deck is;",
+  options: ["a vertical surface along the ship, that forms a floor or ceiling", "a horizontal surface along the bridge, that forms a floor or ceiling", "a vertical surface along the forecastle, that forms a floor or ceiling", "a horizontal surface along the ship, that forms a floor or ceiling", "a vertical surface along the mast, that forms a floor or ceiling"],
+  correctIndex: 3
+},
+
+{
+  id: 138,
+  question: "The _____ of a ship is its width at the widest point.",
+  options: ["beam", "Length Overall", "Length on Load Waterline", "draft", "freeboard"],
+  correctIndex: 3
+},
+
+{
+  id: 142,
+  question: "The point that is halfway between the forward and other perpendicular and is a reference point for vessel construction is the __________.",
+  options: ["amidships", "quarter deck", "engine room", "bow extension", "forepeak"],
+  correctIndex: 3
+},
+
+{
+  id: 143,
+  question: "Shell plating is __________.",
+  options: ["the inner framing of the ship’s hull", "a coating to protect the deck", "the inner beams forming the midship section", "the outer plating of a vessel", "the plating inside the ballast tanks"],
+  correctIndex: 1
+},
+
+{
+  id: 146,
+  question: "The shifting of bulk cargo during voyage is called ________.",
+  options: ["trimming", "sliding", "shifting", "sloshing", "settling"],
+  correctIndex: 3
+},
+
+{
+  id: 147,
+  question: "Cofferdams are __________.",
+  options: ["tanks used for fuel storage", "empty space separating compartments to prevent contamination", "heating coils for oil tanks", "deep trimming tanks", "structural expansion gaps"],
+  correctIndex: 0
+},
+
+{
+  id: 148,
+  question: "Depth between forward and aft perpendiculars is also known as ________.",
+  options: ["Freeboard Length", "Keel depth", "Molded length", "Draft measurement", "Depth"],
+  correctIndex: 4
+},
+
+{
+  id: 149,
+  question: "Corrosion is also known as __________.",
+  options: ["coating", "deterioration", "rusting", "abrasion", "erosion"],
+  correctIndex: 1
+},
+
+{
+  id: 150,
+  question: "Paint applied to prevent fouling by marine growth is called ________.",
+  options: ["Anti-fouling", "Epoxy seal", "Zinc coat", "Coal tar layer", "Waterline protectant"],
+  correctIndex: 1
+},
+
+{
+  id: 152,
+  question: "Rusting is __________.",
+  options: ["cast hardening", "oxidation of iron", "external plating reduction", "ultraviolet degradation", "salt scaling"],
+  correctIndex: 3
+},
+
+{
+  id: 153,
+  question: "Paint used against marine growth is __________.",
+  options: ["Anti fouling", "Bitumen coat", "Zinc paint", "Polymer seal", "Synthetic enamel"],
+  correctIndex: 0
+},
+
+{
+  id: 154,
+  question: "The transverse steel bar which is used for towing from a tug is called __________.",
+  options: ["hook beam", "eye plate", "girder pin", "texas bar", "towing bridge"],
+  correctIndex: 3
+},
+
+{
+  id: 155,
+  question: "Cargo shift in bulk carriers is known as __________.",
+  options: ["stowaway", "shifting", "displacement drag", "cargo sweeping", "bearing slip"],
+  correctIndex: 0
+},
+
+{
+  id: 170,
+  question: "Function of EPIRB?",
+  options: ["Sends radar pulses", "Transmits ID & position", "Sends orange smoke", "Navigation equipment", "Receives MSI"],
+  correctIndex: 1
+},
+
+{
+  id: 173,
+  question: "Meaning of MSI?",
+  options: ["Maritime Service Info", "Maritime Service Identity", "Marine Service Info", "Marine Safety Info", "Maritime Selective ID"],
+  correctIndex: 3
+},
+
+{
+  id: 174,
+  question: "Immediate Broadcast priority in NAVTEX?",
+  options: ["Vital", "Urgency", "Routine", "Distress", "Important"],
+  correctIndex: 0
+},
+
+{
+  id: 180,
+  question: "Additional survival craft equipment >500 GRT?",
+  options: ["2 radio lifeboats", "4 VHFs", "Bridge-to-bridge VHF each craft", "Tape recorder", "Second radar transponder"],
+  correctIndex: 4
+},
+
+{
+  id: 181,
+  question: "Logbook retention on board?",
+  options: ["60 days", "30 days", "2 years", "24 days", "10 days"],
+  correctIndex: 2
+},
+
+{
+  id: 193,
+  question: "How many priorities?",
+  options: ["6", "10", "3", "4", "2"],
+  correctIndex: 3
+},
+
+{
+  id: 195,
+  question: "OOW familiar for receiving & ______ messages.",
+  options: ["Copying", "Transmitting", "Listening", "Amplificate", "On purpose"],
+  correctIndex: 1
+},
+
+{
+  id: 199,
+  question: "To amplify voice:?",
+  options: ["Aldis", "Loud hailer", "Gong", "Drum", "Low freq"],
+  correctIndex: 1
+},
+
+{
+  id: 200,
+  question: "Which amplifies voice?",
+  options: ["Loud hailer", "Gong", "Inmarsat-C", "Aldis", "ECDIS"],
+  correctIndex: 0
+},
+
+{
+  id: 203,
+  question: "“_____ Obstruction in fairway”",
+  options: ["Advice", "Request", "Instruction", "Warning", "Intention"],
+  correctIndex: 3
+},
+
+{
+  id: 205,
+  question: "“North Harbour… Ch 14” is:?",
+  options: ["ETA", "Pilot request", "Waypoint", "First contact", "Anchoring"],
+  correctIndex: 3
+},
+
+{
+  id: 207,
+  question: "Not heard properly › say:?",
+  options: ["Say again please", "Repeat again", "Come again", "Explain again", "Copy that"],
+  correctIndex: 0
+},
+
+{
+  id: 209,
+  question: "Message rcvd but info unavailable:?",
+  options: ["Not requested", "Say again", "No information", "Not understood", "Not received"],
+  correctIndex: 2
+},
+
+{
+  id: 210,
+  question: "Wrong engine order?",
+  options: ["Full ahead both", "Bow thr full port", "Stern thr half port", "Bow thr dead slow port", "Stop engines"],
+  correctIndex: 3
+},
+
+{
+  id: 211,
+  question: "Hand flag signals called:?",
+  options: ["Sphere", "Semiphone", "Sophomore", "Siren", "Semaphore"],
+  correctIndex: 4
+},
+
+{
+  id: 216,
+  question: "SECURITE announces:?",
+  options: ["Urgency", "Safety", "Routine", "Distress", "Navigation"],
+  correctIndex: 1
+},
+
+{
+  id: 217,
+  question: "Used to announce safety msg:?",
+  options: ["Calling vessel", "PAN PAN", "All Ships", "SECURITE", "Advice"],
+  correctIndex: 3
+},
+
+{
+  id: 218,
+  question: "Cause to send SECURITE:?",
+  options: ["Fire", "Engine fail", "Approaching gale", "MOB", "Flooding"],
+  correctIndex: 2
+},
+
+{
+  id: 219,
+  question: "Ship disabled & adrift report:?",
+  options: ["Engine problem", "Need tug", "Not under command", "Will beach", "Need pilot"],
+  correctIndex: 2
+},
+
+{
+  id: 220,
+  question: "Safety msg sent when:?",
+  options: ["Immediate help", "Nav/met warning", "Urgent ship safety", "Urgent person safety", "Loss of life"],
+  correctIndex: 1
+},
+
+{
+  id: 222,
+  question: "Used to announce urgency:?",
+  options: ["SECURITE", "PAN PAN", "URGENT", "MAYDAY", "HELP"],
+  correctIndex: 1
+},
+
+{
+  id: 226,
+  question: "Procedure when abandoning ship:?",
+  options: ["Urgency", "Security", "Distress", "SOS", "TTT"],
+  correctIndex: 2
+},
+
+{
+  id: 231,
+  question: "Inform vessels ______ about persons in raft.",
+  options: ["Out of area", "In vicinity", "Off coast", "Neighborhood", "Off air"],
+  correctIndex: 1
+},
+
+{
+  id: 232,
+  question: "Dangerous list to port means:?",
+  options: ["Attack", "Flooding", "Galley fire", "Disabled", "Grounding"],
+  correctIndex: 1
+},
+
+{
+  id: 234,
+  question: "“I am sinking/fire/NUC...” are:?",
+  options: ["Anchoring", "Clearance", "Waypoint", "Pilot request", "Incident messages"],
+  correctIndex: 4
+},
+
+{
+  id: 239,
+  question: "Who has the duties for food preparation?",
+  options: ["Cook", "Cadet", "Master", "Able Seaman", "Second Engineer"],
+  correctIndex: 0
+},
+
+{
+  id: 240,
+  question: "________ is the kitchen on a vessel.",
+  options: ["Deck", "Engine room", "Cabin", "Galley", "Laundry"],
+  correctIndex: 3
+},
+
+{
+  id: 241,
+  question: "The storing place for perishable food provisions on board is:",
+  options: ["cold room", "locker", "duct", "mess", "galley"],
+  correctIndex: 0
+},
+
+{
+  id: 242,
+  question: "Which of the following assigns with duties to perform in emergency situations on-board?",
+  options: ["Hot work check list", "Vessel audit check list", "Restricted visibility check list", "Muster List", "Cold work check list"],
+  correctIndex: 3
+},
+
+{
+  id: 243,
+  question: "Musters and _________ are required to be carried out regularly and realistically in accordance with Merchant Shipping Regulations.",
+  options: ["Drills", "Watches", "Regulations", "Lists", "Gatherings"],
+  correctIndex: 0
+},
+
+{
+  id: 247,
+  question: "E.E.B.D stands for:",
+  options: ["Emergency Engine Breathing Device", "Emergency Escape Breathing Device", "Engine Escape Breathing Device", "Escape Ensuring Breather Device", "Engine Emergencies Breathing Device"],
+  correctIndex: 1
+},
+
+{
+  id: 248,
+  question: "Which one is the best conductor of electricity?",
+  options: ["Distilled water", "Freshwater", "Foam", "Salt water", "Carbon dioxide"],
+  correctIndex: 3
+},
+
+{
+  id: 249,
+  question: "You should NOT use a power tool if __________.",
+  options: ["You are working on the open deck", "Hand tools can be used instead", "There is insufficient air", "The power source is alternating current", "The insulation of the power wire is worse"],
+  correctIndex: 4
+},
+
+{
+  id: 250,
+  question: "All exposed and dangerous areas around machinery, such as gears and rotating parts shall be properly protected with _________.",
+  options: ["Covers", "Rails", "Guards", "Screens", "Any of the above"],
+  correctIndex: 2
+},
+
+{
+  id: 251,
+  question: "Which of the following conditions can contribute to accidents?",
+  options: ["Unsafe conditions", "Preparedness", "Good housekeeping", "Inspections", "Intelligent work habits"],
+  correctIndex: 0
+},
+
+{
+  id: 254,
+  question: "If a job is not carried out within its interval which is shown on ______ its status turns to ______.",
+  options: ["Manual / renew", "Certificate / yellow", "PMS / overdue", "Permit forms / dangerous", "ISM form / mail system"],
+  correctIndex: 2
+},
+
+{
+  id: 256,
+  question: "Before entering the chain lockers, you should __________.",
+  options: ["Use personal protective equipment", "Make sure there is sufficient air within the locker", "De-energize the windlass", "Have someone standing by", "All of the above"],
+  correctIndex: 4
+},
+
+{
+  id: 257,
+  question: "One precaution to take prior to working in a freshly painted compartment where there are an excessive amount of paint fumes, is to __________.",
+  options: ["Keep a charged fire hose handy", "Ventilate the area", "Wear a breathing apparatus while working", "Take shallow breaths of air", "Let the air well"],
+  correctIndex: 1
+},
+
+{
+  id: 258,
+  question: "When instructing a crew member concerning the right way to lift a weight, you would instruct him to ________.",
+  options: ["Bend his knees and lift with his legs", "Bend his back and stoop with arms straight", "Bend his back and stoop", "Arch the back to add strength to the muscles", "Bend his back and lift with his knees"],
+  correctIndex: 0
+},
+
+{
+  id: 259,
+  question: "Which of the following statement is NOT the purpose of the safety meetings?",
+  options: ["To ensure safety at sea", "Seafarer working and living rights", "To prevent human injury or loss of life", "Suggestion for new safety trainings and drills", "To avoid damage to the environment and to the ship"],
+  correctIndex: 1
+},
+
+{
+  id: 260,
+  question: "Why reporting near miss incident are important? cevap seçenekleri ______________________________________________",
+  options: ["Near misses are the same as injuries", "Near misses do not required to be reported", "It is important to identify the person causing near miss incident", "Near misses can prevent serious, fatal and catastrophic accidents", "Near misses are the same as accidents"],
+  correctIndex: 3
+},
+
+{
+  id: 261,
+  question: "Which statement is ALWAYS true regarding safety? cevap seçenekleri ______________________________________________",
+  options: ["Keep clear of any line that is under a strain", "A line will creak, make snapping sounds and smoke before it parts", "Only synthetic lines will snap back after parting", "Stepping on the bight of a line is safer than stepping in the bight of a line", "Nylon hawsers does not snap back"],
+  correctIndex: 0
+},
+
+{
+  id: 262,
+  question: "When a ship is expected to encounter rough seas, it is a good safety practice to ____________. cevap seçenekleri ______________________________________________",
+  options: ["slow down the engine", "maintain a negative trim on the vessel", "move quickly to muster station", "make available extra survival gear", "check for items which may become adrift and secure loose gear"],
+  correctIndex: 4
+},
+
+{
+  id: 263,
+  question: "Which of the following is NOT a recommended safe practice? cevap seçenekleri ______________________________________________",
+  options: ["Securing equipment against slipping or drifting", "Repairing loose handles on tools before using", "Operating machinery at its recommended speed", "Using tools for purposes for which they are not designed", "Keep orderliness and cleanliness in the workplace"],
+  correctIndex: 3
+},
+
+{
+  id: 264,
+  question: "Which of the following condition(s) affect the electric shock? cevap seçenekleri ______________________________________________",
+  options: ["Solely body temperature", "Solely applied voltage", "Solely body resistance", "Applied voltage and body resistance", "None of above"],
+  correctIndex: 3
+},
+
+{
+  id: 265,
+  question: "Which one of the following statement does NOT be required for enclosed space entry and rescue drill? cevap seçenekleri ______________________________________________",
+  options: ["Checking and use of bridge equipments", "Checking and use of instruments for measuring the atmosphere in enclosed spaces", "Checking and use of personal protective equipment required for entry", "Checking and use of rescue equipment and procedures", "Checking and use of communication equipments and procedures"],
+  correctIndex: 0
+},
+
+{
+  id: 266,
+  question: "What factors appears to play the most important when joining ship for the first time? cevap seçenekleri ______________________________________________",
+  options: ["Familiar with the national regulations", "Familiar with the vessel’s safety procedures, especially the alarm instructors, lifesaving and fire-fighting equipment, hazardous areas and etc.", "Familiar with the vessel procedures", "Familiar with the duties of all deck members", "Familiar with the company policies, company procedures and vessel procedures"],
+  correctIndex: 1
+},
+
+{
+  id: 267,
+  question: "Which of the following statements is FALSE? cevap seçenekleri ______________________________________________",
+  options: ["If there is a new crew member who joins the vessel, he must be trained within the first two weeks after joining the vessel", "If there are any passengers on board, they must be trained on how to use the life-saving appliances", "Drills must be conducted as if there is a real emergency situation", "There is no need to lower at least one life-boat into the sea when there is an onboard training", "All of above"],
+  correctIndex: 3
+},
+
+{
+  id: 268,
+  question: "Which of the following condition(s) should be required before commencing work on a switch board? cevap seçenekleri ______________________________________________",
+  options: ["Rubber gloves should be required", "A warning sign indicating the work to be posted", "There should be an approved rubber matting on the floor in front of the switchboard for safety", "Precautions must be observed no isolate and lock off apparatus", "All of above"],
+  correctIndex: 4
+},
+
+{
+  id: 269,
+  question: "While working in the engine room, you hear seven short blasts followed by one long blast on the ship’s whistle, supplemented by the same signal on the general alarm bells. You should ______________________ cevap seçenekleri ______________________________________________",
+  options: ["standby the main console and await orders", "use your EEBD to evacuate the engine room", "go to your fire station", "start the fire pump to charge the fire main", "go to your lifeboat station for abandoning vessel"],
+  correctIndex: 4
+},
+
+{
+  id: 270,
+  question: "Which of the following gives the location of fire fighting appliances and equipments on board?",
+  options: ["In MARPOL", "In SOLAS", "Voyage plan", "The fire control plan", "Deck Log"],
+  correctIndex: 3
+},
+
+{
+  id: 272,
+  question: "Fires whose fuel source consists of flammable or combustible liquids are considered to be?",
+  options: ["Class E", "Class D", "Class A", "Class B", "Class C"],
+  correctIndex: 3
+},
+
+{
+  id: 274,
+  question: "What is the recommended color of water type fire extinguishers?",
+  options: ["White", "Red", "Grey", "Orange", "Black"],
+  correctIndex: 1
+},
+
+{
+  id: 275,
+  question: "A fire can be extinguished by:",
+  options: ["water", "foam", "carbon dioxide", "dry chemical powder", "all of above"],
+  correctIndex: 4
+},
+
+{
+  id: 276,
+  question: "Which of the following is not a fire extinguishing method?",
+  options: ["breaking the chain reaction", "smothering", "removing the combustive material", "cooling", "oxidizing"],
+  correctIndex: 4
+},
+
+{
+  id: 277,
+  question: "__________ is to eliminate the heat side of the fire by applying something that will absorb the heat.",
+  options: ["Smothering", "Smouldering", "Diluting", "Cooling", "Preventing"],
+  correctIndex: 3
+},
+
+{
+  id: 281,
+  question: "“Inerting” is defined as to reduce the oxygen in a tank by inert gas to avoid a/an ______ atmosphere.",
+  options: ["corrosive", "non corrosive", "odourless", "pollutant", "explosive"],
+  correctIndex: 4
+},
+
+{
+  id: 282,
+  question: "What is the purpose of “inert gas system” on board?",
+  options: ["Pollution prevention", "Propulsion", "Cargo handling", "Fire protection and fighting", "Life saving"],
+  correctIndex: 3
+},
+
+{
+  id: 283,
+  question: "Fire is the result of four factors. They are;",
+  options: ["a substances that contains carbon and hydrogen - an ignition source - heat - reaction", "a supply of oxygen - a substances that will burn - the air - reaction", "combustible substances - a supply of oxygen - a supply of carbon molecules - heat", "heat - oxygen - fuel - chemical reaction", "combustible substances - fuel - a supply of carbon molecules - flammable gases"],
+  correctIndex: 3
+},
+
+{
+  id: 284,
+  question: "Fire fighting at sea is considered in three distinct stages;",
+  options: ["locating the fire – extinguishing – informing others", "detection – control – alarm", "detection and alarm – control – extinguish", "locating – putting out the fire – notifying the bridge", "alarm – locating – bringing to bear"],
+  correctIndex: 2
+},
+
+{
+  id: 285,
+  question: "Training in fire-fighting procedures and maintenance of equipments should be assured ________.",
+  options: ["by regular drills", "after arriving at destination", "before arriving at a port", "when a new crewmember requests", "when there is an emergency"],
+  correctIndex: 0
+},
+
+{
+  id: 286,
+  question: "Good housekeeping on a vessel prevents fires by ________.",
+  options: ["eliminating potential fuel sources", "eliminating fire extinguishers", "extinguishing fire", "eliminating trip hazards", "improving personnel qualifications"],
+  correctIndex: 0
+},
+
+{
+  id: 287,
+  question: "Oily rags stored in a pile that is open to the atmosphere are a hazard because they may ________.",
+  options: ["taint the edible products", "pollute the atmosphere", "attract lice and other vermin and serve as a breeding ground", "deteriorate and give off noxious gasses", "spontaneously catch fire by an external heat source"],
+  correctIndex: 4
+},
+
+{
+  id: 288,
+  question: "Before using a fixed CO² system to fight an engine room fire, you must ____.",
+  options: ["permit the passage of toxic gases", "make leeway to the vessel", "enter the engine with an oxygen analyzer", "evacuate all engine room personnel", "stop all equipment onboard"],
+  correctIndex: 3
+},
+
+{
+  id: 289,
+  question: "Which one of the following statements is true?",
+  options: ["CO² is normally the most suitable medium for extinguishing class E fires", "Water is normally the most suitable extinguisher to fight class A fires", "CO² extinguishes the fire by cutting off the oxygen supply", "Water extinguishes the fire by cooling it below the ignition point", "All of above"],
+  correctIndex: 4
+},
+
+{
+  id: 290,
+  question: "Which of the following statement is true for First Aid?",
+  options: ["Medical treatment of an injured person", "It is the assistance given to any person suffering a sudden illness or injury", "First response to disasters such as a flooding, collision etc.", "Any of the above", "All of the above"],
+  correctIndex: 1
+},
+
+{
+  id: 291,
+  question: "Which of the following statement gives the correct number of circulatory systems for blood transportation?",
+  options: ["3", "2", "1", "4", "5"],
+  correctIndex: 1
+},
+
+{
+  id: 292,
+  question: "What does A stand for in ABC of first aid?",
+  options: ["Aid", "Addiction", "Attention", "Airway", "Asthma"],
+  correctIndex: 3
+},
+
+{
+  id: 293,
+  question: "What does C stand for in ABC of first aid?",
+  options: ["Cardio", "Cross", "Cancer", "Cracked", "Circulation"],
+  correctIndex: 4
+},
+
+{
+  id: 294,
+  question: "In which publication is the list recommended medicines and equipment by WHO found?",
+  options: ["IBC code", "Tanker Safety Guide", "ISGOTT", "COLREG", "Medical Guide for Ships"],
+  correctIndex: 4
+},
+
+{
+  id: 295,
+  question: "In which document can you find the specific first aid measure in case of ingestion of a specific toxic cargo?",
+  options: ["MSDS", "Cargo Manifest", "SSSCL", "SMS Manual", "Bill of Lading"],
+  correctIndex: 0
+},
+
+{
+  id: 296,
+  question: "What is the name of organ which is indicated as above?",
+  options: ["Gall bladder", "Spleen", "stomach", "liver", "lung"],
+  correctIndex: 4
+},
+
+{
+  id: 298,
+  question: "Which one of the following statement is NOT true for Heimlich manoeuvre?",
+  options: ["It is a first aid procedure used to treat upper airway obstructions (or choking) by foreign objects", "It is defined as a body core temperature below 36°C", "Carrying Heimlich manoeuvre includes a rescuer standing behind a patient and using his or her hands to exert pressure on the bottom of the diaphragm", "It is used for removing foreign objects in the airway", "It is also called the abdominal thrusts"],
+  correctIndex: 1
+},
+
+{
+  id: 299,
+  question: "Immersion in cold water can cause:",
+  options: ["shock", "heat exhaustion", "asphyxia", "hypothermia", "fatigue"],
+  correctIndex: 3
+},
+
+{
+  id: 301,
+  question: "Which of the following statements best describes the hypothermia?",
+  options: ["It is applied to remove foreign objects in the airway", "In cold water, the skin and peripheral tissues become cooled and then the deep body temperature falls", "It is the assistance given to any person suffering a sudden illness or injury", "It often causes permanent changes in strength, sensation and other body functions below the site of the injury", "In hot water, the skin and peripheral tissues become hot and then the body temperature increases"],
+  correctIndex: 1
+},
+
+{
+  id: 302,
+  question: "Which one of the following statement is false for the spillage of corrosive chemicals?",
+  options: ["It is poisonous", "Some corrosive chemicals may be ignitable", "It can result in burns", "All of the above", "There is no need for the application of first aid procedures"],
+  correctIndex: 4
+},
+
+{
+  id: 303,
+  question: "On ships all crew should be ready for administer _______ learned to rescue, even a second means a life or not.",
+  options: ["First aid", "Oxygen", "Meditation", "Injection", "Pain killer"],
+  correctIndex: 0
+},
+
+{
+  id: 305,
+  question: "On finding a casualty all crew members should be prepared to administer ______ while waiting for trained help to arrive. Even a few seconds delay might mean the difference between life and death.",
+  options: ["first aid", "an injection", "oxygen", "medication", "a pain killer"],
+  correctIndex: 0
+},
+
+{
+  id: 308,
+  question: "Which of the following is not included in life-saving appliances?",
+  options: ["life insurance", "life jacket", "lifebuoy", "lifeboat", "liferaft"],
+  correctIndex: 0
+},
+
+{
+  id: 309,
+  question: "Which one of the following is not a typical survival craft on-board?",
+  options: ["Enclosed lifeboats", "Freefall lifeboats", "Open lifeboats", "Life rafts", "Immersion suit"],
+  correctIndex: 4
+},
+
+{
+  id: 313,
+  question: "The Emergency ______ consist of seven short blasts followed by a prolonged blast.",
+  options: ["Drill", "Alarm", "Ring", "Procedure", "Response Plan"],
+  correctIndex: 1
+},
+
+{
+  id: 315,
+  question: "______ and ______ are used as distress signals.",
+  options: ["rockers – voices", "navigators – passengers", "speakers – aviators", "flares – rockets", "smoke – pigeons"],
+  correctIndex: 3
+},
+
+{
+  id: 316,
+  question: "Which of the following gives the correct first action in a man overboard situation?",
+  options: ["Keeping breathing apparatus ready", "Report a person missing", "Put the port engine in reverse and the starboard engine full ahead", "Inform the family", "Immediately throw the closest lifebuoy"],
+  correctIndex: 4
+},
+
+{
+  id: 317,
+  question: "Which of the following procedures should be followed when abandoning the ship?",
+  options: ["Put on lifejacket", "Put on immersion suit", "Put on warm clothes", "Go to your muster station", "All of the above"],
+  correctIndex: 4
+},
+
+{
+  id: 318,
+  question: "What ships are not included in merchant ships category?",
+  options: ["Pleasure crafts", "Cable layer", "Fishing vessels", "Auxiliary ships", "Tugboat"],
+  correctIndex: 0
+},
+
+{
+  id: 319,
+  question: "Which of the following does not be included in merchant vessels?",
+  options: ["Dredgers", "Fishing boats", "Auxilliary vessels", "Reefers", "Yacht"],
+  correctIndex: 4
+},
+
+{
+  id: 320,
+  question: "Merchant vessels do not include",
+  options: ["sport crafts", "reefers", "dredgers", "cargo ships", "auxiliary vessels"],
+  correctIndex: 0
+},
+
+{
+  id: 321,
+  question: "Sport craft is another term for;",
+  options: ["vessel", "ship", "yacht", "tug", "windsurf"],
+  correctIndex: 4
+},
+
+{
+  id: 322,
+  question: "A bulk carrier is:",
+  options: ["A dry cargo ship", "A tanker", "An Atlantic Liner", "A towing vessel", "A liquid cargo ship"],
+  correctIndex: 0
+},
+
+{
+  id: 323,
+  question: "What does Ro-Ro stand for?",
+  options: ["Ride On Ride Off", "Roll On Roll Off", "Roll On Roll Out", "Ride Off Ride On", "Roll Off Roll"],
+  correctIndex: 1
+},
+
+{
+  id: 324,
+  question: "What does OBO carriers stand for?",
+  options: ["Oil-bulk-ore carrier", "On-bulk-off carrier", "On-bulk-on carrier", "Oil-bulk-acid carrier", "Off bulk-on carrier"],
+  correctIndex: 0
+},
+
+{
+  id: 325,
+  question: "Trawlers, whaling ships and purse seiners are in the category of __________.",
+  options: ["fishing vessels", "passenger ships", "excursion boats", "naval ships", "pleasure crafts"],
+  correctIndex: 0
+},
+
+{
+  id: 326,
+  question: "Ore, sugar, fertilizer, coal and cement are carried by a ____________.",
+  options: ["reefer", "bulker", "gas carrier", "tanker", "purse seiner"],
+  correctIndex: 1
+},
+
+{
+  id: 327,
+  question: "The vessels carry farm animals such as cow, sheep are ________________.",
+  options: ["reefers", "livestock carriers", "Bulk carriers", "trawlers", "OBOs"],
+  correctIndex: 1
+},
+
+{
+  id: 328,
+  question: "Which one of the following is cargo of a reefer?",
+  options: ["cars", "oil", "ore", "scrap metal", "fresh fruit"],
+  correctIndex: 4
+},
+
+{
+  id: 329,
+  question: "______ ships vary little from general cargo ships, but the fitting of refrigeration plants for the cooling of cargo holds enables the carriage of perishable foodstuffs by sea.",
+  options: ["Bulk cargo", "Tender", "Roll-on roll-off", "Refrigerated", "Dredgers"],
+  correctIndex: 3
+},
+
+{
+  id: 330,
+  question: "What is the most common for ships, which carry all of their load in truck-size intermodal containers?",
+  options: ["Chemical tanker", "Ro-Ro", "Ferries", "General cargo ships", "Container ships"],
+  correctIndex: 4
+},
+
+{
+  id: 332,
+  question: "If you are standing on the forecastle deck and facing the aft of the ship, then your back is towards the ____ of the ship.",
+  options: ["bridge", "stern", "poop", "head", "port bow"],
+  correctIndex: 3
+},
+
+{
+  id: 333,
+  question: "A vessel’s “quarters” are located __________",
+  options: ["abeam", "on either side of the stern", "just forward of the beam on either side", "astern on vessel", "on the head"],
+  correctIndex: 1
+},
+
+{
+  id: 336,
+  question: "A metal object on the pier resembling a tree stump and made to receive mooring lines is a ______.",
+  options: ["bollard", "bight", "chock", "camel", "cleat"],
+  correctIndex: 0
+},
+
+{
+  id: 337,
+  question: "A disk metal fitted around a hawser to prevent rats from boarding a vessel moored at a dock is called ________.",
+  options: ["Deratting", "Rattan", "Rating", "Ratcal", "Rat Guard"],
+  correctIndex: 4
+},
+
+{
+  id: 339,
+  question: "____________ is used to make a lashing wire rope tight.",
+  options: ["turnbuckle", "D shackle", "coupling", "screw driver", "rat guards"],
+  correctIndex: 0
+},
+
+{
+  id: 343,
+  question: "Much of the work of the deck department on board a ship concerns ______ of the ship and her fittings crew members who are in charge of damaging effects of salt water changes in temperature and the action of waves.",
+  options: ["dry-docking", "maintenance", "motions", "stability", "listing"],
+  correctIndex: 1
+},
+
+{
+  id: 344,
+  question: "When cables need to pass through hatch wings, what precautions are needed to be taken?",
+  options: ["A few cables pass through together", "Passes through a galvanized pipe", "Covered with grease oil", "Cables are painted", "Cleaned with a washing agent"],
+  correctIndex: 1
+},
+
+{
+  id: 346,
+  question: "The lines led forward from the bow and aft from the stern when a vessel is moored to the dock are ____________.",
+  options: ["breast lines", "warps", "hawsers", "head and stern lines", "halyards"],
+  correctIndex: 3
+},
+
+{
+  id: 347,
+  question: "A mooring line that checks forward motion of a vessel at a pier is a _________.",
+  options: ["stern bow line", "stern line", "bow line", "stern spring line", "stern breast line"],
+  correctIndex: 1
+},
+
+{
+  id: 350,
+  question: "A mooring line leading at nearly right angles to the keel is a __________.",
+  options: ["stern line", "hawser line", "spring line", "bow line", "breast line"],
+  correctIndex: 4
+},
+
+{
+  id: 352,
+  question: "A mooring line leading 45° to the keel, used to check forward or astern movement of a vessel, is called a _________.",
+  options: ["breast line", "bow line", "steel line", "spring line", "warp line"],
+  correctIndex: 3
+},
+
+{
+  id: 353,
+  question: "A mooring line leading forward from aft is a ________.",
+  options: ["breast line", "bow line", "stern line", "aft spring line", "forward spring line"],
+  correctIndex: 3
+},
+
+{
+  id: 354,
+  question: "A “Mediterranean moor” should be used when __________.",
+  options: ["berthing from astern to a berth", "anchoring in the Mediterranean", "docking from buoy to a berth", "anchoring in a strong current", "mooring in the Mediterranean"],
+  correctIndex: 0
+},
+
+{
+  id: 357,
+  question: "The system for altering the ship's direction is called:",
+  options: ["thrust", "propulsion", "displacement", "steering", "shafting"],
+  correctIndex: 3
+},
+
+{
+  id: 358,
+  question: "What is/are the type(s) of telemotor systems in steering gear on ships?",
+  options: ["Fully electric type", "Electro-hydraulic type", "Fully hydraulic type", "Both of above", "None of above"],
+  correctIndex: 3
+},
+
+{
+  id: 359,
+  question: "Which following statement is one of the types of steering system?",
+  options: ["Ward Leonard electric system", "Ram type electro hydraulic system", "Vane type electro hydraulic system", "Single motor electric system", "All of above"],
+  correctIndex: 4
+},
+
+{
+  id: 360,
+  question: "What is/are the safety device(s) for steering system?",
+  options: ["Buffer spring", "Double shock valve", "Hunting gear", "Overload alarm", "All of the above"],
+  correctIndex: 4
+},
+
+{
+  id: 361,
+  question: "We will _______ starboard anchor, two _______ and _______ it.",
+  options: ["Pay out–cables–drag", "Moor–Yards–Fasten", "Cast off–miles–dregde", "Let go–shackles–dredge", "Let go–shackles–drag"],
+  correctIndex: 3
+},
+
+{
+  id: 362,
+  question: "To steer a steady course on the compass heading indicated at the time of order, you should say _____.",
+  options: ["half to port!", "do not turn the wheel!", "steady on the wheel!", "steady as she goes!", "hard a port!"],
+  correctIndex: 3
+},
+
+{
+  id: 363,
+  question: "Helm order given for reducing the swing of the head of a ship is:",
+  options: ["Keep the wheel rapidly", "Steady as she goes", "Meet her", "Steady", "Steady on course"],
+  correctIndex: 2
+},
+
+{
+  id: 364,
+  question: "If you want to avoid allowing the vessel’s head to go to port side, your order to helmsman will be:",
+  options: ["hard-a-port!", "port 15!", "nothing to port!", "steady to port!", "all to port!"],
+  correctIndex: 2
+},
+
+{
+  id: 365,
+  question: "Which one of the following engine orders normally cannot be given right after giving the engine order “half ahead”?",
+  options: ["Half astern!", "Dead slow ahead!", "Slow ahead!", "Stop engines!", "Full ahead!"],
+  correctIndex: 0
+},
+
+{
+  id: 366,
+  question: "The bow thruster generally is ineffective at __________.",
+  options: ["Over 3 knots headway", "At any speed astern", "while turning around", "over 1 knot sternway", "At any speed ahead"],
+  correctIndex: 0
+},
+
+{
+  id: 367,
+  question: "The type of propulsion system used in a ship depends on several factors such as speed, power, and ship _____.",
+  options: ["type", "bottom", "side", "bow", "galley"],
+  correctIndex: 0
+},
+
+{
+  id: 368,
+  question: "The forward movement of a vessel in one revolution of its propeller is measured by __________.",
+  options: ["advance", "transfer", "slip", "head reach", "the pitch"],
+  correctIndex: 4
+},
+
+{
+  id: 369,
+  question: "“Hub, blade, pitch” are the terms related to ______________.",
+  options: ["sterntube", "thrust block", "shafting", "rudder", "propeller"],
+  correctIndex: 4
+},
+
+{
+  id: 370,
+  question: "The force exerted by a propeller which tends to throw the stern right or left is called __________.",
+  options: ["thrust", "wake", "slip", "sidewise force", "rotational force"],
+  correctIndex: 3
+},
+
+{
+  id: 373,
+  question: "The principal purpose of an anchor windlass chain stopper is to __________.",
+  options: ["tie off the warping head lines", "lock the intermediate clutch shaft to the wildcat", "control the speed of the anchor chain while anchoring", "hold the anchor chain while riding at anchor", "absorb the brake thrust of the anchor windlass"],
+  correctIndex: 3
+},
+
+{
+  id: 374,
+  question: "The use of an anchor to assist in turning in restricted waters is __________.",
+  options: ["to be used only with a single-screw vessel", "good seamanship", "to be used only with a bow thruster", "the sign of a novice shiphandler", "a last resort"],
+  correctIndex: 1
+},
+
+{
+  id: 375,
+  question: "Which action reduces the yawing of a vessel in a following sea?",
+  options: ["Shifting weights to the bow", "Increasing GM", "Decreasing GM", "Shifting weights to the stern", "Pumping out tanks aft"],
+  correctIndex: 1
+},
+
+{
+  id: 376,
+  question: "Your vessel is broken down and rolling in heavy seas. You can reduce the danger of capsizing by ______________.",
+  options: ["moving all passengers to the stern", "constantly shifting the rudder", "increasing RPM", "moving all passengers to one side of the boat", "rigging a sea anchor"],
+  correctIndex: 4
+},
+
+{
+  id: 377,
+  question: "Your vessel is off a lee shore in heavy weather and laboring. Which action should you take?",
+  options: ["Put the sea and wind about two points on either bow and reduce speed", "Heave to in the through of the sea", "Put the sea and wind on either quarter and proceed at increased speed", "Put the bow directly into the sea and proceed at full speed", "Take the sea abeam and maintain speed"],
+  correctIndex: 0
+},
+
+{
+  id: 380,
+  question: "With a large tow astern, there is immediate danger to the tug in the event of the _______________________.",
+  options: ["tow broaching", "tow line parting", "tow line submerging", "bridle twisting", "tug losing power"],
+  correctIndex: 4
+},
+
+{
+  id: 381,
+  question: "The size and material used for towline(s) must meet all of the following requirements, EXCEPT ______________.",
+  options: ["Being appropriate to the vessel’s horsepower or bollard pull", "Being strong enough to handle any static or dynamic loads expected during its service life", "Being of approved design and manufacture", "Fitting any spare wire clips carried on board the vessel for repair purposes", "Being suitable for exposure to the marine environment"],
+  correctIndex: 3
+},
+
+{
+  id: 383,
+  question: "Which statement about tunnel bow thrusters fitted to large vessels is TRUE?",
+  options: ["When going astern at slow speed, they provide effective steering control", "Because of their location, most modern installations have as much power as a tug", "They are effective on most vessels at speeds up to 10 knots", "They are fully effective at all drafts", "They can assist in slowing down the ship"],
+  correctIndex: 0
+},
+
+{
+  id: 384,
+  question: "You are on a single-screw vessel with a left-handed propeller making no way in the water. How will your vessel react when you apply right rudder?",
+  options: ["Rudder alone has no effect on the vessel", "Stern will kick to port, then slowly swing to starboard", "Bow will kick to port", "Bow will kick to starboard", "Stern will kick to starboard, then slowly swing to port"],
+  correctIndex: 0
+},
+
+{
+  id: 385,
+  question: "As a rule, ships of most configurations, when drifting in calm water with negligible current, will lie ______________.",
+  options: ["beam to the wind", "bow to the wind", "with the wind on the quarter", "stern to the wind", "with the wind on the shoulder"],
+  correctIndex: 0
+},
+
+{
+  id: 386,
+  question: "Most of your vessel’s superstructure is forward. How will the vessel lie when drifting with no way on?",
+  options: ["With the wind off the starboard beam", "With the wind from ahead", "With the wind off the port beam", "With the wind from abaft the beam", "With the wind from port quarter"],
+  correctIndex: 3
+},
+
+{
+  id: 387,
+  question: "Your ship is in shallow water and the bow rides up on its bow wave while the stern sinks into a depression of its transverse wave system. What is this called?",
+  options: ["Parallel sinkage", "Broaching", "Fish tailing", "Squatting", "Shipstreaming"],
+  correctIndex: 3
+},
+
+{
+  id: 388,
+  question: "When you enter shallow water, you would expect your rudder response to _______________________.",
+  options: ["improve and your speed to increase", "improve and your speed to decrease", "be sluggish and your speed to increase", "be sluggish and your speed to decrease", "improve and your speed to accelerate"],
+  correctIndex: 3
+},
+
+{
+  id: 389,
+  question: "Flank rudders effect a vessel’s heading because of the __________.",
+  options: ["tunnel affect of the water flow past opposing rudders", "increased cavitation effect of the propeller", "discharge current being channeled to impinge on the vessel’s deadwood", "water flow due to the vessel’s movement through the water", "effect of the propeller flow on the rudders"],
+  correctIndex: 4
+},
+
+{
+  id: 390,
+  question: "The result of a blow delivered by a heavy sea causing rapid vibrations of the elastic portions of the ship’s hull is identified as __________.",
+  options: ["yawing", "hogging", "pitching", "sagging", "pounding"],
+  correctIndex: 4
+},
+
+{
+  id: 391,
+  question: "How does the effect known as “bank suction” act on a single-screw vessel proceeding along a narrow channel?",
+  options: ["It pulls the stern toward the bank", "It pulls the bow toward the bank", "It pushes the entire vessel away from the bank", "It heels the vessel toward the bank", "It increases the forward draft by changing trim"],
+  correctIndex: 0
+},
+
+{
+  id: 392,
+  question: "The effect known as “bank cushion” acts in which of the following ways on a single-screw vessel proceeding along a narrow channel?",
+  options: ["It forces the stern away from the bank", "It heels the vessel away from the bank", "It forces the entire vessel away from the bank", "It forces the bow away from the bank", "It heels the vessel toward the bank"],
+  correctIndex: 3
+},
+
+{
+  id: 394,
+  question: "You are at the helm of a sailing vessel, under sail on the starboard tack, close hauled and instructed to “head up”. You should ______________.",
+  options: ["Steady as she goes", "Turn the wheel to port if you are steering with a wheel", "None of the above", "Turn the rudder to starboard", "Push the tiller to starboard if you are steering with a tiller"],
+  correctIndex: 3
+},
+
+{
+  id: 395,
+  question: "Ship is approaching the pilot station with the wind fine on the starboard bow and making about 3 knots. Master can help to calm the seas by taking what action just before the pilot boat comes along on the port side?",
+  options: ["Backing full", "Giving right full rudder", "Stopping the engines", "A short burst ahead full with right full rudder", "A short burst of ahead full with left full rudder"],
+  correctIndex: 4
+},
+
+{
+  id: 396,
+  question: "You are on a ship entering port while the pilot has the conn. The pilot gives a steering command to the helmsman who partially repeats the command. Officer of the watch should immediately ______________________.",
+  options: ["ask the Pilot to repeat the command since the helmsman failed to hear it completely", "repeat the Pilot’s command and ensure that the helmsman repeats it completely", "ignore the helmsman’s response as long as it was close to what the Pilot ordered", "observe the helmsman’s wheel action to be sure that it complies with the Pilot’s command", "inform the master"],
+  correctIndex: 1
+},
+
+{
+  id: 397,
+  question: "A vessel is equipped with twin propellers, both turning outboard with the engines half ahead. If there is no wind or current and the rudders are amidships, what will happen?",
+  options: ["The bow will swing to starboard", "The bow will yaw", "The vessel will steer a zigzag course", "The bow will swing to port", "The vessel will steer a fairly straight course"],
+  correctIndex: 4
+},
+
+{
+  id: 398,
+  question: "Your ship is dead in the water with the rudder amidships. As the right-handed screw starts to turn ahead, the bow will tend to go _________",
+  options: ["to port", "as influenced by the tide and sea", "as influenced by slipstream", "to starboard", "straight ahead"],
+  correctIndex: 0
+},
+
+{
+  id: 399,
+  question: "You are going ahead on twin engines with rudders amidships. Your port engine stalls. To continue your course you should _________",
+  options: ["decrease engine speed", "apply right rudder", "apply left rudder", "keep your rudder amidships", "increase engine speed"],
+  correctIndex: 1
+},
+
+{
+  id: 400,
+  question: "On a twin-screw, twin-rudder vessel, the most effective way to turn in your own water with no way on is to put _________",
+  options: ["one engine ahead and one astern, with rudders amidships", "one engine ahead and one astern, with full rudder", "both engines astern, with full rudder", "both engines ahead, with rudders amidships", "both engines ahead, with full rudder"],
+  correctIndex: 1
+},
+
+{
+  id: 401,
+  question: "A ship is stopped with no way upon the vessel at the pilot station. The vessel is a large twin-screw ship. It must come around 180° to board Pilot. How should the captain use the engines and rudder to turn the ship fastest in the least amount of space?",
+  options: ["Half ahead with hard over rudder, then full astern on inboard engine", "Full astern on the engines and hard over rudder", "Full ahead on the engines and hard over rudder", "Slow ahead with hard over rudder", "Full ahead with hard over rudder, then full astern on outboard engine"],
+  correctIndex: 4
+},
+
+{
+  id: 402,
+  question: "You are on a large vessel fitted with a right-handed controllable-pitch propeller set at maximum forward pitch. Which statement about reversing is TRUE?",
+  options: ["There will probably be a loss of steering control", "When the pitch is reversed, the stern will immediately slew to starboard", "The vessel will respond to the rudder until sternway is developed, then the stern will slew to starboard", "The vessel will have full rudder control throughout the speed change from ahead to astern", "When the pitch is reversed, the stern will slew to port even with headway"],
+  correctIndex: 0
+},
+
+{
+  id: 403,
+  question: "You are on a large vessel fitted with a right-handed controllable-pitch propeller. When making large speed changes while decreasing pitch, which statement is TRUE?",
+  options: ["There will be no effect to rudder control", "The stern will immediately slew to port due to unbalanced forces acting on the propeller", "You will probably have full directional control throughout the speed change", "The stern will immediately slew to starboard due to unbalanced forces acting on the propeller", "You may lose rudder control until the ship’s speed has dropped to correspond to propeller speed"],
+  correctIndex: 4
+},
+
+{
+  id: 404,
+  question: "A large vessel is equipped with a controllable pitch propeller. Which statement is TRUE?",
+  options: ["When the vessel has headway and the propeller is in neutral, there is no effect on rudder control", "When dead in the water, it is often difficult to find the neutral position and slight headway or sternway may result", "When going directly from full astern to full ahead, there is complete loss of steering control", "When maneuvering in port, full ahead or astern power can usually be obtained without changing shaft RPM", "When going directly from full ahead to full astern, there is complete steering control"],
+  correctIndex: 1
+},
+
+{
+  id: 405,
+  question: "The ______ drives the propeller at the stern of the vessel",
+  options: ["engine", "derrick", "boiler", "funnel", "winch"],
+  correctIndex: 0
+},
+
+{
+  id: 406,
+  question: "What is not included in the category of deck machinery?",
+  options: ["hatch cover", "bow thrusters", "lifeboat engine", "steam generator", "windlass"],
+  correctIndex: 3
+},
+
+{
+  id: 407,
+  question: "In ships that don’t have an emergency generator which option below is used in case of emergency?",
+  options: ["Magneto", "Port generator", "Auxilliary generator", "Shaft generator", "Emergency generator"],
+  correctIndex: 2
+},
+
+{
+  id: 408,
+  question: "Fresh water is generated on ship by a fresh water generator, also known as _________?",
+  options: ["condenser", "sea water generator", "sea water separator", "evaporator", "distiller"],
+  correctIndex: 3
+},
+
+{
+  id: 409,
+  question: "Using compressed air on board a ship means to start the diesel engines which could be either main engine or ________ engines.",
+  options: ["ancillary", "subsidiary", "support", "contributory", "auxilliary"],
+  correctIndex: 4
+},
+
+{
+  id: 410,
+  question: "Remarks and signature of ________ for each day should be noted in engine room logbook.",
+  options: ["chief officer", "duty officer", "duty engineer", "chief engineer", "any engineer"],
+  correctIndex: 3
+},
+
+{
+  id: 411,
+  question: "What is the other name for the motor which is known as “universal motor”?",
+  options: ["Serial motor", "Compound motor", "Parallel motor", "Direct current motor", "Asynchronous motor"],
+  correctIndex: 0
+},
+
+{
+  id: 412,
+  question: "How does a serial motor work?",
+  options: ["Get started initially in high speed", "Get started when charged after the initial action", "Get started by a diesel engine", "Charged initially then get started", "Get started initially in low speed"],
+  correctIndex: 4
+},
+
+{
+  id: 413,
+  question: "For what purposes are serial motors used in ships?",
+  options: ["As a crane motor", "They are used in starting the circulation pumps", "They start the fire pump", "They start the feed water pump", "They start the service pump"],
+  correctIndex: 0
+},
+
+{
+  id: 414,
+  question: "All diesel engines are classified as ________",
+  options: ["vacuum ignition", "external combustion", "four cycle", "spark plug ignition", "compression ignition"],
+  correctIndex: 4
+},
+
+{
+  id: 415,
+  question: "The diesel engine is a type of internal ____ engine which ignites the fuel by injecting it into hot high-pressure air.",
+  options: ["combustion", "structure", "regulation", "stress", "notation"],
+  correctIndex: 0
+},
+
+{
+  id: 416,
+  question: "What happens when your engine stalls?",
+  options: ["Black smoke comes out of funnel", "Propeller leaks oil", "Propeller turns more quickly", "Propeller stops turning", "Propeller vibrates"],
+  correctIndex: 3
+},
+
+{
+  id: 417,
+  question: "As the propeller turns, voids are formed on the trailing and leading edges of the propeller blades causing a loss of propulsive efficiency, pitting of the blades, and vibration. These voids are known as __________",
+  options: ["cavitation", "anode", "slip", "edging", "advance"],
+  correctIndex: 0
+},
+
+{
+  id: 418,
+  question: "Which of the following gives the reason(s) of breaking down of electrical insulation more quickly?",
+  options: ["Moisture", "High temperature and vibration", "Low temperature", "Loud noise and moisture", "Loud noise"],
+  correctIndex: 1
+},
+
+{
+  id: 419,
+  question: "The various cooling ________ which circulate the engine are themselves cooled by sea water.",
+  options: ["slots", "filters", "fans", "coils", "liquids"],
+  correctIndex: 4
+},
+
+{
+  id: 420,
+  question: "Water-________ boilers have replaced smoke-tube boilers to generate steam for main engines",
+  options: ["type", "tube", "operating", "steam", "cell"],
+  correctIndex: 1
+},
+
+{
+  id: 421,
+  question: "A “pneumerator” measures:",
+  options: ["Air level", "Liquid level", "Air temperature", "Air pressure", "Oil pressure"],
+  correctIndex: 1
+},
+
+{
+  id: 422,
+  question: "What is the numerical value of the frequency used in alternator voltage in our country?",
+  options: ["90 Hz", "100 Hz", "80 Hz", "70 Hz", "50 Hz"],
+  correctIndex: 4
+},
+
+{
+  id: 423,
+  question: "How many circuits are there in a sidelight?",
+  options: ["Two", "Four", "Three", "One", "Five"],
+  correctIndex: 0
+},
+
+{
+  id: 424,
+  question: "Which of the following best describes the open circuit?",
+  options: ["A circuit with a gap", "A circuit with no gaps", "A circuit with excessive current", "A circuit with a blown fuse", "None of above"],
+  correctIndex: 0
+},
+
+{
+  id: 425,
+  question: "In emergency circuits, where are accumulator battery and generator placed?",
+  options: ["Right next to the auxiliary engine", "In a suitable place in upper deck", "In engine room under a cover", "Engine room", "Right next to the main generator"],
+  correctIndex: 1
+},
+
+{
+  id: 426,
+  question: "Which one of the following statements is NOT correct for daily check in steering gear room?",
+  options: ["Noise and vibration", "Communication between bridge and other ships/coast stations", "Oil level in tank", "Oil leakage in system", "Pressure gauge of steering pump"],
+  correctIndex: 1
+},
+
+{
+  id: 427,
+  question: "What is the name of the part which is placed in ignition circuit that increases 6 or 12 V voltage of accumulator to 10,000 – 20,000 V?",
+  options: ["Capacitor or condenser", "Ballast coin", "Ignition switch", "Induction coil", "Platinum"],
+  correctIndex: 3
+},
+
+{
+  id: 428,
+  question: "What condition is needed to parallel connect accumulators?",
+  options: ["Voltage need to be equal", "Capacities need to be equal", "Capacities need to be different", "Voltages need to be high and capacities low", "All of the above"],
+  correctIndex: 0
+},
+
+{
+  id: 429,
+  question: "What happens when accumulators are parallel connected?",
+  options: ["Voltage and capacity falls", "Voltage and capacity doesn’t change", "Voltage falls, capacity rises", "Voltage rises, capacity rises", "Voltage doesn’t change, capacity rises"],
+  correctIndex: 4
+},
+
+{
+  id: 430,
+  question: "An accumulator with a capacity of 150 Ah gives 120 Ah energy while discharging. What is the efficiency of this accumulator?",
+  options: ["80%", "60%", "70%", "50%", "75%"],
+  correctIndex: 0
+},
+
+{
+  id: 431,
+  question: "On two stroke engines, the process of removing the burned gases out of the combustion chamber by blowing in fresh air is called:",
+  options: ["supercharging", "scavenging", "alignment", "compressing", "turbo charging"],
+  correctIndex: 1
+},
+
+{
+  id: 432,
+  question: "What does “wet silencer” mean in diesel engine terminology?",
+  options: ["The silencer jacket is always water cooled", "The silencer baffles are water cooled", "The exhaust gases are mixed with fresh water", "The exhaust gases are mixed with salt water", "The sea water are mixed with fresh water"],
+  correctIndex: 3
+},
+
+{
+  id: 433,
+  question: "How do you change the rotation speed in shunted and compound motors?",
+  options: ["By changing the terminals", "With a serial impedance connected to the entry ends", "With a parallel impedance", "With an impedance serial connected to the exit terminal", "With a field rheostat"],
+  correctIndex: 4
+},
+
+{
+  id: 434,
+  question: "Which of the following statements best describes the “hunting gear”?",
+  options: ["It is related to vibration and the working loose of components", "It is a feedback mechanism of steering gear which repositions the floating lever of hydraulic pump as the tiller moves to the desired position", "It is the normal method of steering and involves the feedback of steering angle to the helm", "It is a constant torque machine at all angles of helm compared to ram system where torque increases with helm", "It is normally used for back up purposes only"],
+  correctIndex: 1
+},
+
+{
+  id: 435,
+  question: "Which standards should the safety equipment certificate of a vessel conform with?",
+  options: ["SOLAS Convention", "Lloyd’s register", "American Bureau of Shipping", "ISO 9001", "United salvage association"],
+  correctIndex: 0
+},
+
+{
+  id: 436,
+  question: "All LSA shall comply with;",
+  options: ["SOLAS Chapter 1", "SOLAS Chapter 2", "SOLAS Chapter 3", "SOLAS Chapter 4", "SOLAS Chapter 5"],
+  correctIndex: 2
+},
+
+{
+  id: 437,
+  question: "What is the full title of ISM Code?",
+  options: ["The International Safety Management Code", "The International SOLAS Code", "The International MARPOL Code", "The International Safety System Management Code", "The International Management Code for the Safe Operation of Ships and for Pollution Prevention"],
+  correctIndex: 0
+},
+
+{
+  id: 438,
+  question: "Which of the following certificates will not be approved by class?",
+  options: ["Tonnage certificate", "IOPP certificate", "Safety construction certificate", "Load line certificate", "DOC certificate"],
+  correctIndex: 4
+},
+
+{
+  id: 445,
+  question: "Which IMO Convention deals especially with the basic requirements on search and rescue operations?",
+  options: ["MARPOL", "STCW", "SOLAS", "SAR", "ISM"],
+  correctIndex: 3
+},
+
+{
+  id: 449,
+  question: "Which one of the following types of pollution is related with MARPOL Annex II?",
+  options: ["Garbage", "Both", "Oil", "Sewage", "Noxious Liquid Substances"],
+  correctIndex: 4
+},
+
+{
+  id: 456,
+  question: "Which certificate is issued by the Turk Loyd?",
+  options: ["Certificate of Inspection", "Load Line Certificate", "Safety Equipment Certificate", "Permit to Proceed for Repairs", "Life Insurance Certificate"],
+  correctIndex: 1
+},
+
+{
+  id: 463,
+  question: "Fee or commission payable by shipowner to a shipbroker for successful negotiation of a charter. It is normally expressed as percentage of the freight or hire and demurrage is called ______",
+  options: ["Freight", "Charter Party", "Brokerage", "Bill of Lading", "Mate receipt"],
+  correctIndex: 2
+},
+
+{
+  id: 464,
+  question: "The company which acts on behalf of the shipowner in any port his representative is called _______",
+  options: ["Charterer", "Agent", "Owner", "Broker", "Surveyor"],
+  correctIndex: 1
+},
+
+{
+  id: 465,
+  question: "A _______ is a person or a company whose business is to prepare shipping documents, arrange shipping place and insurance, and deal with customs requirements so every ship needs one at every port of call",
+  options: ["shipping agent", "shipping broker", "ship chandler", "charterer", "designated person ashore"],
+  correctIndex: 0
+},
+
+{
+  id: 466,
+  question: "Cargo loading and discharging time allowed by the ship owner to the charterer is ___________",
+  options: ["indemnity", "laytime", "claim", "demurrage", "despatch"],
+  correctIndex: 1
+},
+
+{
+  id: 467,
+  question: "Time allowed by the shipowner to the voyage charterer or Bill of Lading holder in which to load and/or discharge the cargo is called _______",
+  options: ["Free Despatch", "Demurrage", "Laycan", "Despatch", "Laytime"],
+  correctIndex: 4
+},
+
+{
+  id: 468,
+  question: "The days on which the notice to given and the day on which the notice expires are not included in the notice period and they are called ______?",
+  options: ["Clear Days", "Running Days", "Average Days", "Unless Used Days", "Excepted Days"],
+  correctIndex: 0
+},
+
+{
+  id: 470,
+  question: "The bill of lading is a ________ document and implies ownership of the cargo",
+  options: ["certified", "local", "secure", "government", "negotiable"],
+  correctIndex: 4
+},
+
+{
+  id: 471,
+  question: "A receipt of goods shipped on board a ship signed by the person (or his agent) who contracts to carry them, and stating the terms on which the goods are carried is known as _________",
+  options: ["Charter Party", "Bill of Lading", "Good Receipt", "Time Sheet", "Statement of Facts"],
+  correctIndex: 1
+},
+
+{
+  id: 472,
+  question: "How does a \"clean\" BILL of Lading describe the cargo loaded on board?",
+  options: ["the cargo is slightly damaged", "the cargo is in good condition", "the cargo is in good order", "the cargo is not damaged", "the cargo is in apparent good order and condition"],
+  correctIndex: 4
+},
+
+{
+  id: 473,
+  question: "A shipper of cargo aboard your vessel offers a letter of indemnity for the cargo. This is done in order to obtain a(n) ____________",
+  options: ["Through Bill of Lading", "Straight Bill of Lading", "Order Bill of Lading", "Clean Bill of Lading", "Unclean Bill of Lading"],
+  correctIndex: 3
+},
+
+{
+  id: 474,
+  question: "A vessel loads 1000 tons of porcelains. The chief officer discovers that some of the cartoons have been damaged and has an exception made on the Bill Of Lading. What type of bill of lading called?",
+  options: ["Unclean Bill of Lading", "Damage Bill of Lading", "Exclusive Bill of Lading", "Non-negotiable Bill of Lading", "Exceptional Bill of Lading"],
+  correctIndex: 0
+},
+
+{
+  id: 475,
+  question: "____________ shows full details of all cargo on board the ship and is issued for customs declaration?",
+  options: ["Cargo manifest", "SOF", "NOR", "Time sheet", "Mate’s Receipt"],
+  correctIndex: 0
+},
+
+{
+  id: 476,
+  question: "The __________ is a document about the cargo recording daily all particulars and details relating to loading and discharging cargo. It also indicates the duration of and reason for any interruption of work.",
+  options: ["Cargo Damage Report", "Cargo Manifest", "Notice of Readiness", "Bill of Lading", "Statements of Facts"],
+  correctIndex: 4
+},
+
+{
+  id: 477,
+  question: "What is the document used to indicate suspected cargo damage caused by foul weather called?",
+  options: ["Statement", "Cargo claim report", "Unseaworthiness Certificate", "Damage report", "Damage declaration"],
+  correctIndex: 4
+},
+
+{
+  id: 479,
+  question: "The document that establishes the facts of a casualty and is the prima facie relief from liability for the damage is the __________",
+  options: ["insurance claim", "damage invoice", "adjuster’s report", "insurance policy", "Master’s protest"],
+  correctIndex: 4
+},
+
+{
+  id: 480,
+  question: "If the goods loaded are not in apparent good order and condition, a corresponding qualification is written on the Mate’s receipt and this is called _________",
+  options: ["cargo damage report", "cargo declaration", "statement of facts", "cargo manifest", "bill of lading"],
+  correctIndex: 0
+},
+
+{
+  id: 481,
+  question: "A declaration required by law, made by the Master, giving particulars regarding incidents which may have caused damage to the vessel or cargo, through no fault of the vessel, her officers, or crew is a(n) ___________",
+  options: ["master’s declaration", "cargo addendum", "exception report", "note of protest", "cargo damage declaration"],
+  correctIndex: 4
+},
+
+{
+  id: 482,
+  question: "____________ is a legal document declaring that due to circumstances beyond control, the vessel has suffered losses of cargo or damage to ship and/or cargo, or that the Master has had to take actions that may render his owners liable to legal procedures by other parties",
+  options: ["A booking Note", "A Statement of Facts", "A cargo Manifest", "A Sea Protest", "A Bill of Lading"],
+  correctIndex: 3
+},
+
+{
+  id: 485,
+  question: "The purpose of a “Notice of Readiness” is to ___________________",
+  options: ["note that the charter is ready to sign the relevant document", "inform the related party that the vessel is in all respects ready to commence loading / discharging operation", "inform the master that the consignee is ready to receive the goods", "specify the full account of the nature of a charter", "notice that the parties have agreed on the readiness"],
+  correctIndex: 1
+},
+
+{
+  id: 486,
+  question: "General name of the document containing all the terms and conditions of the contract between a shipowner and a charterer and signed by both parties or their agents for the hire of a ship or the space in a ship _________",
+  options: ["Voyage charter", "Consecutive voyage charter", "Time charter", "Charter Party", "Bareboat Charter"],
+  correctIndex: 3
+},
+
+{
+  id: 488,
+  question: "A device for measuring pressure of atmosphere is known as a:",
+  options: ["Windscale", "Compass", "Barometer", "Blip", "Shaft"],
+  correctIndex: 2
+},
+
+{
+  id: 490,
+  question: "__________ barometer is an instrument for measuring the air pressure, which does not use any liquid, unlike the old fashioned mercury-in-glass barometer",
+  options: ["Normal", "Mercury", "Bulb", "Recording", "Aneroid"],
+  correctIndex: 4
+},
+
+{
+  id: 492,
+  question: "Which of the following devices is used for measuring humidity?",
+  options: ["anemometer", "hygrometer", "dynamometer", "psychometer", "none of the answers"],
+  correctIndex: 1
+},
+
+{
+  id: 494,
+  question: "A weather ______ is a chart that displays various meteorological features across a particular area at a particular point in time",
+  options: ["forecast", "routeing", "saved", "map", "sector"],
+  correctIndex: 3
+},
+
+{
+  id: 495,
+  question: "If a wind is going to freshen, it is going to ____________",
+  options: ["stay the same", "lose strength", "change name", "gain strength", "change direction"],
+  correctIndex: 3
+},
+
+{
+  id: 497,
+  question: "If the wind is blowing from E and it starts changing its direction to blow from NE, the wind is said to be _______",
+  options: ["turning", "backing", "rotating", "circling", "veering"],
+  correctIndex: 1
+},
+
+{
+  id: 498,
+  question: "A wind which first blows from South, then changes direction to blow from the East, is said to be _______",
+  options: ["veering", "backing", "clockwise", "freezing", "funneling"],
+  correctIndex: 1
+},
+
+{
+  id: 499,
+  question: "________________ have a major effect on a light’s range. For example fog, haze, dust, smoke or precipitation can obscure a light",
+  options: ["Waves", "Sea conditions", "Lighting conditions", "Atmospheric conditions", "Unreliable charts"],
+  correctIndex: 3
+},
+
+{
+  id: 504,
+  question: "Makinenin hareketini pervaneye ileten rot:",
+  options: ["Propeller", "Rudder", "Shaft", "Hawse pipe", "Chain"],
+  correctIndex: 2
+},
+
+{
+  id: 505,
+  question: "Şimdiki süratiniz nedir?",
+  options: ["What is your service speed?", "What is your present speed?", "What is your full speed?", "What is your maximum speed?", "What is your manoeuvring speed?"],
+  correctIndex: 1
+},
+
+{
+  id: 506,
+  question: "Kumanda altında değilim.",
+  options: ["I am a hampered vessel", "I am manoeuvering with difficulty", "I am not under command", "My radar is not working", "I am not making way through the water"],
+  correctIndex: 2
+},
+
+{
+  id: 507,
+  question: "Rotamı iskeleye alıyorum.",
+  options: ["I will change my heading to right", "I will alter my course to port", "I will turn to right", "I am altering my course to port", "I can not come more to port"],
+  correctIndex: 3
+},
+
+{
+  id: 513,
+  question: "Son uğrak limanınız neresiydi?",
+  options: ["What are my berthing instructions?", "What are my docking instructions?", "What was your last port of call?", "What did you load in your last port?", "What will you discharge in your last port?"],
+  correctIndex: 2
+},
+
+{
+  id: 514,
+  question: "Şamandıraların kuzeyinden geçmenizi tavsiye ederim.",
+  options: ["I advise you to pass East of Mark", "I advise you to pass West of Mark", "I advise you to pass South of Mark", "I advise you to pass North of Mark", "I advise you to pass Northeast of Mark"],
+  correctIndex: 3
+},
+
+{
+  id: 518,
+  question: "“Piri Reis” gemisi şimdi tanıtma işareti çekiyorum.",
+  options: ["Vessel “Piri Reis” I am making signals now", "Vessel “Piri Reis” I am making a significance now", "Vessel “Piri Reis” I am making identity at the present", "Vessel “Piri Reis” I am now making an identification signal", "Vessel “Piri Reis” I am now making an identifiable signature ??"],
+  correctIndex: 3
+},
+
+{
+  id: 519,
+  question: "Kılavuzluk hizmeti geçici olarak küçük gemiler için durdurulmuştur.",
+  options: ["Pilotage is suspended for all vessels", "Pilotage is resumed for small vessels", "Pilotage is resumed for all vessels", "Pilotage is not compulsory for small vessels", "Pilotage is suspended for small vessels ??"],
+  correctIndex: 4
+},
+
+{
+  id: 524,
+  question: "Çatışmayı önlemek için bazı tedbirler alınmalıdır. Which of the following is the correct translation of this sentence into English?",
+  options: ["Collision is prevented by some precautions", "Precautions must be done to avoid drifting", "Precautions shall be taken to prevent flooding", "Precautions must be done to avoid fire", "Some cautions must be taken to prevent collision"],
+  correctIndex: 4
+},
+
+{
+  id: 525,
+  question: "Acil durumda tüm çıkışlar aydınlatılacaktır. Which of the following is the correct translation of this sentence into English?",
+  options: ["All exits shall be illuminated in an emergency", "All stairways shall illuminate in an emergency", "All exits shall be illuminated before an emergency", "All stairways and muster stations shall be lighted", "All embarkation stations shall be illuminated in an emergency"],
+  correctIndex: 0
+},
+
+{
+  id: 529,
+  question: "Have you altered your course?",
+  options: ["Hangi menzili kullanıyorsunuz?", "Rotanızı değiştirdiniz mi?", "Rotanızı değiştirecek misiniz?", "Radarınız çalışıyor mu?", "Rotanızı ne zaman değiştireceksiniz?"],
+  correctIndex: 1
+},
+
+{
+  id: 531,
+  question: "I am proceeding at reduced speed.",
+  options: ["Geçitte ilerleyeceğim", "Limana ilerliyorum", "Düşük hızla ilerliyorum", "Hızımı arttırıyorum", "Pruvamdaki gemiyi geçeceğim"],
+  correctIndex: 2
+},
+
+{
+  id: 541,
+  question: "Visibility is reduced by fog.",
+  options: ["Görüş mesafesi yağmur nedeniyle azalmıştır", "Görüş mesafesi kar nedeniyle azalmıştır", "Görüş mesafesi toz nedeniyle azalmıştır", "Görüş mesafesi sis nedeniyle azalmıştır", "Görüş mesafesinin değişmesi bekleniyor"],
+  correctIndex: 3
+},
+
+{
+  id: 542,
+  question: "You may navigate by yourself or wait for pilot.",
+  options: ["Kendiniz seyredebiliyorsanız pilot gelir", "Kendiniz seyredereseniz pilot bekleyebilir", "Kendiniz seyredebilir veya pilotu bekleyebilirsiniz", "Kendiniz seyredemezseniz, pilotu bekleyin", "Kendiniz seyredin yoksa pilotu bekleteyim"],
+  correctIndex: 2
+},
+
+{
+  id: 544,
+  question: "You are running into danger. Fog bank ahead of you.",
+  options: ["Tehlikeye gidiyorsunuz. Önünüzde kesik sis var", "Tehlikeye gidiyorsunuz. Önünüzde sığ su var", "Tehlikeye gidiyorsunuz. Önünüzde enkaz var", "Tehlikeye gidiyorsunuz. Önünüzde kesif sis var", "Tehlikeye gidiyorsunuz. Önünüzde mayın var"],
+  correctIndex: 3
+},
+
+{
+  id: 545,
+  question: "There shall be clear instructions relating to the commencing of this operation. Which of the following is the correct translation?",
+  options: ["Sistemin çalışmasıyla açık talimatlara bağlıdır", "Sistemin çalışması açık talimatlar olmasıyla ilgilidir", "İşlemin çalışmasına ilişkin açıklamalar yapılacaktır", "Bu işlemin başlatılmasına ilişkin açık talimatlar bulunacaktır", "Sistem üzerindeki açık talimatlara göre çalışır"],
+  correctIndex: 3
+},
+
+{
+  id: 548,
+  question: "My position has been ______ by GPS.",
+  options: ["loosened", "performed", "fulfilled", "lost", "obtained ??"],
+  correctIndex: 4
+},
+
+{
+  id: 549,
+  question: "If a ship turns upside-down in the sea water, it is said to be ______.",
+  options: ["moored", "capsized", "adrift", "grounded", "fouled ??"],
+  correctIndex: 1
+},
+
+{
+  id: 550,
+  question: "Man overboard! ______ the life boat",
+  options: ["Raise", "Lower", "Call", "Sound", "Put ??"],
+  correctIndex: 1
+},
+
+{
+  id: 551,
+  question: "Attention of all crew! ______ to your muster stations immediately",
+  options: ["Lower", "Get", "Close", "Proceed", "Call ??"],
+  correctIndex: 3
+},
+
+{
+  id: 552,
+  question: "______ stations are designated areas where you are to go when an emergency signal sounds.",
+  options: ["power", "muster", "calling", "bunkering", "coast ??"],
+  correctIndex: 1
+},
+
+{
+  id: 553,
+  question: "Who receives radio ______ reports and navigational warnings?",
+  options: ["weather", "wireless", "safety", "air", "warning ??"],
+  correctIndex: 0
+},
+
+{
+  id: 555,
+  question: "The officer _______ of loading, stowage and safe delivery is chief officer.",
+  options: ["designate", "assure", "assume", "maintain", "in charge ??"],
+  correctIndex: 4
+},
+
+{
+  id: 558,
+  question: "Bottom of a ship is coated in order to prevent ______.",
+  options: ["congestion", "convection", "friction", "corrosion", "construction ??"],
+  correctIndex: 3
+},
+
+{
+  id: 559,
+  question: "I am ______. I require tug assistance.",
+  options: ["on way", "not under attack", "under command", "not in critical condition", "adrift ??"],
+  correctIndex: 4
+},
+
+{
+  id: 564,
+  question: "The purpose of transformers is to ______ the voltage on ships.",
+  options: ["insulate", "reduce", "increase", "complete", "raise ??"],
+  correctIndex: 1
+},
+
+{
+  id: 565,
+  question: "Ships require constant supervision of their structure and their maintenance, much of which need a regular programme of maintenance in order to keep them in a seaworthy ______.",
+  options: ["packaging", "stage", "clause", "condition", "responsibility"],
+  correctIndex: 3
+},
+
+{
+  id: 566,
+  question: "The shore-based marine engineers referred to as engineering superintendents should oversee the routine operation of the ships’ main and _____ machinery keeping a close watch on routine servicing, maintenance and replacement of the parts which wear out and need regular renewal.",
+  options: ["auxilliary", "temporary", "stationary", "primary", "secondary"],
+  correctIndex: 0
+},
+
+{
+  id: 567,
+  question: "Nobody died in the accident, but twenty people were ______.",
+  options: ["injured", "damaged", "broken", "spoiled", "stollen"],
+  correctIndex: 0
+},
+
+{
+  id: 568,
+  question: "Look at this notice, it ______ that no visitors are allowed in at that time.",
+  options: ["forbids", "says", "advises", "notices", "writes"],
+  correctIndex: 1
+},
+
+{
+  id: 569,
+  question: "Select the word or phrase that best completes the sentence below; This is the most __________ dress I have ever bought.",
+  options: ["powerful", "longer", "difficult", "crowded", "expensive"],
+  correctIndex: 4
+},
+
+{
+  id: 571,
+  question: "Fill in the blank correctly Hi Mario, I do actually have a homework _________ to do. The deadline’s Monday and I'm afraid I’ll have to do it during the weekend, so I'll be quite busy.",
+  options: ["work", "duty", "job", "assignment", "mission"],
+  correctIndex: 3
+},
+
+{
+  id: 574,
+  question: "Complete the sentence with the help of choices given as below; I understand that I can make it possible for both my computers to share the same programs by means of _______.",
+  options: ["networking", "wiring", "joinning", "linking", "connecting"],
+  correctIndex: 0
+},
+
+{
+  id: 576,
+  question: "Which of the following can not be a defect a light might have?",
+  options: ["Damaged", "Expensive", "Destroyed", "Unlit", "Structal damage"],
+  correctIndex: 1
+},
+
+{
+  id: 577,
+  question: "The information sources used by the mariner are generally found in printed publications but some of them are being integrated into _______ electronic systems nowadays.",
+  options: ["computer-based", "printed into", "map-turned", "paper-based", "book-formed"],
+  correctIndex: 0
+},
+
+{
+  id: 581,
+  question: "Supply the correct word to complete the sentence They tried very hard to install the new components on the computer but the language in the manual was too ______ for them to understand.",
+  options: ["Technically", "Technique", "Technician", "Technical", "Technic"],
+  correctIndex: 3
+},
+
+{
+  id: 584,
+  question: "“Stand by” means that the information is _______",
+  options: ["negative", "affirmative", "not proper", "not hear", "not immediately available"],
+  correctIndex: 4
+},
+
+{
+  id: 585,
+  question: "“Restricted visibility” means",
+  options: ["Unlimited visibility", "Limitless visibility", "Limited visibility", "Clear visibility", "Clean visibility"],
+  correctIndex: 2
+},
+
+{
+  id: 586,
+  question: "“I am not under command” means ______",
+  options: ["therefore I can keep out of the way", "therefore I could keep out of the way", "I am no different than what I was before", "I am unable to manoeuvre as required by the Rules", "I am not unable to manoeuvre as required by the Rules"],
+  correctIndex: 3
+},
+
+{
+  id: 587,
+  question: "The helm order “Check her” means ___________",
+  options: ["stop the swing using hard over rudder", "switch the steering control to auto", "check if the helm is working", "slow the swing using moderate rudder", "read the compass heading"],
+  correctIndex: 2
+},
+
+{
+  id: 588,
+  question: "The helm order “meet her” means __________",
+  options: ["note the course and steady on that heading", "steer more carefully", "put the rudder over to the opposite side, the same number of degrees it is now", "use rudder to check the swing", "decrease the rudder angle which is on"],
+  correctIndex: 2
+},
+
+{
+  id: 590,
+  question: "Which of the following words is the synonym of the underlined word? Before loading of any vessel, depending on the type of cargo the vessel is required to present the cargo holds “clean and dry” prior to beginning of loading.",
+  options: ["commencement", "approvement", "assessment", "arrangement", "statement"],
+  correctIndex: 0
+},
+
+{
+  id: 594,
+  question: "Sprinklers shall be placed in an overhead position to maintain an average application rate of not less than 5 l/m²/min over the area covered by the sprinklers. What word can be used instead of maintain?",
+  options: ["repair", "keep", "change", "place", "run"],
+  correctIndex: 1
+},
+
+{
+  id: 596,
+  question: "The steam turbine can be connected to a reduction gear to produce motion. What word can be used instead of motion as a synonym?",
+  options: ["buoyancy", "velocity", "force", "movement", "thrust"],
+  correctIndex: 3
+},
+
+{
+  id: 597,
+  question: "The oiler swept away the broken glass in the machinery space.",
+  options: ["fractured", "used a broom to clean up", "called someone to replace", "was finished with", "fixed in place securely"],
+  correctIndex: 1
+},
+
+{
+  id: 599,
+  question: "“Lay Days are the number of days allowed by a charter party for loading and for discharging of the cargo. Days and Running Days are some of them. Both mean consecutive calendar days counting from midnight to midnight.” Which one is the explanation of the underlined word?",
+  options: ["first day of the week", "weather working", "rainy days excluded", "coming one after another", "rainy days included"],
+  correctIndex: 3
+},
+
+{
+  id: 600,
+  question: "Statistics reveal that, of all modes of transport, shipping is the least environmentally damaging when its productive value is taken into consideration. The vast quantity of grain required to make the world’s daily bread, for example could not be transported any other way than by ship. Both the economic and environmental cost of using, say, airfreight, would be exorbitantly high. The word “exorbitantly” in this context means _________",
+  options: ["in a manner of moving around a circle or an orbit", "an external circuit of a planet around a star", "excitedly or explicably", "exclusively", "to a great extend ??"],
+  correctIndex: 4
+},
+
+{
+  id: 602,
+  question: "Which of the following word is synonym of the underlined word? Submarine terrain is much like the terrain we know with valleys, mountains, ridges and even volcanoes.",
+  options: ["Desert", "Rough", "Battleship", "Atmospheric", "Underwater ??"],
+  correctIndex: 4
+},
+
+{
+  id: 609,
+  question: "Which one of the followings is correct to Express the below math operation? 6 + 3 = 9",
+  options: ["Six divided by three equals nine", "Six times three makes nine", "Six added to three makes nine", "Six minus three equals to nine", "Six subtracted from three equals to nine ??"],
+  correctIndex: 2
+},
+
+{
+  id: 610,
+  question: "An ombudsman is:",
+  options: ["an impartial person who watches for administrative abuses inside organizations", "a person with unrivaled powers inside the government", "the head of any organization who is elected by a majority voting system", "a person who is granted political asylum in a country that is facing civil war", "a distinguished person who just cares for himself ??"],
+  correctIndex: 0
+},
+
+{
+  id: 612,
+  question: "Which of the below sentences has the same meaning with this sentence? I have been abroad for nearly two years, so I am out of touch with everything here",
+  options: ["Two years or so out of the country will make you feel differently about your own country", "Two years abroad has estranged me; so I don't want to go back to my country", "Being out of my country for two years made quite home-sick", "I feel quite like a stranger now that I am back after almost two years abroad", "On my return after almost two years, I was touched to find a few changes here"],
+  correctIndex: 3
+},
+
+{
+  id: 613,
+  question: "Which of the following explanations for the abbreviations is wrong?",
+  options: ["GMT – Greenwich Mean Time", "DSC – Digital Selective Communication", "MMSI – Maritime Mobile Service Identity number", "MRCC – Maritime Rescue Co-ordination Center", "GMDSS – Global Maritime Distress and Safety System"],
+  correctIndex: 1
+},
+
+{
+  id: 615,
+  question: "A fire started in the main engine room of a vessel when at sea. Both main engines were stopped by the crew. The ship had full electrical power supply during the event due to having a separate auxiliary engine room. The crew used CO2 and water to start the fire, which was finally extinguished after about 4 hours. Which of the underlined words must be changed to get a correct meaning?",
+  options: ["extinguished", "start", "used", "had", "at sea"],
+  correctIndex: 1
+},
+
+{
+  id: 619,
+  question: "Choose the underlined word or phrase which is not appropriate in the sentence below: Hurricanes hardly never reach the east coast of Florida but some that have were extremely hazardous.",
+  options: ["extremely", "never", "that have", "reach", "but"],
+  correctIndex: 1
+},
+
+{
+  id: 621,
+  question: "Choose the underlined word or phrase which is not appropriate in the below sentence: Although this car appears to be manufactured by a different company, it has the same body style size and perform as that one.",
+  options: ["style", "although", "perform", "appears", "different"],
+  correctIndex: 0
+},
+
+{
+  id: 622,
+  question: "Choose the underlined word or phrase which is not appropriate in the sentence below: The researcher mixed the two ingredients, poured the mixture into a petri dish, draw out a measured amount and carefully applied it to another dish.",
+  options: ["another", "two", "mixture", "draw", "measured"],
+  correctIndex: 3
+},
+
+{
+  id: 623,
+  question: "A sentence with five underlined words or phrases is given as below for the sentence, choose one underlined word or phrase that is incorrect in standard written English. Although a number of voters has cast their ballots in the city election, the supervisor of elections temporarily ended the election because of a malfunction in the voting mechanism.",
+  options: ["voting", "has cast", "of", "the supervisor", "temporarily"],
+  correctIndex: 1
+},
+
+{
+  id: 625,
+  question: "Q – What ____ the cruising speed? A – 27 knots",
+  options: ["have", "is there", "has", "does", "is"],
+  correctIndex: 4
+},
+
+{
+  id: 626,
+  question: "A – ______ the number of persons on board. B – The number of persons is eleven.",
+  options: ["Say", "Tell", "Inform", "Notify", "Report"],
+  correctIndex: 0
+},
+
+{
+  id: 627,
+  question: "Q – ______ is the fire? A – Fire is in the laundry",
+  options: ["How much", "What", "When", "How", "Where"],
+  correctIndex: 4
+},
+
+{
+  id: 628,
+  question: "Q – Who ____ the shopping? A – The cook himself does",
+  options: ["is doing", "does", "do", "has done", "did"],
+  correctIndex: 1
+},
+
+{
+  id: 629,
+  question: "Q – Who _____ this boat? A – Mr. Deniz did",
+  options: ["designs", "designed", "is designing", "is going to design", "design"],
+  correctIndex: 1
+},
+
+{
+  id: 631,
+  question: "Q – What part of your vessel is ______? A – Aground full length",
+  options: ["aground", "collided", "beached", "run aground", "touched"],
+  correctIndex: 0
+},
+
+{
+  id: 632,
+  question: "A: What assistance is required? B: _____________________",
+  options: ["I am on fire", "Bridge will not open", "You are running into danger", "I require a helicopter", "I assist the fire"],
+  correctIndex: 3
+},
+
+{
+  id: 634,
+  question: "If the ship’s answer is “NO I am 1 meter trimmed by the head”, what is the question asked by the shore authority?",
+  options: ["Do you have list?", "Are you listing?", "Are you on evenkeel?", "Are you pitching?", "Are you on even list?"],
+  correctIndex: 2
+},
+
+{
+  id: 635,
+  question: "Q – Why _____ the boiler _____ ? A – Because the pressure was high",
+  options: ["has / exploded", "do / explode", "are / exploding", "did / explode", "does / exploded"],
+  correctIndex: 3
+},
+
+{
+  id: 636,
+  question: "A – I am not under command B – What ______ do you have? A – I am maneuvering ______ difficulty",
+  options: ["transfers / in", "problems / with", "alternatives / out of", "assistance / into", "conditions / without"],
+  correctIndex: 1
+},
+
+{
+  id: 637,
+  question: "Q – ______ did you finish your watch? A – At 1600",
+  options: ["How often", "Who", "Where", "What", "What time"],
+  correctIndex: 4
+},
+
+{
+  id: 638,
+  question: "Q – Who ______ the guests at the airport yesterday? A – The chief steward did.",
+  options: ["is meeting", "met", "Has met", "meets", "meet"],
+  correctIndex: 1
+},
+
+{
+  id: 642,
+  question: "Q – ______ ? A – It’s snowy. Cevap Seçenekleri",
+  options: ["What has the weather been like", "What will the weather be like", "What was the weather like", "What’s the weather like", "What’s the weather going to be like tomorrow"],
+  correctIndex: 3
+},
+
+{
+  id: 646,
+  question: "Complete the given dialogue. The second: I have to stay and finish what I have started to do yesterday. The first: ______________________ The second: In that case, I’ll come with you. Cevap Seçenekleri",
+  options: ["You should do it later", "You must be too busy to come with me", "Do you really have to?", "Does it matter when you finish it?", "I will help you finish it when we get back"],
+  correctIndex: 4
+},
+
+{
+  id: 652,
+  question: "The Captain is on _____ bridge.  ________________________________________________",
+  options: ["-", "in", "a", "one", "the"],
+  correctIndex: 4
+},
+
+{
+  id: 653,
+  question: "Is there a fire alarm ______ your cabin?  ________________________________________________",
+  options: ["under", "at", "onto", "in", "on"],
+  correctIndex: 3
+},
+
+{
+  id: 657,
+  question: "Some yachts _____ built for special purposes nowadays.  ________________________________________________",
+  options: ["are", "is being", "will", "were", "has been"],
+  correctIndex: 0
+},
+
+{
+  id: 659,
+  question: "You must know _____ to wear your life jacket correctly, instructions are displayed in your cabin.  ________________________________________________",
+  options: ["which", "why", "what", "how", "with"],
+  correctIndex: 3
+},
+
+{
+  id: 660,
+  question: "The right side of a boat is called the _____ side and the other side ______ the port side.  ________________________________________________",
+  options: ["stem / is calling", "starboard / is", "bow / is called", "stern / calls", "front / called"],
+  correctIndex: 1
+},
+
+{
+  id: 661,
+  question: "The master ______ busy at the moment. He ______ to the charterer  ________________________________________________",
+  options: ["is / talking", "has / isn’t talking", "isn’t / are talking", "are / talks", "is / is talking"],
+  correctIndex: 4
+},
+
+{
+  id: 666,
+  question: "The officer of the watch is the master’s representative and is responsible _____ the safe navigation of the ship _____ the watch  ________________________________________________",
+  options: ["of / along", "for / during", "at / in", "for / after", "by / during"],
+  correctIndex: 1
+},
+
+{
+  id: 667,
+  question: "If the weather _____ fine, the vessel sails on time.  ________________________________________________",
+  options: ["has", "were", "was", "is", "does"],
+  correctIndex: 3
+},
+
+{
+  id: 668,
+  question: "The weather was bad, so they ______ along the coast  ________________________________________________",
+  options: ["sailed", "are going to sail", "sail", "are sailing", "have sailed"],
+  correctIndex: 0
+},
+
+{
+  id: 669,
+  question: "Seafaring _____ a stressful, demanding profession.  ________________________________________________",
+  options: ["has always been", "always is", "used to be for the last decade", "is always being", "has always been used to"],
+  correctIndex: 1
+},
+
+{
+  id: 672,
+  question: "When the Master came to watch a football match in the mess room, the chief and the bosun went out to ______ their chat.  ________________________________________________",
+  options: ["see off", "cut off", "turn up", "make up", "carry on"],
+  correctIndex: 4
+},
+
+{
+  id: 673,
+  question: "IMO ______ treaties dealing with the safety of life the prevention of collisions, the improvement of radio communications at sea, load lines and tonnage matters, the training and certification of seafarers, and the creation of an international system for search and rescue  ________________________________________________",
+  options: ["is developing", "has been developed", "developed", "has developed", "had developed"],
+  correctIndex: 3
+},
+
+{
+  id: 677,
+  question: "Distance _____ sea is measured _____ nautical miles  ________________________________________________",
+  options: ["in / off", "at / in", "by / from", "for / by", "on / for"],
+  correctIndex: 1
+},
+
+{
+  id: 678,
+  question: "The chief steward ____ responsible _____ ordering provisions.  ________________________________________________",
+  options: ["is / for", "are / off", "has / of", "be / from", "does / by"],
+  correctIndex: 0
+},
+
+{
+  id: 679,
+  question: "The charter price list _____ on my table. Please get _____  ________________________________________________",
+  options: ["has / theirs", "has / them", "are / its", "is / it", "has got / they"],
+  correctIndex: 3
+},
+
+{
+  id: 680,
+  question: "Alcohol _____ sometimes bad _____ seafarers  ________________________________________________",
+  options: ["is being / through", "had / by", "does / to", "is / for", "has / from"],
+  correctIndex: 3
+},
+
+{
+  id: 681,
+  question: "Our yacht _____ a small inflatable tender _____ an outboard engine  ________________________________________________",
+  options: ["have got / on", "have / by", "do / in", "does / at", "has / with"],
+  correctIndex: 4
+},
+
+{
+  id: 682,
+  question: "The cabins ____ untidy and dirty. So the steward is cleaning _____.  ________________________________________________",
+  options: ["are / them", "have / these", "are not / they", "have got / their", "are / theirs"],
+  correctIndex: 0
+},
+
+{
+  id: 684,
+  question: "The decks extend approximately horizontally between the ship’s sides and _____ by the beams and girders.  ________________________________________________",
+  options: ["are supported", "supported", "it is supported", "is supported", "supporting"],
+  correctIndex: 0
+},
+
+{
+  id: 685,
+  question: "Master transmitted a distress alert ______ INMARSAT C which was quickly acknowledged.  ________________________________________________",
+  options: ["for", "although", "via", "with", "by"],
+  correctIndex: 2
+},
+
+{
+  id: 686,
+  question: "By the time the vessel left from the port, the crew ____________ discharging operation.  ________________________________________________",
+  options: ["will have finished", "will finish", "had finished", "have finished", "will be finishing"],
+  correctIndex: 3
+},
+
+{
+  id: 689,
+  question: "The oily mixtures _____ from the normal tank cleaning processes are pumped into a special slap tank  ________________________________________________",
+  options: ["where results", "of which is the result", "the result of which", "which is resulted", "resulting"],
+  correctIndex: 4
+},
+
+{
+  id: 693,
+  question: "_____ developments in transportation, such as aviation and sailing an epidemic is now able to travel vast distances so fast  ____________________________________________________________",
+  options: ["Because", "But for", "Rather than", "Moreover", "Due to"],
+  correctIndex: 4
+},
+
+{
+  id: 694,
+  question: "_______ factories, which do not move, ships-when under way-are at risk from other ships, the weather conditions and their proximity to land  ____________________________________________________________",
+  options: ["While", "Although", "Despite", "Due to", "Unlike"],
+  correctIndex: 4
+},
+
+{
+  id: 695,
+  question: "__________ many industries, where a general degree in any field will suffice, the land-based jobs in many sectors of maritime and related industries require people with specific skills and experience  ____________________________________________________________",
+  options: ["unlike", "since", "but", "as", "although"],
+  correctIndex: 0
+},
+
+{
+  id: 696,
+  question: "The hurricane Judy was actually forecast to move toward southern Pacific, but _____, it headed for another unexpected route that surprised weather forecasters.  ____________________________________________________________",
+  options: ["in addition", "in case", "hence", "for", "instead"],
+  correctIndex: 4
+},
+
+{
+  id: 697,
+  question: "______ hurricane Katrina hit New Orleans in 2005, people were immediately evacuated _____ another hurricane could hit the region again.  ____________________________________________________________",
+  options: ["When / in case", "Because of / consequently", "Since / so that", "Before / owing to", "After / because of"],
+  correctIndex: 0
+},
+
+{
+  id: 698,
+  question: "_____ differences in language, national and commercial interest, nautical professions share the same purpose  ____________________________________________________________",
+  options: ["due to", "despite", "in spite of the fact that", "whereas", "while"],
+  correctIndex: 2
+},
+
+{
+  id: 699,
+  question: "Seafarers should know that _____ a long and expensive campaign by World Health Organisation to exterminate the mosquito carrier, malaria has not been eliminated in some countries they navigate  ____________________________________________________________",
+  options: ["in spite of", "rather than", "instead of", "on account of", "whether"],
+  correctIndex: 0
+},
+
+{
+  id: 700,
+  question: "_____ the new software that has been developed for monitoring various vessels in the Gulf of Aden, the navigators are now able to follow some of the pirate boats and their mother ships as well  ____________________________________________________________",
+  options: ["Whether", "As long as", "Because", "Thanks to", "In order to"],
+  correctIndex: 3
+},
+
+{
+  id: 701,
+  question: "This agreement shall be deemed to be terminated _____ the sale of the vessel or if the vessel becomes a total loss.  ____________________________________________________________",
+  options: ["if and only if", "in the case of", "provided that", "where", "as soon as"],
+  correctIndex: 4
+},
+
+{
+  id: 702,
+  question: "Dual fuel boilers can use _____ oil _____ gas, whichever is less costly, however they are not preferred by the operators  ____________________________________________________________",
+  options: ["no sooner / likewise", "hardly / not", "whether / or", "neither / nor", "either / or"],
+  correctIndex: 4
+},
+
+{
+  id: 703,
+  question: "The unfavourable effects of cigarette smoking among the seafarers ______ , but the exact reason of these effects ______.  ____________________________________________________________",
+  options: ["describe / not being clarified", "have been described / has not been clarified", "are described / haven’t been clarified", "was described / has been clarified", "described / have been clarified"],
+  correctIndex: 1
+},
+
+{
+  id: 704,
+  question: "“A 56000 GT Bahamian flag tanker ____ at an oil terminal in the UK when a mooring line parted and struck the crew of a mooring boat causing serious injuries. The pilot ___ to turn the breast line ashore but not to make it fast until the ship was alongside” Fill in the blanks.  ____________________________________________________________",
+  options: ["was berthing / has intended", "was berthed / had intended", "had berthed / had intended", "has been berthed / intended", "was berthing / had intended"],
+  correctIndex: 4
+},
+
+{
+  id: 705,
+  question: "The cornerstone of the ISM code is the varying corporate cultures of different companies and it requires this corporate culture to ____ when a safety management system is written for the company. Certain facts have to _____ as guidelines  ____________________________________________________________",
+  options: ["get account for / get recognized", "become accounted for / have recognized", "be accounting / be recognizing", "be accounted for / be recognized", "account for / recognise"],
+  correctIndex: 3
+},
+
+{
+  id: 706,
+  question: "Last week, the new cadet did not participate in the fire drill. Had he ______ so confused during today’s fire drill  ____________________________________________________________",
+  options: ["would not have been", "would be", "would have been", "would not be", "were not"],
+  correctIndex: 0
+},
+
+{
+  id: 708,
+  question: "A-Would you like to have _______ to drink? B-No, thanks.  ________________________________________________",
+  options: ["something", "anything", "nothing", "someone", "one think"],
+  correctIndex: 0
+},
+
+{
+  id: 709,
+  question: "Select the correct answer from the list of choices to complete the sentence. I am not familiar with that new equipment. I don't know ___________  ________________________________________________",
+  options: ["how to do it", "how to check it", "how to break it", "how to use it", "how to make it"],
+  correctIndex: 3
+},
+
+{
+  id: 715,
+  question: "They _________ decorating their mess room. It looks fabulous.  ________________________________________________",
+  options: ["have not finished", "finished", "don’t finish", "are going to finish", "have finished"],
+  correctIndex: 4
+},
+
+{
+  id: 716,
+  question: "Nobody ______ a cure for the cancer up to now.  ________________________________________________",
+  options: ["has discovered", "hasn’t discovered", "have discovered", "didn't discover", "Discovered"],
+  correctIndex: 0
+},
+
+{
+  id: 721,
+  question: "The meals we had in the restaurant ________ Delicious.  ________________________________________________",
+  options: ["taste", "tastes", "was tasting", "had tasted", "tasted"],
+  correctIndex: 4
+},
+
+{
+  id: 725,
+  question: "Select the word or phrase that best completes the sentence given below; This car is more _________ than that one  ________________________________________________",
+  options: ["fast", "fastest", "faster", "modern", "slow"],
+  correctIndex: 3
+},
+
+{
+  id: 728,
+  question: "It is a fact of life that the use of fossil fuels ______ an environmental burden  ________________________________________________",
+  options: ["have carried", "is carried", "has agreed on", "carry", "carries"],
+  correctIndex: 3
+},
+
+{
+  id: 731,
+  question: "An incomplete sentence with a blank is shown below it is to be filled in. Choose the word or phrase that most correctly completes the sentence. Neither Professor Johnson nor any other faculty member ______ to apply for the dean’s position  ________________________________________________",
+  options: ["intend", "has intend", "intends", "are intending", "have been being intended"],
+  correctIndex: 2
+},
+
+{
+  id: 733,
+  question: "Choose the word or phrase that most correctly completes the sentence It is not clear when ______ although there are many different theories  ________________________________________________",
+  options: ["did dinosaurs become extinct", "dinosaurs becoming extinct", "dinosaurs became extinct", "they started to talk", "dinosaurs extinction"],
+  correctIndex: 2
+},
+
+{
+  id: 735,
+  question: "Select the correct answer from the list of choices to complete the sentence. Don’t leave your wet clothes on the electric heater in your cabin. They might easily ______.  ________________________________________________",
+  options: ["catch fire", "catch with fire", "catch by fire", "catch the fire", "catch to fire"],
+  correctIndex: 0
+},
+
+{
+  id: 738,
+  question: "_______ of people applied for the position, but ______ of them were qualified enough to be invited for another interview.  ________________________________________________",
+  options: ["Lots / few", "Plenty / much", "Some / a few", "Every / some", "The number / none"],
+  correctIndex: 0
+},
+
+{
+  id: 739,
+  question: "Select the correct answer; I know a child _____ plays the guitar well.  ________________________________________________",
+  options: ["where", "who", "which", "when", "what"],
+  correctIndex: 1
+},
+
+{
+  id: 740,
+  question: "This new chapter demonstrates _______ the changing methods in police investigation has drastically improved crime processing.",
+  options: ["which is", "that", "for", "with", "that is"],
+  correctIndex: 1
+},
+
+{
+  id: 741,
+  question: "Complete the below sentence correctly _______ the point of going by car if you won’t be able to find a place to park it when we get there?",
+  options: ["Where’s", "What’s", "It’s", "Nothing’s", "That’s"],
+  correctIndex: 1
+},
+
+{
+  id: 742,
+  question: "Add the correct selection to the end of the below sentence; The board showed their wholehearted appreciation of the designs she submitted and _______.",
+  options: ["me too", "so we do", "so have I", "we also have", "so did I"],
+  correctIndex: 4
+},
+
+{
+  id: 744,
+  question: "Complete the below sentence meaningfully. Since unemployment is a major social concern, __________________________.",
+  options: ["The economic prospect seemed discouraging", "The enriched law will bring much more profit", "Unemployment compensation scheme had been abolished", "The new government has been making tremendous efforts to reduce it", "People enjoy the benefits of living in a rich country"],
+  correctIndex: 3
+},
+
+{
+  id: 745,
+  question: "Complete the below sentence meaningfully. If they don’t promise to use some of the money to improve career prospect for young scientists ______________",
+  options: ["there were a number of things we had to take into account", "the money left over from donations could be included", "the issue under discussion has been dropped", "no one else thought of opposing the scheme", "we feel we cannot give our support to the campaign"],
+  correctIndex: 4
+},
+
+{
+  id: 755,
+  question: "It ______ by the Court that the vessel _____ properly abandoned under the orders of the Master",
+  options: ["is held / has", "was held / had been", "was held / had", "was held / has been", "holds / was"],
+  correctIndex: 1
+},
+
+{
+  id: 763,
+  question: "“The general rule _____ a claim for salvage remuneration may only be brought by a person who renders assistance voluntarily.” Fill in the blanks",
+  options: ["is which", "which is", "by which", "is that", "that is"],
+  correctIndex: 3
+},
+
+{
+  id: 764,
+  question: "Complete the below sentence correctly. One copy was sent to Ms. Halliday _____________________",
+  options: ["before the shareholders are aware of the results", "that he has explained the problem completely", "who acknowledged it in an extremely polite letter", "which in many respects fail to achieve our objectives", "in spite of the fact that the surgeon had consulted the others before the operation"],
+  correctIndex: 2
+},
+
+{
+  id: 765,
+  question: "Complete the sentence correctly. If he weren’t so obstinate, _________________________",
+  options: ["That is the conclusion everyone seems to have reached", "Work on the bridge has progressed better than we expected", "Nobody can get on with him", "It was quite impossible to make him change his mind", "Plenty of people would wrongly work on his team"],
+  correctIndex: 4
+},
+
+{
+  id: 766,
+  question: "Complete the below sentence correctly. As soon as the manager had left the room, ______________",
+  options: ["The unpleasantness of the occasion has almost been forgotten", "The permission was obviously well-timed", "No one else will be permitted entrance", "The majority have followed …. too", "The unease of the board members became apparent"],
+  correctIndex: 4
+},
+
+{
+  id: 767,
+  question: "Complete the below sentence correctly. You __________ another job pretty soon. I have a feeling that you’re going to get fired before long.",
+  options: ["would have started to look for", "had better to start looking for", "would start looking for", "better to start to look for", "had better start looking for"],
+  correctIndex: 4
+},
+
+{
+  id: 769,
+  question: "Begin correctly the sentences with the below listed sections. ________________ we decided to go swimming.",
+  options: ["For fear that it might rain", "Unless it was nice weather", "Despite the fact that the weather was fine", "The day being fine", "Although it was a fine day"],
+  correctIndex: 3
+},
+
+{
+  id: 770,
+  question: "Fill the blank correctly ________________ Japanese companies moved the more intensive stage of their production process to cheap labor in East Asia.",
+  options: ["If interest rates in Japan had remained high", "50 Million Dollars long as education cost remains the primary goal", "As production costs in Japan had become expensive", "Unless the working day is kept at 0 hours", "Once the trade unions in Japan have won a few more victories"],
+  correctIndex: 2
+},
+
+{
+  id: 775,
+  question: "Complete the below sentence correctly. What did you think of the film _______?",
+  options: ["that you saw it last week", "if you saw last week", "last week you saw it", "you did see it last week", "you saw last week"],
+  correctIndex: 4
+},
+
+{
+  id: 777,
+  question: "Choose the correct sentence.",
+  options: ["He looked the children well after", "After he looked at the children well", "The children were well looked after", "He well looked after the children", "The children were looked after well"],
+  correctIndex: 2
+},
+
+{
+  id: 779,
+  question: "Mark the incorrect sentence;",
+  options: ["Suppose he asked me for the money tomorrow", "I wish I didn’t break it. But since I have, I will pay for it", "What’s the matter? You look as if you could do with a drink", "I feel as if my head were on fire", "A person who refused to eat would be dead within two or three months"],
+  correctIndex: 3
+},
+
+{
+  id: 780,
+  question: "The fact that the carbon level was ignored ______ recent years had better be considered at the approaching international marine environment conference.",
+  options: ["even if", "Because", "though", "unless", "until"],
+  correctIndex: 2
+},
+
+{
+  id: 781,
+  question: "_____ anything contained herein to the contrary, the managers shall in no circumstances be required to use or commit their own funds to finance the provision of the management services",
+  options: ["Although", "Despite the fact that", "If", "Unless", "Notwithstanding"],
+  correctIndex: 3
+},
+
+{
+  id: 782,
+  question: "There was a time _____ for any given commodity, the most important raw materials were local.",
+  options: ["which", "when", "about", "in the past", "long ago"],
+  correctIndex: 1
+},
+
+{
+  id: 784,
+  question: "_____ the winter, I had planned what to do _____ summer had arrived, but nothing went as planned.",
+  options: ["by / though", "in / so that", "before / Unless", "Throughout / once", "At / while"],
+  correctIndex: 3
+},
+
+{
+  id: 785,
+  question: "Considering _____ to change the attitudes and behaviour of individuals, it is quite clear that _____ to change the behaviour of states which jealously guard their sovereignity",
+  options: ["how is it difficult / less difficult", "how difficult it is / it is even more difficult", "how difficult it is / it is not less difficult", "difficult / difficult", "it is difficult how / much more difficult"],
+  correctIndex: 1
+},
+
+{
+  id: 786,
+  question: "Tornadoes _____ throughout the world, but for several reasons scientists are not yet able to determine how much natural phenomena _____ exactly.",
+  options: ["occured / has been occuring", "occur / occur", "have occured / has been occured", "are occuring / is occuring", "occuring / occurs"],
+  correctIndex: 1
+},
+
+{
+  id: 787,
+  question: "A uniform training system _____ and the near future _____ us if it _____ expectations.",
+  options: ["has now been created / will tell / meets", "has now created / tells / will meet", "is now being created / is telling / will be meeting", "created will / will be told / will meet", "already created / told / met"],
+  correctIndex: 0
+},
+
+{
+  id: 788,
+  question: "Choose the correct answer; Were you _________ on your own for this difficult mission, you should have had a perfect right to protest.",
+  options: ["sending", "to have been sent", "being sent", "to be sent", "to sent"],
+  correctIndex: 3
+},
+
+{
+  id: 791,
+  question: "“Received by the Carrier the Goods specified below in apparent good order and condition unless otherwise stated, to be transported to such place as agreed, authorized or permitted herein and subject to all the terms and conditions appearing on the front and reverse” The above part is taken from a ___________________",
+  options: ["ship ullage report", "passenger list", "noon position report", "bill of lading", "notice of readiness"],
+  correctIndex: 3
+},
+
+{
+  id: 792,
+  question: "TO WHOM IT MAY CONCERN THE PORT OF ISTANBUL 17.03.2021 THE M/V BURCIN I am the undersigned Master of the M/V Burcin, would like to inform you that in accordance with C/P for this voyage loading have to be provided on one safe berth without any shifting. Taking into consideration that 17.03.2021 16:30 my vessel was shifted from berth No: 5 to berth No: 4, I hold you fully responsible for expenses occurred due to above mentioned fact. The Master of the M/V Burcin This is an example of a _________",
+  options: ["Bill of Lading", "Letter of Protest", "Bill of Health", "Notice of Readiness", "Bill of Sales"],
+  correctIndex: 1
+},
+
+{
+  id: 794,
+  question: "Messrs This is to notify officially that vessel _____ under my command has arrived in your port on _____ at _____ hours and is ready to discharge/load cargo of _____ kilos of _____ as per clauses and conditions of the covering charter party Yours very truly MASTER Tendered ____ hrs Accepted ____ hrs This is an example of a _________",
+  options: ["Notice of readiness", "Letter of acceptance", "Letter of confidence", "Notice of confession", "Letter of informality"],
+  correctIndex: 0
+},
+
+{
+  id: 797,
+  question: "Dear sirs, I am writing to find out whether the post advertised in the “Motor Ship” is still vacant. I am 38 years old and have been woking as a mate for the past seven years. I got the master’s certificate in 1992 and since that time I have been working for the Turkish Ocean Lines on board general cargo, container and Ro-Ro vessels. As I am on leave now I can be available for the job any time. Looking forward to your prompt reply, I remain Yours faithfully Capt. Can Gökhan Yıldıztepe This correspondence is an example of ______",
+  options: ["testimonial", "master's report of the voyage", "letter of exceptions", "job application", "extract of log book"],
+  correctIndex: 3
+},
+
+{
+  id: 802,
+  question: "A Cargo Manifest is a document that contains all the important information concerning the cargo that the vessel is carrying to its destination. A Manifest is made up by the agent. It contains the port of loading, port of destination, bill of lading number, shipper, consignee and cargo particulars. According to the above passage what is not included in a cargo manifest? Select the correct choice",
+  options: ["The name of port that cargo loaded", "The name of port which cargo to be discharged", "Detailed information about the agent", "The name of the consignee", "Detailed information about cargo"],
+  correctIndex: 2
+},
+
+{
+  id: 803,
+  question: "A Charter Party is a contract between a shipowner and a person or company who wishes to charter (hire) a vessel or part of a vessel for a voyage or a stated time. The shipowner continues to control the navigation and management of the vessel, but its carrying capacity is managed by the charterer. A Charter Party gives a shipper right to __________",
+  options: ["sell the ship to other companies", "navigate the vessel safely", "extend the carrying capacity of the ship", "manage the vessel technically", "use the cargo spaces"],
+  correctIndex: 4
+},
+
+{
+  id: 805,
+  question: "Laytime for loading and discharging shall commence at 13.00 hours if notice of readiness is given up to including 12:00 hours and at 06.00 hours next working day if notice given during office hours after 12:00 hours” According to this clause of a charter party, if the notice of readiness is given at 13:00 hours on Friday, lay time for loading and/or discharging shall commence _______  ________________________________________________________________",
+  options: ["On Friday at 13:00 hours", "On Monday at 06:00 hours", "On Saturday at 06:00 hours", "On Friday at 06:00 hours", "On Saturday at 12:00 hours"],
+  correctIndex: 2
+},
+
+{
+  id: 806,
+  question: "“The cargo shall be loaded within the number running days/hours weather permitting. Sundays and holidays excepted unless used, in which event time used shall count.” According to this clause of charter party, if loading operation is performed on holidays, time spent for loading _______ otherwise these days _______  ________________________________________________________________",
+  options: ["isn’t to be included in laytime / are to be included in laytime", "should be excepted / should be accepted", "shall not count / shall count", "shall count / shall not count", "is permitted / are not permitted"],
+  correctIndex: 3
+},
+
+{
+  id: 809,
+  question: "The need for an international agency regulating maritime transport stems from the fact that shipping is perhaps the most international of all the world’s global industries. The ownership and management chain surrounding any particular vessel can embrace many different countries; it is not unusual to find that its owners, operators, shippers, charterers, insurers and the classification society, not to mention the officers and crew, are all of different nationalities and that none of these is from the country whose flag the ship flies. And shipping’s prime physical assets – the ships themselves – move continually between countries and between different jurisdictions. The underlined part can also be stated as follows:  ________________________________________________________________",
+  options: ["The ownership and management chain which surrounds any particular vessel", "The ownership and management to be surrounded by any particular vessel", "The ownership and management chain that will surround any particular vessel", "The ownership and management chain surrounded by any particular vessel", "The ownership and management chain where surrounds any particular vessel"],
+  correctIndex: 0
+},
+
+{
+  id: 810,
+  question: "Moreover, it was at the time gradually becoming generally accepted that a situation in which each shipping nation had its own maritime laws was counter-productive to ensuring the seamless flow of traffic and promoting safety in shipping operations worldwide. Not only were standards different, but some were far higher than others. Conscientious safety-minded shipowners were at an economic disadvantage vis-a-vis their competitors who were spending relatively little money on safety, and this was a threat to any serious attempt to improve safety at sea and to international seaborne trade as a whole. The author of this paragraph seems to _______  ________________________________________________________________",
+  options: ["Have minded an economic disadvantage vis-a-vis safety minded shipowners", "Is supporting that every shipping nation having its own maritime law is better for shipping", "Have accepted that a situation in which each shipping nation had its own maritime laws relatively productive", "Be ensuring the seamless flow of traffic and promoting safety in shipping", "Be against the situation in which each shipping nation had its own maritime laws"],
+  correctIndex: 4
+},
+
+{
+  id: 811,
+  question: "The inaugural meeting of IMO – originally known as Intergovernmental Maritime Consultative Organization or IMCO – was held in London in 1959. The purposes of the organization, as a specialized agency of the United Nations, are mainly “to provide machinery for co-operation among Governments in the field of Governmental regulation and practices relating to technical matters of all kinds affecting shipping engaged in international trade; and to encourage and facilitate the general adoption of the highest practicable standards in matters concerning maritime safety, efficiency of navigation and prevention and control of marine pollution from ships”. The organization is also empowered to deal with administrative and legal matters related to its purposes. According to above text IMO  ________________________________________________________________",
+  options: ["provides parts of machines for governments in the field of governmental regulations and practices", "is still mistakenly known as the Intergovernmental Maritime Consultative Organization or IMCO", "encourages marine pollution from ships", "is specialized agency of the United Nations", "encourage mechanization of shipping industry"],
+  correctIndex: 0
+},
+
+{
+  id: 812,
+  question: "The responsibility of the carrier is limited to that part of the carriage from and during loading onto the vessel up to and during discharge from the vessel and the carrier shall not be liable for any loss or damage whatsoever in respect of the goods or for any other matter arising during any other part of the carriage even though charges for the whole carriage have been charged by the carrier. The merchant constitutes the carrier as agent to enter into contract on behalf of the merchant with others for transport, storage, handling or any other services in respect of the goods prior to loading and subsequent to discharge of the goods from the vessel without responsibility for any act or omission whatsoever on the part of the carrier or others and the carrier may as such agent enter into contract with others on any terms whatsoever including terms less favourable than the terms in this Bill of Lading. This clause ______ of the carrier",
+  options: ["forbids the merchant from acting on behalf", "clarifies the subsequent discharge", "describes the limits of responsibility", "list the rights", "constitute any acts or omission whatsoever on the part"],
+  correctIndex: 2
+},
+
+{
+  id: 814,
+  question: "Read the passage below and then answer the question about it; Azipods on the Arctic tanker, the Vasily Dinkov, have the ability to turn 360 degrees and operate at minus 40 degrees Celsius. It is the first of three Arctic shuttle tankers built for Russia’s Sovcomflot Group. The Vasily Dinkov has an ice breaking bow and hull design that will allow the vessel to break ice up to 1.7 metres thick when moving either back or forth through polar ice. The first vessel of the trio, the Vasily Dinkov, was ready on New Year's Day 2008 to transport crude oil, ensuring no spills at sea and so protecting the sensitive Arctic environment. Which of the following is NOT mentioned in the passage?",
+  options: ["The place where this ship was built", "The cargo of this ship", "The area where this ship operates", "The owner of this ship", "The delivery date of this ship"],
+  correctIndex: 0
+},
+
+{
+  id: 817,
+  question: "A ship at rest will safely lie to an anchor streamed over the bow. Two anchors are normally carried, although some ships which operate in river trades or St. Lawrence Seaway also ship a stern anchor that will enable the ship to be anchored safely in a narrow channel where the re is insufficient room to swing. Anchors will normally have two “flukes”, which are blades that will dig into the sea bed and, along with the anchor chain cable, provide sufficient force to hold the vessel at rest. On a very large ship the anchor may weigh in excess of 100 tonnes. The cable itself is enormously heavy, so it is clear that the windlass capable of lifting this off the sea bottom must be an enormously powerful winch. Windlasses are typically powered by steam or electricity, geared heavily so that the maximum amount of lift is provided, with the chain grasped in a special wheel or “gypsy” that stops the chain from slipping. Once off the bottom, the windlass lifts the anchor until it is housed in its hawse pipe and secured. According to the passage, it isn’t true that:",
+  options: ["the anchor may weight up to 100 tones", "flukes are blades which dig into the sea bottom", "all ships carry two anchors", "to handle the anchor on board a ship, mostly a windlass is used", "anchor chain flows through the hawse pipe"],
+  correctIndex: 2
+},
+
+{
+  id: 818,
+  question: "A coaster was on a journey in a Fjord. Early in the morning, when the ship was to change course, she collided with a small lighthouse. The reason why the collision took place is unknown. The foundation of the lighthouse was circular with a flat top just underneath the water surface. Its diameter was bigger than the diameter of the lighthouse itself, situated right on top of the foundation. This construction causes a rather sharp outer edge, which could easily rip a ship’s hull. This was what happened the ship’s hull was ripped open and she sank within minutes. Two persons on the bridge died. Two other crew members survived although they could not reach the survival suits which were kept under port bridge wing as the ship immediately listed to port and put them out of reach. One of the survivors managed to launch the starboard life raft. Another crew member was down in the mess room and threw out a couple of life jackets. He did not manage to get out of the mess room. The investigation found that the hydrostatic releases to the rafts had not been properly mounted. If the starboard side raft had not been launched manually, no raft would have been released. We cannot understand from the passage _________",
+  options: ["Why the vessel collided with a lighthouse", "Why the vessel sank", "Why the vessel’s hull was ripped", "Why the crew member in the mess room died", "Why the two other crew members survived"],
+  correctIndex: 0
+},
+
+
+];
+
+    // ---- Genel değişkenler ----
+    let quizQuestions = [];   // Kullanıcının seçeceği kadar soru
+    let currentIndex = 0;
+    let selectedIndex = null;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    let timerInterval = null;
+    let startTime = null;
+
+    // ---- DOM referansları ----
+    const questionHeader  = document.getElementById("questionHeader");
+    const questionProgress= document.getElementById("questionProgress");
+    const questionText    = document.getElementById("questionText");
+    const questionSub     = document.getElementById("questionSub");
+    const metaLine        = document.getElementById("metaLine");
+    const optionsGrid     = document.getElementById("optionsGrid");
+    const feedbackEl      = document.getElementById("feedback");
+
+    const statCorrectEl   = document.getElementById("statCorrect");
+    const statWrongEl     = document.getElementById("statWrong");
+    const statTotalEl     = document.getElementById("statTotal");
+    const statTotal2El    = document.getElementById("statTotal2");
+    const statCurrentEl   = document.getElementById("statCurrent");
+    const timerEl         = document.getElementById("timer");
+
+    const btnShowAnswer   = document.getElementById("btnShowAnswer");
+    const btnNext         = document.getElementById("btnNext");
+
+    // ---- Yardımcı: Diziyi karıştır (Fisher–Yates) ----
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // ---- Zaman formatı ----
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      const mm = String(m).padStart(2, "0");
+      const ss = String(s).padStart(2, "0");
+      return mm + ":" + ss;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTime(elapsed);
+      }, 1000);
+    }
+
+    // ---- Skor güncelle ----
+    function updateStats() {
+      statCorrectEl.textContent = correctCount;
+      statWrongEl.textContent   = wrongCount;
+      statTotalEl.textContent   = quizQuestions.length;
+      statTotal2El.textContent  = quizQuestions.length;
+      statCurrentEl.textContent = currentIndex + 1;
+    }
+
+    // ---- Soru çiz ----
+    function renderQuestion() {
+      const q = quizQuestions[currentIndex];
+      questionHeader.querySelector("span").textContent = "Soru " + (currentIndex + 1);
+      questionProgress.textContent = "Soru " + (currentIndex + 1) + " / " + quizQuestions.length;
+
+      metaLine.textContent = (q.subtitle ? q.subtitle + " – " : "") + (q.category || "");
+      questionText.textContent = q.question || "";
+      questionSub.textContent  = q.sub || "";
+
+      feedbackEl.textContent = "";
+      feedbackEl.className = "feedback";
+
+      selectedIndex = null;
+      optionsGrid.innerHTML = "";
+
+      q.options.forEach((opt, idx) => {
+        const row = document.createElement("div");
+        row.className = "option-row";
+        row.dataset.index = idx;
+
+        row.innerHTML = `
+          <div class="radio-circle"></div>
+          <div>${opt}</div>
+        `;
+
+        row.addEventListener("click", () => handleOptionClick(idx));
+        optionsGrid.appendChild(row);
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevap seçildiğinde ----
+    function handleOptionClick(idx) {
+      if (selectedIndex !== null) return; // Soruya yalnızca bir kez cevap
+
+      selectedIndex = idx;
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+
+      optionRows.forEach(r => r.classList.add("disabled"));
+
+      if (idx === q.correctIndex) {
+        correctCount++;
+        feedbackEl.textContent = "Doğru! ✅";
+        feedbackEl.classList.add("correct");
+      } else {
+        wrongCount++;
+        feedbackEl.textContent = "Yanlış. ❌";
+        feedbackEl.classList.add("incorrect");
+      }
+
+      optionRows.forEach((row, i) => {
+        if (i === q.correctIndex) row.classList.add("correct");
+        if (i === idx && i !== q.correctIndex) row.classList.add("incorrect");
+        if (i === idx) row.classList.add("selected");
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevabı göster (puan değiştirmeden) ----
+    function showAnswer() {
+      if (!quizQuestions.length) return;
+      if (selectedIndex !== null) return;
+
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+      optionRows.forEach((row, i) => {
+        row.classList.add("disabled");
+        if (i === q.correctIndex) {
+          row.classList.add("correct");
+        }
+      });
+      feedbackEl.textContent = "Doğru cevap gösterildi.";
+      feedbackEl.classList.remove("correct", "incorrect");
+    }
+
+    // ---- Sonraki soru ----
+    function nextQuestion() {
+      if (currentIndex < quizQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        feedbackEl.textContent = "Sınav bitti, tebrikler.";
+        feedbackEl.classList.remove("incorrect");
+        feedbackEl.classList.add("correct");
+      }
+    }
+
+    // ---- Kullanıcıdan kaç soru çözeceğini iste ----
+    function initQuiz() {
+      if (!questions.length) {
+        alert("Henüz soru tanımlı değil.");
+        return;
+      }
+
+      const max = questions.length;
+      let count = parseInt(
+        prompt("Kaç soru çözmek istiyorsunuz? (1-" + max + ")", Math.min(20, max)),
+        10
+      );
+      if (isNaN(count) || count < 1 || count > max) {
+        count = max;
+      }
+
+      const shuffled = shuffle(questions);
+      quizQuestions = shuffled.slice(0, count);
+
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      startTimer();
+      renderQuestion();
+    }
+
+    btnShowAnswer.addEventListener("click", showAnswer);
+    btnNext.addEventListener("click", nextQuestion);
+
+    // Sayfa açıldığında başlat
+    initQuiz();
+  </script>
+
+<script>
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("fma_demo_authed");
+      window.location.href = "login.html";
+    });
+  }
+</script>
+</body>
+</html>
+
+ <script>
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("fma_demo_authed");
+    window.location.href = "login.html";
+  });
+ </script>
+</body>
+</html>
+
+
+
+
+
