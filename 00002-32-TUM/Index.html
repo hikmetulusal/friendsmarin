@@ -1,0 +1,3344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Denizcilik İngilizcesi 2025 Deneme Sınavı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+
+    .header {
+  max-width: 900px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header img {
+  height: 42px;
+}
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #e0e0e0;            /* gri arka plan (görseldeki gibi) */
+      color: #222;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .exam-box {
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .question-header {
+      background: #98dfa1;            /* açık yeşil şerit */
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-body {
+      padding: 16px 18px 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .question-text {
+      margin-bottom: 12px;
+    }
+
+    .meta-line {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .section-label {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 sütun */
+      column-gap: 60px;
+      row-gap: 8px;
+      padding: 0 10px 12px;
+      font-size: 14px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .option-row.disabled {
+      cursor: default;
+    }
+
+    .radio-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #c4c4c4;
+      background: #f9f9f9;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .option-row.selected .radio-circle::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: #007bff;
+    }
+
+    .option-row.correct .radio-circle {
+      border-color: #1f9d55;
+    }
+
+    .option-row.incorrect .radio-circle {
+      border-color: #e3342f;
+    }
+
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 18px 12px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      background: #f5f5f5;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stats-block {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .timer-line {
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    button {
+      border-radius: 4px;
+      border: 1px solid #b0b0b0;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #ffffff;
+      margin-left: 4px;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+    }
+
+    .feedback {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .feedback.correct { color: #1f9d55; }
+    .feedback.incorrect { color: #e3342f; }
+
+    @media (max-width: 700px) {
+      .options-grid {
+        grid-template-columns: 1fr;  /* mobilde tek sütun */
+        column-gap: 20px;
+      }
+      .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+ <script>
+(function () {
+  const SESSION_KEY = "fma_demo_authed";
+  const SESSION_TTL = 6 * 60 * 60 * 1000; // 6 saat
+  const t = Number(localStorage.getItem(SESSION_KEY) || 0);
+
+  // ✅ login sayfasına, geri döneceği sayfayı da ekleyerek gönder
+  if (!t || (Date.now() - t) > SESSION_TTL) {
+    const loginUrl = new URL("login.html", window.location.href);
+    loginUrl.searchParams.set("next", window.location.pathname + window.location.search + window.location.hash);
+    window.location.replace(loginUrl.toString());
+  }
+})();
+</script>
+
+ </head>
+<body>
+
+ <div class="header">
+  <img src="assets/friendsmarin-logo.png" alt="Friends Marin Akademi">
+  <div class="page-title">Denizcilik İngilizcesi 2025 Deneme Sınavı</div>
+ </div>
+
+  <div class="exam-box">
+    <div class="question-header" id="questionHeader">
+      <span>Soru 1</span>
+      <span id="questionProgress"></span>
+    </div>
+
+    <div class="question-body">
+      <div class="meta-line" id="metaLine"></div>
+
+      <div class="question-text" id="questionText"></div>
+
+      <div id="questionSub" style="font-size:13px;color:#666;margin-bottom:8px;"></div>
+
+      <div class="section-label">cevap seçenekleri</div>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- JS ile doldurulacak -->
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="stats-block">
+        <div>Doğru cevap sayısı : <span id="statCorrect">0</span></div>
+        <div>Yanlış cevap sayısı : <span id="statWrong">0</span></div>
+        <div>Toplam soru sayısı : <span id="statTotal">0</span></div>
+        <div>Şu anki soru : <span id="statCurrent">1</span>/<span id="statTotal2">0</span></div>
+        <div class="timer-line">Geçen süre : <span id="timer">00:00</span></div>
+      </div>
+
+      <div>
+        <button id="btnShowAnswer" type="button">Cevabı Göster</button>
+        <button id="btnNext" type="button">Sonraki Soru</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 
+      BURASI SORU BANKASI
+      Excel dosyandaki yapı şöyleydi:
+      Question, 1 st Choice, 2 nd Choice, 3 rd Choice, 4 th Choice, 5 th Choice,
+      Subtitle, Correct Answer (Letter)
+
+      Aşağıya 100 sorunun hepsi bu formatta gelebilir.
+      Şimdilik ilk 3 soruyu Excel'inden örnek olarak koydum.
+      Geri kalan 97’yi aynı formatta ekleyebilirsin.
+    */
+const questions = [
+
+{
+  id: 1,
+  question: "“Seyir halinde” deyimi hangi tekneler için geçerlidir? I- Demirli olmayan II- Karaya oturmamış III- Rıhtıma bağlanmamış",
+  options: ["I,II,III", "Yalnız II", "I,III", "II,III", "I,II"],
+  correctIndex: 0
+},
+
+{
+  id: 2,
+  question: "DÇÖT’e göre “seyir halinde” deyimi;",
+  options: ["Demirli olmayan bir tekne anlamına gelecektir", "Demirli olmayan veya karaya bağlı olmayan veya karaya oturmamış bir tekne anlamına gelecektir", "Karaya bağlı olmayan ve üzerinde yol bulunan bir tekne anlamına gelecektir", "Demirli olmayan veya karaya oturmamış bir tekne anlamına gelecektir", "Demirli olmayan veya karaya bağlı olmayan bir tekne anlamına gelecektir"],
+  correctIndex: 1
+},
+
+{
+  id: 3,
+  question: "Kurallarda “seyir halinde” deyimi nasıl tanımlanır?",
+  options: ["Tek bir şamandıraya bağlı gemi", "Yedekleyene üzerinde yol olmayan gemi", "Demirli olan pilot gemisi", "Karaya oturmuş olan gemi", "Demirli olmayan veya karaya bağlı olmayan veya karaya oturmamış gemi"],
+  correctIndex: 4
+},
+
+{
+  id: 4,
+  question: "Üzerinde yol bulunan deyimi hangi tekneler için geçerlidir? I- Demirli olmayan II- Karaya oturmamış III- Rıhtıma bağlanmamış",
+  options: ["I,II,III", "Yalnız II", "I,III", "I,II", "II,III"],
+  correctIndex: 0
+},
+
+{
+  id: 5,
+  question: "COLREG uyarınca aşağıda verilen teknelerden hangisi “seyir halinde” sayılır?",
+  options: ["Sığlıkta karaya oturmuş olan tekne", "Bağlama limanında bağlı olan bir tekne", "Limanda bağlı bir tekne", "Liman önünde demirli bir tekne", "Ege denizinde drift yapan bir tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 6,
+  question: "DÇÖT’e göre görüşün sis, pus, kar, yağmur, şiddetli fırtına vb. sebeplerden dolayı azalmasına ne denir?",
+  options: ["Kısıtlı görüş", "Az görüş", "İyi görüş", "Görüş yok", "Puslu görüş"],
+  correctIndex: 0
+},
+
+{
+  id: 7,
+  question: "Aşağıdakilerden hangisi “kuvvetle yürütülen gemi” değildir?",
+  options: ["Sadece yelkenle giden bir yelkenli gemi", "Dıştan takma motorla giden bir kano", "Dizel makineli bir römorkör", "Su jeti ile giden pervanesiz bir gemi", "Aynı anda hem yelken hem de makine kullanarak seyreden yelkenli gemi"],
+  correctIndex: 0
+},
+
+{
+  id: 8,
+  question: "Seyir esnasında ağlarını toplayan seyir halinde bir balıkçı teknesi gördünüz. DÇÖT’e göre bu tekne hangi tanıma uyar?",
+  options: ["Üzerinde yol bulunan balıkçı teknesi", "Kuvvetle yürütülen balıkçı teknesi", "Üzerinde yol bulunan kuvvetle yürütülen tekne", "Manevra kabiliyeti sınırlı tekne", "Kumanda altında bulunan balıkçılık ile uğraşan tekne"],
+  correctIndex: 2
+},
+
+{
+  id: 9,
+  question: "Rota değiştirme yetenekleri mevcut olan ve yedekleme işi ile uğraşan tekneler hangi tanıma uyar?",
+  options: ["Manevra yeteneği kısıtlı olmayan tekne", "Kuvvetle yürütülen tekne", "Kumanda altında olmayan tekne", "Manevra yeteneği kısıtlı olan tekne", "Kumanda altında bulunan tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 10,
+  question: "“Balıkçılık yapan tekne” deyimi aşağıdakilerden hangi terimle ifade edilir?",
+  options: ["Trol, ağ, olta ile balıkçılık yapan manevrası kısıtlı tekne", "Trol, ağ ve olta gibi, manevrayı kısıtlayan araçlarla balık avlamasına rağmen manevrası kısıtlı kabul edilmeyen tekne", "Ağ balıkçılığını demirde iken yapan tekne", "Ağ ve Trol balıkçılığı yapılırken seyir halinde olma mecburiyeti olmayan tekne", ""],
+  correctIndex: 0
+},
+
+{
+  id: 11,
+  question: "Manevra kabiliyetini sınırlayan aşağıdakilerden hangisi ya da hangileri DÇÖT’e göre bir tekneyi balıkçı teknesi yapar? I- Ağlar II- Troller III- Oltalar",
+  options: ["I-II-III", "I-II", "Yalnız I", "Yalnız II", "II-III"],
+  correctIndex: 0
+},
+
+{
+  id: 12,
+  question: "Bir seyir işareti, sualtı kablosu veya boru hattının döşenmesi veya toplanması çalışması yapan bir tekne aşağıda belirtilen durumlardan hangisine uygun olur?",
+  options: ["Kuvvetle yürütülen tekne", "Manevra yapma yeteneği kısıtlı bir tekne", "Su çekimi nedeniyle kısıtlı bir tekne", "Kumanda altında olmayan bir tekne", "Üzerinde yol olmayan kuvvetle yürütülen tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 13,
+  question: "Aşağıdaki teknelerden hangisi “Manevra yapma kabiliyeti kısıtlı tekne” sınıfına girmez?",
+  options: ["Yedekleyen ve yedeklenen tekneler", "Seyir halinde, trol ağlarını toplayan tekneler", "Seyir halinde ikmal yapan, insan, kumanya veya yük aktaran tekneler", "Tarama, Sörvey, sualtı çalışması yapan tekneler", "Denizaltı kablosu veya boru hattı döşeyen, toplayan tekneler"],
+  correctIndex: 1
+},
+
+{
+  id: 14,
+  question: "Aşağıdaki teknelerden hangisi “Manevrası Kısıtlı Tekne” değildir?",
+  options: ["Bir seyir işareti, denizaltı kablosu veya boru hattını döşenmesi veya toplanması çalışması yapan bir tekne", "Üzerinde yol bulunduğu halde ikmal yapan veya insan, kumanya veya yük aktaran bir tekne", "Mayın temizleme işi yapan tekne", "Trol balıkçılığı ile uğraşan bir tekne", "Tarama, sörvey veya sualtı çalışması yapan bir tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 15,
+  question: "Aşağıdaki teknelerden hangisi/hangileri manevrası kısıtlı teknedir? I- Tarama yapan II- Mayın temizleyen III- Denizaltı kablosu döşeyen",
+  options: ["I,II,III", "II,III", "I", "I,III", "I,II"],
+  correctIndex: 0
+},
+
+{
+  id: 16,
+  question: "Aşağıdakilerden hangisi “Manevra Yeteneği Kısıtlı” teknedir? I- Rotasından ayrılma gücü olan, yedekleme yapan tekne II- Sualtı çalışması yapan tekne III- Yelkenli tekne IV- Balıkçılar V- Seyir yardımcısı inşa eden",
+  options: ["I-II-IV", "III-IV-V", "II-V", "I-II-IV-V", "I-III-IV"],
+  correctIndex: 2
+},
+
+{
+  id: 17,
+  question: "DÇÖT tanımlamada mevcut seyredilebilir suların derinliği geminin draftının önemli ölçüde kısıtlandığı rotasından sapamayan tekneler “Su çekimi nedeniyle sınırlı tekne” olarak tanımlanmaktadır. Buna ilave olarak aşağıdakilerden hangisi yine böyle bir tekneyi su çekimi nedeniyle sınırlı yapmaktadır?",
+  options: ["Teknenin genişliği", "Seyredilebilir suların genişliği", "Teknenin boyu", "Teknenin net tonu", "Taşıdığı yükün tehlike durumu"],
+  correctIndex: 1
+},
+
+{
+  id: 18,
+  question: "DÇÖT’e göre üzerinde yol bulunan bir tekne aşağıdakilerden hangisinin yolundan çıkacaktır?",
+  options: ["Sürat teknesinin", "Deniz uçağının", "Yelkenli teknenin", "Kuvvetle yürütülen teknenin", "Hava yastıklı geminin"],
+  correctIndex: 2
+},
+
+{
+  id: 19,
+  question: "Üzerinde yol bulunan kuvvetle yürütülen bir tekne aşağıdaki teknelerden hangisinin yolundan çıkmak zorunda değildir?",
+  options: ["Kumanda altında bulunmayan tekne", "Kılavuz teknesi", "Balıkçılıkla uğraşan tekne", "Manevra gücü kısıtlı tekne", "Yelkenli tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 20,
+  question: "Üzerinde yol bulunan balıkçılıkla uğraşan bir tekne hangisine nazaran geçiş hakkına sahiptir?",
+  options: ["Kendi su çekimi nedeniyle kısıtlı bir tekne", "Dalgıç işleri ile uğraşan tekne", "Manevra gücü kısıtlı tekne", "Üzerinde yol bulunan kuvvetle yürütülen tekne", "Kumanda altında bulunmayan tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 21,
+  question: "Üzerinde yol bulunan bir yelkenli tekne hangisine nazaran geçiş hakkına sahiptir?",
+  options: ["Kumanda altında bulunmayan tekne", "Balıkçılıkla uğraşan tekne", "Üzerinde yol bulunan kuvvetle yürütülen tekne", "Manevra gücü kısıtlı tekne", "Kendi su çekimi nedeniyle kısıtlı tekne"],
+  correctIndex: 2
+},
+
+{
+  id: 22,
+  question: "Tanım olarak hangi gemi diğer geminin yolundan çıkmaya muktedir değildir?",
+  options: ["Denizde yol almayan gemi", "Manevrası kısıtlı gemi", "Denizde çalışması yapan gemi", "Yelkenle giden gemi", "Balıkçılıkla meşgul olan gemi"],
+  correctIndex: 0
+},
+
+{
+  id: 23,
+  question: "DÇÖT’nin 9, 10 ve 13 sayılı kurallarının aynı hükümleri hariç, üzerinde yol bulunan kuvvetle yürütülen bir tekne aşağıda belirtilen teknelerden hangisinin yolundan çıkmakla yükümlü değildir?",
+  options: ["Kumanda altında bulunmayan", "Manevra yapma gücü kısıtlı olan", "Su çekimi nedeniyle kısıtlı olan", "Balıkçı", "Deniz uçağı"],
+  correctIndex: 4
+},
+
+{
+  id: 24,
+  question: "DÇÖT’nin 9, 10 ve 13 sayılı kurallarının aynı hükümleri hariç, balıkçılıkla uğraşan bir tekne aşağıda belirtilen teknelerden hangisinin yolundan çıkmakla yükümlü değildir?",
+  options: ["Kumanda altında olmayan", "Yelkenli", "", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 25,
+  question: "Aşağıdaki teknelerden hangisi su çekimi nedeniyle kısıtlı olan ve 28. kuraldaki işareti gösteren bir teknenin yolundan çıkmak zorunluluğunda değildir?",
+  options: ["Üzerinde yol bulunan yelkenli tekne", "Balıkçılıkla uğraşan tekne", "Su üzerinde bulunan deniz uçağı", "Kumanda altında olmayan ya da manevra yapma yeteneği kısıtlı olan tekne", "Koşulları elverişli olan ancak ağları engel takılmakta olan balıkçı teknesi"],
+  correctIndex: 3
+},
+
+{
+  id: 26,
+  question: "Aşağıdaki teknelerden hangisi DÇÖT Kural 18 gereği diğerine göre geçiş üstünlüğüne sahiptir?",
+  options: ["Manevra yeteneği kısıtlı tekne", "Yelkenli tekne", "Deniz uçağı", "Su çekimi nedeniyle kısıtlı tekne", "Balıkçı teknesi"],
+  correctIndex: 0
+},
+
+{
+  id: 27,
+  question: "Seyir halinde yelkenli bir tekne aşağıdakilerin hangisi/hangilerinin yolundan çıkmalıdır?",
+  options: ["I, II, III", "I, III", "I, II", "II, III", "II"],
+  correctIndex: 0
+},
+
+{
+  id: 28,
+  question: "Yelkenli bir tekne aşağıdakilerin hangisi/hangilerinin yolundan çıkmalıdır?",
+  options: ["I, II, IV", "I, III", "II, III, IV", "I, II, III", "II, IV"],
+  correctIndex: 1
+},
+
+{
+  id: 29,
+  question: "Aşağıdakilerden hangisi dar kanallarda veya trafik ayrım düzeninde geçiş üstünlüğüne sahiptir?",
+  options: ["Dar kanal boyunca ilerleyen tekne", "Karşıdan karşıya geçiş yapan tekne", "Yelkenli tekne", "Boyu 20 m’den küçük tekne", "Karşıdan karşıya geçiş yapan kuvvetle yürütülen tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 30,
+  question: "Dar kanallar, Trafik Ayrım Düzenleri ve Yetişme ile ilgili Kuralların aykırı hükümleri hariç, su çekimi nedeniyle kısıtlı olan bir teknenin emniyetli geçişini engelleyemeyecek teknelerin tümü hangi paragrafta belirtilmiştir?",
+  options: ["Kumanda altında olmayan ve manevrası kısıtlı tekneler", "Balıkçılıkla uğraşan tekneler", "Kumanda altında olmayan tekneler ve balıkçılıkla uğraşan tekneler", "Balıkçılıkla uğraşan tekneler, yelkenli tekneler, kuvvetle yürütülen tekneler", "Balıkçılıkla uğraşan tekneler, yelkenli tekneler, kuvvetle yürütülen tekneler ve deniz uçağı"],
+  correctIndex: 4
+},
+
+{
+  id: 31,
+  question: "Her tekne kısıtlı görüş içinde bulunan durum ve koşullara göre ayarlanacak olan … her hızla ilerlemek zorundadır.",
+  options: ["Emniyetli", "Azami", "Asgari", "Yeterli", "Dümene elverişli"],
+  correctIndex: 0
+},
+
+{
+  id: 32,
+  question: "Teknelerin birbirlerini gördüklerinin varsayılması için;",
+  options: ["Her iki teknenin birbirini radar ile tespit etmeleri gerekir", "Bir teknenin diğerini radar ile tespit etmesi yeterlidir", "Bir teknenin diğerini gözle görmesi yeterlidir", "Her iki teknenin birbirini gözle görmeleri gerekir", "Her iki teknenin birbirini gözle görmeleri ve radar ile tespit etmeleri gerekir"],
+  correctIndex: 2
+},
+
+{
+  id: 33,
+  question: "Aşağıdaki durumlardan hangisinde bir gemi diğerinin görüşünde kabul edilir?",
+  options: ["Radarda görüldüğü zaman", "Çatışma tehlikesi olduğu kesinleştiği zaman", "Siste verdiği ses işareti diğer gemi tarafından duyulduğunda", "Diğer gemi tarafından gözle görüldüğü zaman", "Arpa radar cihazında takibe alındığı zaman"],
+  correctIndex: 3
+},
+
+{
+  id: 34,
+  question: "Aşağıdakilerden hangisi birbirlerini gören teknelerin uygulamayacağı kurallardandır?",
+  options: ["Aykırı geçiş kuralı", "Yelkenli tekneler kuralı", "Pruva pruvaya kuralı", "Yetişme kuralı", "Kısıtlı görüş kuralı"],
+  correctIndex: 4
+},
+
+{
+  id: 35,
+  question: "Diğer teknenin pruvandan çekilmesini isteyen DÇÖT kuralı hangisidir?",
+  options: ["Aykırı geçiş kuralı", "Pruva pruvaya geçiş kuralı", "Yetişme kuralı", "Kısıtlı görüş kuralı", "Tekneler arası sorumluluklar kuralı"],
+  correctIndex: 0
+},
+
+{
+  id: 36,
+  question: "Kuvvetle yürütülen iki teknenin aykırı geçişinde, diğer tekneyi ______ tarafta gören tekne yol verir.",
+  options: ["Sancak", "İskele", "Vasat", "Kıç", "Hepsi yanlış"],
+  correctIndex: 0
+},
+
+{
+  id: 37,
+  question: "Normal görüş koşullarında, yelkenli teknenin yetişme sektöründen yaklaşan balıkçı teknesi ile karşılaşmasında hangi DÇÖT kuralı uygulanır?",
+  options: ["Tekneler arası sorumluluklar kuralı", "Yetişme kuralı", "Yelkenli tekne kuralı", "Kısıtlı görüş kuralı", "Aykırı geçiş kuralı"],
+  correctIndex: 1
+},
+
+{
+  id: 38,
+  question: "Rüzgârı aynı bordalardan kullanarak yelkenliler ile aykırı rotalarda seyreden iki tekne çatışma tehlikesi yaratacak şekilde birbirlerine yaklaşan teknelerden hangisi diğerinin yolundan çıkacaktır?",
+  options: ["Rüzgârı üstünde tekne diğerinin yolundan çıkacaktır", "Rüzgârı sancak bordasından kullanan tekne diğerinin yolundan çıkacaktır", "Yaklaşan tekneyi sancak gören tekne diğerinin yolundan çıkacaktır", "Yaklaşan tekneyi iskelesinde gören tekne diğerinin yolundan çıkacaktır", "Rüzgârı iskele bordasından kullanan tekne diğerinin yolundan çıkacaktır"],
+  correctIndex: 0
+},
+
+{
+  id: 39,
+  question: "Rüzgârı farklı bordalardan kullanarak yelkenliler ile aykırı rotalarda seyreden iki tekne çatışma tehlikesi yaratacak şekilde birbirlerine yaklaşan teknelerden hangisi diğerinin yolundan çıkacaktır?",
+  options: ["Rüzgârı üstünde tekne diğerinin yolundan çıkacaktır", "Rüzgârı sancak bordasından kullanan tekne diğerinin yolundan çıkacaktır", "Yaklaşan tekneyi sancak gören tekne diğerinin yolundan çıkacaktır", "Yaklaşan tekneyi iskelesinde gören tekne diğerinin yolundan çıkacaktır", "Rüzgârı iskele bordasından kullanan tekne diğerinin yolundan çıkacaktır"],
+  correctIndex: 4
+},
+
+{
+  id: 40,
+  question: "İngiltere’nin Devonport limanına gideceksiniz. Bu durumda aşağıdakilerden hangisine uyulması zorunludur?",
+  options: ["İngiltere hükümetince Devonport limanı için koyulmuş özel kurallara değil Uluslar arası DÇÖT kurallarına uyulması", "İngiltere hükümeti özel kural koyamaz", "DÇÖT kuralları hükümetin koyduğu özel kurallara göre öncelik alır", "İngiltere hükümetince Devonport limanı için koyulmuş özel kurallara uyulması", "Yalnız IMO kurallarına uyulur"],
+  correctIndex: 3
+},
+
+{
+  id: 41,
+  question: "DÇÖT’e göre belirtilen kurallar aşağıdaki bölgelerin hangisi/hangilerinde geçerlidir?",
+  options: ["I – Açık denizlerde / II – Açık denizlere bağlantılı su yollarında / III – Açık deniz gemilerinin seyredebildiği sularda", "I – Açık denizlerde", "I – Açık denizlerde / III – Açık deniz gemilerinin seyredebildiği sularda", "III – Açık deniz gemilerinin seyredebildiği sularda", "II – Açık denizlere bağlantılı su yollarında / III – Açık deniz gemilerinin seyredebildiği sularda"],
+  correctIndex: 0
+},
+
+{
+  id: 42,
+  question: "DÇÖT kural 1-b maddesine göre bu kurallarda bahsedilen alanlar hangisi/hangileridir?",
+  options: ["I – Derya yerleri / II – Limanlar / III – İç sular", "III – İç sular", "I – Derya yerleri / III – İç sular", "I – Derya yerleri / II – Limanlar / III – İç sular / IV – Göller", "II – Limanlar / IV – Göller"],
+  correctIndex: 3
+},
+
+{
+  id: 43,
+  question: "Bir teknenin diğer tekneyi engellemesi istenen durumlar hangi kural veya kurallarda yer almaktadır?",
+  options: ["I – Dar Kanallar / II – Trafik Ayrım Düzeni / VI – Kısıtlı Görüş", "I – Dar Kanallar / II – Trafik Ayrım Düzeni / III – Tekneler Arası Sorumluluklar", "I – Dar Kanallar / II – Trafik Ayrım Düzeni / III – Tekneler Arası Sorumluluklar / IV – Aykırı Geçiş", "III – Tekneler Arası Sorumluluklar / V – Pruva Pruvaya", "III – IV – V – VI"],
+  correctIndex: 2
+},
+
+{
+  id: 44,
+  question: "DÇÖT kural 1’e göre özel amaçlı teknelerde hangi özellikler mümkün olduğunca DÇÖT’e uygun hale getirilmelidir?",
+  options: ["I – Fenerlerinin yeri / III – Fenerlerinin kapasitesi", "III – Fenerlerinin kapasitesi", "I – Fenerlerinin yeri", "I – Fenerlerinin yeri / II – Fenerlerinin sayısı / III – Fenerlerinin kapasitesi", "II – Fenerlerinin sayısı / III – Fenerlerinin kapasitesi"],
+  correctIndex: 3
+},
+
+{
+  id: 45,
+  question: "DÇÖT kural 2-b’ye göre ana prensipte göz önünde bulundurulacak hususlar hangileridir?",
+  options: ["Yalnız III", "Yalnız I", "I – Bu kurallardan ayrılmayı gerektirecek hususlar / II – Fenerlerin görünüş mesafesi", "I – II – III", "I – III"],
+  correctIndex: 4
+},
+
+{
+  id: 46,
+  question: "DÇÖT kural 1-c’ye göre burada bahsedilen tekneler hangileridir?",
+  options: ["III – Konvoy halinde seyreden tekneler / IV – Yelkenli tekneler", "I – Savaş gemileri / III – Konvoy halinde seyreden tekneler", "II – Balıkçı tekneleri / IV – Yelkenli tekneler", "Yalnız I – Savaş gemileri", "I – Savaş gemileri / II – Balıkçı tekneleri / III – Konvoy halinde seyreden tekneler"],
+  correctIndex: 4
+},
+
+{
+  id: 47,
+  question: "DÇÖT kural 1-c’ye göre müsaade edilebilecek ek işaretler hangileridir?",
+  options: ["I – İşaret ışıkları / II – İşaret şekilleri", "I – İşaret ışıkları / II – İşaret şekilleri / III – Düdük işaretleri", "I – İşaret ışıkları / III – Düdük işaretleri", "III – Düdük işaretleri", "I – İşaret ışıkları"],
+  correctIndex: 1
+},
+
+{
+  id: 48,
+  question: "DÇÖT kural 2’ye göre sorumluluk sahipleri hangileridir?",
+  options: ["I – Tekne Sahibi / II – Gemi Kaptanı / III – Gemiadamları", "Yalnız II – Gemi Kaptanı", "I – Tekne Sahibi / III – Gemiadamları", "I – Tekne Sahibi / II – Gemi Kaptanı", "Yalnız I – Tekne Sahibi"],
+  correctIndex: 0
+},
+
+{
+  id: 49,
+  question: "Yandaki şekilde gündüz işaretini gördüğünüzde ne tip bir teknedir?",
+  options: ["Denize adam düştü manevrası yapan yelkenli tekne", "Kumanda altında olmayan yelkenli tekne", "Yelkeni seyrederken, motoru arızalı tekne", "Manevra yeteneği sınırlı yelkenli tekne", "Motor, yelken birlikte seyreden tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 50,
+  question: "Tepesi aşağı doğru bakan koni hangi tekneler tarafından kullanılır?",
+  options: ["Balıkçı", "Mayın tarama", "Sualtı işi yapan tekneler", "Yelkenli", "Dalgıç tekneleri"],
+  correctIndex: 3
+},
+
+{
+  id: 51,
+  question: "Gündüz yelken ile seyreden aynı zamanda makine ile de yürütülen bir tekne gündüz seyrinde baş tarafında ufkun her tarafından görülebilecek bir yerde;",
+  options: ["Tepelikleri birbirlerine bitişik iki koni gösterecektir", "Bir küre gösterecektir", "Sivri ucu aşağı doğru bir koni gösterecektir", "Sivri ucu yukarı doğru bir koni gösterecektir", "Hiçbir alamet göstermeyecektir"],
+  correctIndex: 3
+},
+
+{
+  id: 52,
+  question: "Yandaki şekilde gündüz işaretlerini gördüğünüzde ne tip bir teknedir?",
+  options: ["Kumanda altında olmayan tekne", "Manevra yeteneği sınırlı tekne", "Karaya oturmuş tekne", "Balıkçılık faaliyetiyle uğraşan tekne", "Demirli tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 53,
+  question: "Kumanda altında bulunmayan bir tekne dikey bir doğru üzerinde ufkun her tarafından görülür ______ gösterecektir.",
+  options: ["İki eşkenar dörtgen", "İki küre", "İki koni", "Üç küre", "Bir koni"],
+  correctIndex: 1
+},
+
+{
+  id: 54,
+  question: "Şekilde gösterilen işaretlere göre geminin özellikleri hangi seçenekte doğru olarak ifade edilmektedir?",
+  options: ["Boyu 50 metreden kısa kılavuz görev yapan tekne", "Üzerinde yol bulunan askerî gemi", "Boyu 50 metre veya daha fazla karaya oturmuş gemi", "Boyu 50 metreden kısa demirli tekne", "Manevra gücü kısıtlı ve üzerinde yol olan gemi"],
+  correctIndex: 3
+},
+
+{
+  id: 55,
+  question: "Boyu 50 metreden küçük demirli bir geminin gece ve gündüz göstermesi gerekli işaretler nelerdir?",
+  options: ["Gece kırmızı fener, gündüz bir küre", "Gece beyaz fener, gündüz bir silindir", "Gece iki kırmızı fener, gündüz aşağı bakan koni", "Gece baş ve kıçta beyaz fenerler, gündüz bir küre", "Gece beyaz fener, gündüz bir küre"],
+  correctIndex: 2
+},
+
+{
+  id: 56,
+  question: "Aşağıda görülen gündüz şekli DÇÖT kuralları gereği hangi gemiler tarafından gösterilmesi istenmiştir?",
+  options: ["Karaya oturmuş tekne", "Su altı işleri ile uğraşan tekne", "Çekerek yedekleyen tekne", "İterek yedekleyen tekne", "Demirleyen tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 57,
+  question: "Dikey bir doğru üzerinde üç küre işareti hangi tekne tarafından gösterilir?",
+  options: ["Karaya oturmuş bir tekne", "Mayın tarama işi ile uğraşan bir tekne", "Su çekimi nedeniyle kısıtlı bir tekne", "Yedekleyen bir tekne", "Yelkenli bir tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 58,
+  question: "Boyu 25 metre olan karaya oturmuş bir gemi gündüz hangi işaretleri göstermelidir?",
+  options: ["Bir siyah küre", "İki siyah küre", "Üç siyah küre", "Dört siyah küre", "Üç kırmızı küre"],
+  correctIndex: 2
+},
+
+{
+  id: 59,
+  question: "Karaya oturan bir tekne ______ gösterir.",
+  options: ["İki koni", "Bir küre", "Üç koni", "İki küre", "Üç küre"],
+  correctIndex: 4
+},
+
+{
+  id: 60,
+  question: "Karaya oturmuş bir gemi durumunu gündüz nasıl belirtir?",
+  options: ["Başta bir siyah küre ve en iyi yerde iki siyah küre", "En iyi yerde dikey üç siyah küre", "Başta bir siyah küre ve üç eşkenar dörtgen", "Başta bir siyah küre ve dikey üç siyah küre", "Başta bir siyah küre ve iki eşkenar dörtgen"],
+  correctIndex: 1
+},
+
+{
+  id: 61,
+  question: "Su çekimleri nedeniyle seyirleri kısıtlı tekneler gündüz ______ gösterirler.",
+  options: ["Bir silindir", "Bir koni", "Bir küre", "Koni küre koni", "İki küre"],
+  correctIndex: 0
+},
+
+{
+  id: 62,
+  question: "Çektiği su (draft) nedeniyle manevrası kısıtlı bir tekne gündüz durumunu hangi işaretlerle belirtir?",
+  options: ["Bir siyah silindir", "Bir siyah eşkenar dörtgen", "Sivri ucu aşağı bakan iki siyah koni", "İki siyah küre", "Bir siyah küre, bir eşkenar dörtgen, bir siyah küre"],
+  correctIndex: 0
+},
+
+{
+  id: 63,
+  question: "Gündüz denizaltı kablosunda bakım çalışması yapan gemi hangi şekilleri göstermelidir?",
+  options: ["Üst üste üç siyah küre", "Üst üste üç eşkenar dörtgen", "Üst üste üç küre (üst-alt kırmızı, orta beyaz)", "Üst üste üç siyah şekil: küre-eşkenar dörtgen-küre", "Üst üste iki siyah küre"],
+  correctIndex: 3
+},
+
+{
+  id: 64,
+  question: "Denizde kumanya veya yük transferi yapan gemi gündüz hangi işareti göstermelidir?",
+  options: ["Üst üste üç kırmızı küre", "Dikey hat üzerinde küre-eşkenar dörtgen-küre", "Üst üste üç siyah küre", "Üst üste iki siyah küre", "Dikey hat üzerinde kırmızı küre-beyaz eşkenar dörtgen-kırmızı küre"],
+  correctIndex: 1
+},
+
+{
+  id: 65,
+  question: "Seyir halinde olan ve bordasında işlem yapan veya pilot alıp veren gemi gündüz nasıl belirtir?",
+  options: ["İki siyah eşkenar dörtgen", "İki siyah küre", "İki siyah silindir", "Küre-eşkenar dörtgen-küre", "Bir siyah eşkenar dörtgen"],
+  correctIndex: 3
+},
+
+{
+  id: 66,
+  question: "Seyir halinde iken aşağıda görülen gündüz şeklini gösteren bir gemi ile çatışma riski olacak şekilde karşılaştığınızda yapılması gereken hareket ne olmalıdır?",
+  options: ["Yardım istenir", "VHF ile çağrı yapılır", "Makine durdurulur ve sancağa girilir", "Rota ve hız korunur", "Diğer gemiden neta olunur"],
+  correctIndex: 4
+},
+
+{
+  id: 67,
+  question: "DÇÖT kurallarına göre aşağıda resmi verilen tekne aşağıdakilerden hangisini ifade etmektedir?",
+  options: ["Üzerinde yol bulunan tarama veya sualtı işleri ile meşgul tekne", "Üzerinde yol bulunmayan tarama veya sualtı işleri ile meşgul tekne", "Su çekimleri nedeniyle seyirleri kısıtlı tekne", "Üzerinde yol bulunan askeri gemi", "Manevra gücü kısıtlı ve üzerinde yol olan tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 68,
+  question: "Gündüz pruvadan aşağıdaki işaretleri gösteren tekne ne ile uğraşmaktadır?",
+  options: ["Kumanda altında olmayan, su altı çalışması yapan, demirli, sancak tarafı engelli, iskele tarafı neta gemi", "Kumanda altında olmayan, su altı çalışması yapan, demirli, iskele tarafı engelli, sancak tarafı neta gemi", "Draftı nedeniyle manevrası kısıtlı, su altı çalışması yapan, demirli, sancak tarafı engelli, iskele tarafı neta gemi", "Manevrası kısıtlı, su altı çalışması yapan, demirli, sancak tarafı engelli, iskele tarafı neta gemi", ""],
+  correctIndex: 3
+},
+
+{
+  id: 69,
+  question: "Aşağıda pruvadan görülen tekne ne işle meşgul olmaktadır?",
+  options: ["Mayın tarama işleri ile meşgul bir tekne", "Tarama ve su altı işleri ile uğraşan, manevrası kısıtlı, sancak tarafı engelli bir tekne", "Tarama ve su altı işleri ile uğraşan, manevrası kısıtlı, iskele tarafı engelli bir tekne", "Denizde, insan ve/veya malzeme transferi yapan bir tekne", "Karaya oturmuş bir tekne"],
+  correctIndex: 2
+},
+
+{
+  id: 70,
+  question: "Gündüz bir tarak gemisine yaklaşıyorsunuz ve tarak gemisinin iskele tarafında üst üste iki siyah küre işareti görüyorsunuz. Bu işaretler ne anlama gelir?",
+  options: ["Tarak gemisinin iskele tarafında geçmelisiniz", "Tarak gemisinin iskele tarafında seyir tehlikeli olan bir engel var", "Tarak gemisi kumanda altında değil", "Tarak gemisi demirlidir", "Tarak gemisinin 1000 metre açığından geçmelisiniz"],
+  correctIndex: 1
+},
+
+{
+  id: 71,
+  question: "Gündüz aşağıdaki işaretleri gösteren gemi ne ile uğraşmaktadır?",
+  options: ["Mayın taraması yapan, 2000 metreden daha fazla yaklaşılmaması gereken gemi", "Su altında kablo çalışması yapan, 1000 metreden daha fazla yaklaşılmaması gereken gemi", "Mayın taraması yapan, 1000 metreden daha fazla yaklaşılması gereken gemi", "Herhangi bir boyda olan, su altında dalgıç çalışması yapan gemi", "Boyu 100 metreden uzun, karaya oturmuş gemi"],
+  correctIndex: 2
+},
+
+{
+  id: 72,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne, seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 metreden kısa karaya oturmuş gemi", "Birçok tekne olan boyu 50 metreden kısa üzerinde yol olan tekne", "Boyu 50 metre veya daha fazla karaya oturmuş gemi", "Boyu 50 metre veya daha fazla demirli gemi", "Mayın tarama işleri ile uğraşan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 73,
+  question: "Mayın temizleme işleriyle uğraşan bir teknenin göstereceği alametlerden hangisi doğrudur?",
+  options: ["Gündüz bir küre", "Gündüz üç koni", "Gündüz iki koni", "Gündüz üç küre", "Gündüz iki küre"],
+  correctIndex: 3
+},
+
+{
+  id: 74,
+  question: "Bir geminin mayın tarama operasyonu yaptığını hangi işaret bildirir?",
+  options: ["Üst üste 3 küre", "Üst üste 2 küre", "Pruva direğinde bir siyah küre ve pruva sereninin her iki yanında birer tane siyah küre", "Pruva direğinde bir eşkenar dörtgen ve pruva sereninin her iki yanında birer eşkenar dörtgen", "Pruvada sivri ucu aşağı bakan yeşil bir koni"],
+  correctIndex: 2
+},
+
+{
+  id: 75,
+  question: "Aşağıdaki tekneler için hangisi doğrudur?",
+  options: ["Yedeklenenin boyu 50 metreden uzun, yedek boyu 200 metreden kısa, yedekleme", "Yedeklenenin boyu 50 metreden kısa, yedek boyu 200 metreden kısa, yedekleme", "Yedeklenenin boyu 50 metreden kısa, yedek boyu 250 metre, yedekleme", "Yedekleyenin boyu 50 metreden uzun, yedek boyu 250 metreden kısa, yedekleme", "Yedekleyenin boyu 50 metreden uzun, yedek boyu 200 metreden uzun, yedekleme"],
+  correctIndex: 4
+},
+
+{
+  id: 76,
+  question: "Yedekleme ve yedeklenme durumunda ve yedek boyunun 200 metreden fazla uzun olduğu durumlarda bu tekneler gündüz durumlarını nasıl belirtirler?",
+  options: ["Yedekleyen ve yedeklenen her iki teknede en iyi görünür birer siyah eşkenar dörtgen toka ederler", "Yedekleyen tekne üst üste siyah küre, yedeklenen tekne iki siyah küre", "Yedekleyen tekne üst üste siyah küre, yedeklenen tekne üst üste iki siyah küre", "Her iki teknede birer siyah küre alt alta", "Sadece yedekleyen tekne bir siyah eşkenar dörtgen"],
+  correctIndex: 0
+},
+
+{
+  id: 77,
+  question: "Yandaki şekilde gündüz işaretini gördüğünüzde ne tip bir teknedir?",
+  options: ["Balıkçılık faaliyetiyle uğraşan tekne", "Kumanda altında olmayan tekne", "Demirli tekne", "Manevra yeteneği sınırlı tekne", "Kılavuz teknesi"],
+  correctIndex: 0
+},
+
+{
+  id: 78,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 metreden kısa kılavuz görevi yapan tekne", "Boyu 50 metre veya daha fazla olan demirli tekne", "Kumanda altında olmayan ve üzerinde yol bulunmayan", "Üzerinde yol bulunan askeri gemi", "Üzerinde yol bulunan ve trol ağı atan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 79,
+  question: "Sivri uçları birbirine bakan iki koni işareti gösteren gemi ne gemisidir veya hangi operasyonla meşguldür?",
+  options: ["Yelkenli tekne", "Trol çeken balıkçı", "Mayın tarama gemi", "Tarak gemisi", "Kablo döşeyen gemi"],
+  correctIndex: 1
+},
+
+{
+  id: 80,
+  question: "Aşağıdaki işaretleri gösteren tekne ne ile uğraşmaktadır?",
+  options: ["Tehlikededir, uluslararası yardım işaretleri göstermektedir", "Trol dışında balıkçılıkla uğraşan, ağları 150 metreden fazla uzatılmış tekne", "Balıkçılık yapan, ağlarını toplayan tekne", "Trol teknesi, makinesi arızalı, kumanda altında değil", "Manevrası kısıtlı tekne, yedekleme yapıyor, yedek boyu 200 metreden fazla"],
+  correctIndex: 1
+},
+
+{
+  id: 81,
+  question: "Aşağıdaki işareti gösteren teknenin durumu nedir?",
+  options: ["Kumanda altında olmayan bir tekne", "Manevrası kısıtlı bir tekne", "Draftı nedeniyle rotasından ayrılması kısıtlı bir tekne", "Trol çeken bir tekne", "Trol çekme dışında balıkçılık yapan ve ağları 150 metreden fazla uzatılmış tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 82,
+  question: "DÇÖT’e göre trol çekme işiyle uğraşan bir tekne gündüz hangi işaretleri çeker?",
+  options: ["Koni, küre, koni", "Tepeleri bitişik iki koni", "Küre, koni, küre", "İki küre", "İki koni"],
+  correctIndex: 1
+},
+
+{
+  id: 83,
+  question: "Yandaki şekilde gündüz işaretini gördüğünüzde ne tip bir teknedir ve hangi tarafı güvenli geçişe elverişlidir?",
+  options: ["Manevra yeteneği sınırlı tekne, her iki bordasından uzak geçilmelidir", "Balıkçılıkla uğraşan tekne, sancak tarafı güvenli", "Balıkçılıkla uğraşan tekne, iskele tarafı güvenli", "Sualtı çalışması yapan tekne, sancak tarafı güvenli", "Sualtı çalışması yapan tekne, iskele tarafı güvenli"],
+  correctIndex: 4
+},
+
+{
+  id: 84,
+  question: "Boyu 20 metreden uzun balıkçılıkla uğraşan ve ağları tekneden 200 metreye kadar uzanan bir tekne gündüz durumunu nasıl belirtir?",
+  options: ["Siyah sepet ve aşağı bakan koni", "Tabanları bitişik siyah koni", "Siyah eşkenar dörtgen ve siyah koni", "Sivri uçları bitişik siyah koniler", "Siyah eşkenar dörtgen ve yukarı bakan koni"],
+  correctIndex: 4
+},
+
+{
+  id: 85,
+  question: "Boyu 20 metreden büyük olan bir teknede gündüz düşey doğrultuda çekilen iki küre arasındaki mesafe;",
+  options: ["1 metreden az olamaz", "1,5 metreden az olamaz", "2 metreden az olamaz", "2,5 metreden az olamaz", "3 metreden az olamaz"],
+  correctIndex: 1
+},
+
+{
+  id: 86,
+  question: "Boyu 20 metre veya daha uzun olan teknelerin kullanacağı şekiller siyah ve ölçüleri aşağıdaki gibi olacaktır.",
+  options: ["Küre, koni ve silindir çapı 60 cm, koni 75 cm, silindir 150 cm", "Küre, koni ve silindir çapı 75 cm, koni 75 cm, silindir 150 cm", "Küre, koni ve silindir çapı 60 cm, koni 74 cm, silindir 120 cm", "Küre, koni ve silindir çapı 50 cm, koni 50 cm, silindir 100 cm", "Küre, koni ve silindir çapı 60 cm, koni 60 cm, silindir 120 cm"],
+  correctIndex: 4
+},
+
+{
+  id: 87,
+  question: "Boyu kaç metreden ufak olan tekneler demirli olduklarında demirdeki teknelerin göstermeye yükümlü oldukları fener ve şekilleri göstermeyeceklerdir?",
+  options: ["7 metre", "12 metre", "18 metre", "20 metre", "50 metre"],
+  correctIndex: 0
+},
+
+{
+  id: 88,
+  question: "Boyu kaç metreden kısa olan tekneler karaya oturduklarında, karaya oturan teknelerin göstermeye yükümlü oldukları fener ve şekilleri göstermeyeceklerdir?",
+  options: ["14 metre", "7 metre", "12 metre", "20 metre", "10 metre"],
+  correctIndex: 2
+},
+
+{
+  id: 89,
+  question: "Boyları ___’den kısa manevra yeteneği kısıtlı olan teknelerin buna ilişkin fenerleri ve şekilleri göstermeleri zorunlu değildir.",
+  options: ["12 m", "7 m", "6 m", "20 m", "30 m"],
+  correctIndex: 0
+},
+
+{
+  id: 90,
+  question: "Dalgıç işleriyle uğraşan tekneler haricinde boyları kaç metreden küçük olan tekneler kumanda altında olmayan ve manevrası kısıtlı teknelerin göstermesi gereken fener ve şekilleri göstermeye mecbur değildir?",
+  options: ["12 metre", "11 metre", "10 metre", "8 metre", "7 metre"],
+  correctIndex: 0
+},
+
+{
+  id: 91,
+  question: "DÇÖT’e göre çakar fenerlerin çakma sayısı en az kaç olmalıdır?",
+  options: ["100", "140", "50", "180", "120"],
+  correctIndex: 4
+},
+
+{
+  id: 92,
+  question: "“Çakar Fener” deyimi düzenli aralıklarla dakikada ______ çakan fenerlerdir.",
+  options: ["60 veya daha fazla", "30 veya daha fazla", "120 veya daha fazla", "100 veya daha fazla", "130 veya daha fazla"],
+  correctIndex: 2
+},
+
+{
+  id: 93,
+  question: "“Çakar fener” deyimi düzenli aralıklarla dakikada;",
+  options: ["120 veya daha fazla çakan bir fener", "140 veya daha fazla çakan bir fener", "150 veya daha fazla çakan bir fener", "130 veya daha fazla çakan bir fener", "160 veya daha fazla çakan bir fener"],
+  correctIndex: 0
+},
+
+{
+  id: 94,
+  question: "Fenerlerle ilgili kurallarla ilgili olarak aşağıdakilerden hangisi doğrudur?",
+  options: ["Güneşin batışından doğuşuna kadar uygulanmalıdır", "Güneşin doğuşundan batışına kadar uygulanmalıdır", "Her zaman uygulanmalıdır", "Yalnızca birbirini göremeyen tekneler için uygulanmalıdır", "Yoğun trafiğin yaşandığı boğaz ve dar sularda uygulanmalıdır"],
+  correctIndex: 0
+},
+
+{
+  id: 95,
+  question: "Fenerlerle ait Kurallar güneşin batışından doğuşuna kadar uygulanacak ve bu süre içerisinde Kurallarda belirtilen fenerler dışında ______ gösterilmeyecektir.",
+  options: ["Kırmızı ışık", "Yeşil ışık", "Hiçbir ışık", "Beyaz ışık", "Sarı ışık"],
+  correctIndex: 2
+},
+
+{
+  id: 96,
+  question: "Pupa feneriyle aynı özelliklere sahip ancak rengi “SARI” olan fener aşağıdakilerden hangisidir?",
+  options: ["Çakar feneri", "Yedekleme feneri", "Silyon feneri", "Arıza feneri", "Pruva feneri"],
+  correctIndex: 1
+},
+
+{
+  id: 97,
+  question: "Teknenin kıç tarafına yakın bir yere konulan, tam kıçtan itibaren geminin her iki bordasından 67,5 derecelik bir ışık göstermek üzere yerleştirilmiş sarı ışık veren fenere ne ad verilir?",
+  options: ["Yedekleme feneri", "Tonoz feneri", "Silyon feneri", "Borda feneri", "Pupa feneri"],
+  correctIndex: 0
+},
+
+{
+  id: 98,
+  question: "Yedek fenerinin özellikleri ve kullanılışı ile ilgili aşağıdaki paragraflardan hangisi yanlıştır?",
+  options: ["Pupa feneri ile aynı nitelikte sarı ışık verir ve pupa fenerinin altındadır", "Pupa feneri ile aynı nitelikte sarı ışık veren bir fenerdir", "Çekerek yedeklemede yedekleyen tekne yedek çeker", "Teker ve bordadan yedeklemede kullanılmaz", "Çekerek yedeklemede yedekleyen tekneye çekilir"],
+  correctIndex: 0
+},
+
+{
+  id: 99,
+  question: "DÇÖT’e göre olanağı kadar teknenin kıçına yakın bir yere konulan, ufkun 135 derecelik bir yayı üzerinde kesiksiz beyaz bir ışık gösteren fener hangisidir?",
+  options: ["Pupa", "Borda", "Yedek", "Borda", "Silyon"],
+  correctIndex: 0
+},
+
+{
+  id: 100,
+  question: "Sancak tarafında yeşil, iskele tarafında kırmızı ışık gösteren ve her biri 112,5 derecelik bir ufuk yayı üzerinde yerleştirilen fener ne ad verilir?",
+  options: ["Silyon", "Çakar", "Yedekleme", "Borda", "Pupa"],
+  correctIndex: 3
+},
+
+{
+  id: 101,
+  question: "Borda fenerleri hakkındaki ifadelerden hangisi doğrudur?",
+  options: ["Sancak tarafta yeşil ışık gösterir", "Sancak tarafta kırmızı ışık gösterir", "Pruvadan itibaren kemerinin 22,5 derece gerisine kadar ışık gösterir", "İskele tarafta yeşil ışık gösterir", "a) ve c)  seçenekleri doğrudur"],
+  correctIndex: 4
+},
+
+{
+  id: 102,
+  question: "Borda fenerleri hakkındaki ifadelerden hangisi yanlıştır?",
+  options: ["Her biri 112,5 derecelik ufuk yayı üzerinde ışık gösterir", "Sancak tarafta kırmızı, iskele tarafta yeşil fenerdir", "Sancak tarafta kırmızı, iskele tarafta yeşil fenerdir", "Pruvadan itibaren kemerinin 22,5 derece gerisine kadar ışık gösterir", "Hiçbiri"],
+  correctIndex: 1
+},
+
+{
+  id: 103,
+  question: "Borda fenerleri hakkındaki ifadelerden hangisi yanlıştır?",
+  options: ["Sancak tarafı yeşil fenerdir", "Pruvadan itibaren kemerinin 315 derece gerisine kadar ışık gösterir", "Pruvadan itibaren kemerinin 22,5 derece kadar ışık gösterir", "İskele tarafı kırmızı fenerdir", "Her biri 112,5 derecelik ufuk yayı üzerinde ışık gösterir"],
+  correctIndex: 1
+},
+
+{
+  id: 104,
+  question: "Borda fenerleri belirli boydan kısa olan teknelerde taşınabilir fener olarak kullanılabilir. Bu teknelerin en fazla boyu kaç metredir?",
+  options: ["7 m", "12 m", "20 m", "50 m", "5 m"],
+  correctIndex: 2
+},
+
+{
+  id: 105,
+  question: "Silyon feneri ___ derecelik bir ufuk yayı üzerinde kesiksiz bir ışık gösterir.",
+  options: ["135", "112,5", "360", "225", "90"],
+  correctIndex: 3
+},
+
+{
+  id: 106,
+  question: "Kemere hattının 22,5 derece gerisine kadar ışık gösteren seyir fenerleri hangileridir?",
+  options: ["I, II, III, IV", "II, III, IV", "II, IV", "Yalnız I", "Yalnız III"],
+  correctIndex: 1
+},
+
+{
+  id: 107,
+  question: "“Yedekleme feneri” deyimi; ufkun ___ derecelik yayı üzerinde, tam kıçtan itibaren her iki bordadan ___ derecelik ışık gösteren ___ ışık veren fenerdir.",
+  options: ["135 – 22,5 – beyaz", "135 – 22,5 – sarı", "112,5 – 22,5 – beyaz", "112,5 – 22,5 – sarı", "135 – 67,5 – sarı"],
+  correctIndex: 4
+},
+
+{
+  id: 108,
+  question: "“Pupa feneri” deyimi; ufkun ___ derecelik yayı üzerinde kesiksiz ___ ışık gösterir.",
+  options: ["135 – 22,5 – sarı", "135 – 67,5 – sarı", "135 – 67,5 – beyaz", "112,5 – 67,5 – beyaz", "112,5 – 22,5 – beyaz"],
+  correctIndex: 2
+},
+
+{
+  id: 109,
+  question: "Yetişen bir tekne yetiştiği teknenin;",
+  options: ["Silyon ve borda fenerlerini görür", "Silyon ve pupa fenerini görür", "Sadece pupa fenerini görür", "İskele borda ve pupa fenerini görür", "Sancak borda ve pupa fenerini görür"],
+  correctIndex: 2
+},
+
+{
+  id: 110,
+  question: "Rotanız 245° (hakiki) dir. Pupa feneriniz hangi sektörler arasında görülür?",
+  options: ["350,5° – 090,5°", "357,5° – 132,5°", "357,5° – 032,5°", "332,5° – 132,5°", "335° – 132,5°"],
+  correctIndex: 1
+},
+
+{
+  id: 111,
+  question: "Seyir fenerlerinin görünüş açıları kuralına göre aşağıdakilerden hangisi yanlıştır?",
+  options: ["Silyon feneri pruva-pupa hattına göre pruvadan 112,5° sancak ve 112,5° iskeleye doğru toplam 225 derecedir", "Borda fenerleri sancak pruvadan 112,5° sancak ve iskele pruvadan 112,5° iskele kırmızıdır", "Pupa feneri kemerinin 22,5° gerisine 135 dereceden görünür sarı renkli ve yedek feneri üstündedir", "Yedek feneri pupadan 67,5° sancak ve 67,5° iskele olmak üzere 135° dir", "Çakar feneri dakikada 120 veya daha fazla çakar"],
+  correctIndex: 2
+},
+
+{
+  id: 112,
+  question: "Rotası 120° olan bir teknenin sancak borda fenerinin kesintisiz görünüş yayının hakiki kertezi değeri hangisidir?",
+  options: ["120 – 232,5", "120 – 180", "225 – 345", "000 – 112,5", "000 – 247,5"],
+  correctIndex: 0
+},
+
+{
+  id: 113,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş fenerler seçeneklerden hangisini ifade etmektedir?",
+  options: ["Üzerinde yol bulunan askeri gemi", "Mayın tarama işleri ile uğraşan tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunan tekne", "Üzerinde yol bulunan tarama veya sualtı işleri ile meşgul tekne", "Deniz uçağı"],
+  correctIndex: 4
+},
+
+{
+  id: 114,
+  question: "Bir WIG uçağı suya durmakta iken, Kural 23(a) daki fenerlere ilaveten hangi gece işaretini verir?",
+  options: ["Beyaz silyon", "Her yönden görülen kırmızı çakar", "Her yönden görülen sarı çakar", "Hiçbiri", "Yeşil çakar"],
+  correctIndex: 1
+},
+
+{
+  id: 115,
+  question: "DÇÖT Kurallarına göre, aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Su çekimleri nedeniyle seyirleri kısıtlı tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunan tekne", "Kumanda altında olmayan ve üzerinde yol bulunan tekne", "Üzerinde yol bulunan tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunmayan tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 116,
+  question: "Yandaki şekilde fenerlerini gördüğünüzde ne tip bir teknedir?",
+  options: ["Boyu 50 m’den uzun, manevra yeteneği sınırlı tekne", "Boyu 50 m’den uzun, kuvvetle yürütülen tekne", "Boyu 50 m’den kısa, kuvvetle yürütülen tekne", "Boyu 50 m’den uzun, draft nedeniyle manevrası sınırlı tekne", "Boyu 50 m’den kısa, kumanda altında olmayan tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 117,
+  question: "Yandaki şekilde fenerlerini gördüğünüzde ne tip bir teknedir?",
+  options: ["Boyu 50 m’den kısa üzerinde yol olan, su altı çalışması yapan tekne", "Boyu 50 m’den uzun, manevra yeteneği sınırlı tekne", "Boyu 50 m’den uzun, kuvvetle yürütülen tekne", "Boyu 50 m’den kısa, kuvvetle yürütülen tekne", "Boyu 50 m’den kısa, kumanda altında olmayan tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 118,
+  question: "DÇÖT Kurallarına göre, aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 metre veya daha fazla üzerinde yol olan hava yastıklı gemi", "Trol ağları engelle kalmış tekne", "Boyu 50 metre veya daha fazla karaya oturmuş gemi", "Mayın tarama işleri ile uğraşan tekne", "Üzerinde yol bulunmayan, tarama veya sualtı işleri ile meşgul tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 119,
+  question: "_______ tekne, su üzerinde kalarak çalıştığı zaman ayrıca ufkun her tarafında görülen sarı renkte bir çakar fener taşıyacaktır.",
+  options: ["Bir hava yastıklı", "Kısıtlı görüş hallerinde karaya oturan bir", "Seyir halinde kuvvetle yürütülen bir", "Seyir halinde yelkenli bir", "Boyu 7 m’den kısa olan bir"],
+  correctIndex: 0
+},
+
+{
+  id: 120,
+  question: "Seyir halinde olan ve su üzerinde yol almayan hangi gemi borda fenerlerini göstermek zorundadır?",
+  options: ["Balıkçılıkla uğraşan bir gemi", "Kumanda altında olmayan bir gemi", "Tarama işleriyle uğraşan bir gemi", "Kablo döşeme işleriyle uğraşan bir gemi", "Kuvvetle yürütülen bir gemi"],
+  correctIndex: 4
+},
+
+{
+  id: 121,
+  question: "Şekilde gösterilen işaretlere göre geminin özellikleri hangisidir?",
+  options: ["Boyu 50 m veya daha fazla karaya oturmuş gemi", "Boyu 50 m’den kısa karaya oturmuş gemi", "Manevra gücü kısıtlı ve üzerinde yol bulunmayan tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunan tekne", "Kılavuzluk görevi ile uğraşan seyir halindeki tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 122,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Kumanda altında olmayan ve üzerinde yol bulunmayan tekne", "Boyu 50 m’den kısa kılavuz görevi yapan tekne", "Üzerinde yol bulunmayan, tarama veya sualtı işleri ile meşgul tekne", "Boyu 50 m’den kısa diğer bir gemiyi bordasından yedekleme ile meşgul gemi", "Üzerinde yol bulunan ticari gemi"],
+  correctIndex: 3
+},
+
+{
+  id: 123,
+  question: "Aşağıdaki fenerleri görülen tekne ne ile uğraşmaktadır?",
+  options: ["Ağ balıkçılığı yapan ve ağları 150 m’den fazla olan demirli tekne", "Trol balıkçılığı yapan ve ağlarını atmakta olan demirli tekne", "İçinde kılavuz kaptan bulunan, seyir halinde ancak üzerinde yol olmayan kılavuz teknesi", "İçinde kılavuz kaptan bulunan, demirdeki bir kılavuz teknesi", "İçinde kılavuz kaptan bulunan, demirdeki bir kılavuz teknesi"],
+  correctIndex: 4
+},
+
+{
+  id: 124,
+  question: "Gece direk başı veya ona yakın bir yerde üstte beyaz altta kırmızı iki fener gösteren tekne hangisidir?",
+  options: ["Kılavuz teknesi", "Kumanda altında olmayan bir tekne", "Dalgıç işi meşgul tekne", "Üzerinde yol bulunmayan balıkçı teknesi", "Kablo döşeyen tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 125,
+  question: "Kılavuzluk görevi ile uğraşan bir tekne, beyaz-kırmızı fenerine ilaveten seyir halinde olduğu zaman; ____ de gösterecektir.",
+  options: ["Silyon ve borda fenerlerini", "Silyon, borda ve pupa fenerlerini", "Pupa ve borda fenerlerini", "Silyon ve pupa fenerlerini", "Pupa ve pruva fenerini"],
+  correctIndex: 2
+},
+
+{
+  id: 126,
+  question: "Kılavuzluk görevi ile uğraşan bir tekne seyir halinde olduğunda, beyaz-kırmızı fenerlere ek olarak ____ gösterecektir.",
+  options: ["Silyon fenerleri ile borda fenerlerini", "Borda fenerleri ile bir pupa fenerini", "Silyon fenerleri ile bir pupa fenerini", "Silyon, borda ve pupa fenerlerini", "Borda fenerlerini"],
+  correctIndex: 1
+},
+
+{
+  id: 127,
+  question: "________ teknesi direk başında üstte beyaz altta kırmızı iki fener gösterir ve seyirde borda ve pupa feneri yakar.",
+  options: ["Trol ağları engelle takılmış balıkçı", "Mayın tarama", "Üzerinde yol bulunan ticari", "Kılavuzluk görevi ile uğraşan bir kılavuz", "Boyu 50 m’den kısa olan balıkçı"],
+  correctIndex: 3
+},
+
+{
+  id: 128,
+  question: "Kılavuzluk görevi ile uğraşan teknelerle ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+  options: ["Görevde değilken normal tekne fenerlerini gösterir", "Görevdeyken gündüz Hotel (H) sancağını eder", "Görevdeyken geceleri beyaz-kırmızı fenerlere ilave olarak demir feneri gösterir", "Görevdeyken üzerinde yol varsa seyir fenerlerini gösterir", "Demirdeyken de görevde olabilir"],
+  correctIndex: 3
+},
+
+{
+  id: 129,
+  question: "Aşağıdaki feneri gösteren bir tekne ne tip bir teknedir?",
+  options: ["Yelkenli tekne (12 m)", "Yelkenli tekne (20 m’den fazla)", "Kürekli tekne", "50 m’den fazla demirli tekne", "20 m’den az kuvvetle yürütülen tekne"],
+  correctIndex: 2
+},
+
+{
+  id: 130,
+  question: "Yelkenli tekne gibi fenerler gösterebilen; göstermediği takdirde beyaz ışık el feneri taşımak zorunda olan tekne hangisidir?",
+  options: ["12 m’den fazla kuvvetle yürütülen", "7 m’den fazla yelkenli", "Kürekli tekne", "7 m’den fazla yelkenli", "Deniz uçağı"],
+  correctIndex: 2
+},
+
+{
+  id: 131,
+  question: "Geceleri borda ve pupa fenerlerine ek olarak düşey bir doğrultu üzerinde ufkun her tarafından görülebilir üstte kırmızı altta yeşil iki fener gösteren bir gemi durumunu belirtiniz.",
+  options: ["Trol çeken bir gemi", "Seyir halinde küçük bir motorlu tekne", "Sürüklenen bir gemi", "Seyir halinde yelkenli bir gemi", "Demirde bir gemi"],
+  correctIndex: 3
+},
+
+{
+  id: 132,
+  question: "________ bir tekne borda fenerlerini ve bir pupa feneri gösterecek. Bunlara ek olarak en iyi görülebilecek olan direk başı veya direk başına yakın bir yerde dikey bir doğru üzerinde ufkun her tarafında görülen üstteki kırmızı alttaki yeşil iki fener taşıyabilir.",
+  options: ["Seyir halinde kuvvetle yürütülen", "Seyir halinde yelkenli", "Trol çekme dışında balıkçılıkla uğraşan", "Kumanda altında bulunmayan", "Karaya oturan"],
+  correctIndex: 1
+},
+
+{
+  id: 133,
+  question: "Gece hem yelken hem makine ile seyreden bir tekne bu durumunu hangi fenerlerle belirtir?",
+  options: ["Borda fenerleri, silyon feneri ve pupa feneri", "Borda fenerleri, silyon ve pupa fenerlerine ilaveten direk başında her yönden görülebilen beyaz fener", "Borda fenerleri, silyon ve pupa fenerlerine ilaveten direk başında her yönden görülebilen kırmızı fener", "Borda fenerleri, pupa feneri ve direk başında her yönden görülebilen kırmızı fener", "Borda fenerleri, pupa feneri ve direk başında her yönden görülebilen yeşil fener"],
+  correctIndex: 0
+},
+
+{
+  id: 134,
+  question: "Aşağıdaki ifadelerden hangisi yanlıştır?",
+  options: ["Yelkenli tekneler yelken ve makineyi birlikte kullandıklarında borda ve pupa feneri göstermek zorunda değildir", "12 m’den az yelkenli borda ve pupa feneri göstermek zorundadır, isterse tek fener çekebilir", "20 m’den fazla yelkenli borda ve pupa feneri göstermek zorundadır", "7 m’den az yelkenli borda ve pupa feneri göstermeyebilir ancak el feneri bulundurur", "20 m’den fazla yelkenli borda ve pupa fenerlerine ek kırmızı-yeşil fener çekebilir"],
+  correctIndex: 0
+},
+
+{
+  id: 135,
+  question: "Yelkenli tekneler ile ilgili aşağıdaki ifadelerden yanlış olanını seçiniz.",
+  options: ["Yelken + makine kullanan yelkenli kuvvetle yürütülen sayılır", "12 m’den az yelkenli borda ve pupa feneri çekmek zorundadır", "20 m’den fazla yelkenli ek kırmızı-yeşil fener çekebilir", "Yelken + makine kullanan gündüz silindir asmak zorundadır", "7 m’den az yelkenli borda ve pupa feneri göstermeyebilir, el feneri taşır"],
+  correctIndex: 0
+},
+
+{
+  id: 136,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Kumanda altında olmayan ve üzerinde yol bulunan tekne", "Su çekimi nedeniyle seyri kısıtlı tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunan tekne", "Üzerinde yol bulunmayan tarama veya sualtı işleri yapan tekne", "Mayın tarama işleri ile uğraşan tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 137,
+  question: "Aşağıdaki maddelerden hangi durumda tekne silyon fenerini göstermez?",
+  options: ["Kumanda altında bulunmayan tekne", "Mayın temizleme faaliyeti yapan tekne", "Seyir halinde kuvvetle yürütülen tekne", "Su çekimi nedeniyle manevrası kısıtlı tekne", "Yedekleme yapan tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 138,
+  question: "Kumanda altında bulunmayan bir tekne dikey bir doğru üzerinde ufkun her tarafından görülür ____ gösterecektir.",
+  options: ["İki kırmızı fener veya iki eşkenar dörtgen", "Bir kırmızı fener veya bir küre", "İki kırmızı fener veya iki küre", "İki yeşil fener veya iki küre", "İki kırmızı fener veya iki koni"],
+  correctIndex: 1
+},
+
+{
+  id: 139,
+  question: "Kumanda altında olmayan ve üzerinde yol olan bir tekne gece hangi fenerleri gösterir?",
+  options: ["Sadece iki kırmızı fener", "İki kırmızı fener – borda fenerleri – pupa feneri", "Sadece üç kırmızı fener", "İki kırmızı fener – borda fenerleri", "Tek kırmızı fener – silyon ve pupa feneri"],
+  correctIndex: 1
+},
+
+{
+  id: 140,
+  question: "Gece dikey bir doğru üzerinde ufkun her yönünden görünür üst üste iki kırmızı fenerden başka işaret göstermeyen geminin durumu nedir?",
+  options: ["Üzerinde yol olmayan kumanda altında olmayan tekne", "Üzerinde yol olmayan ağ balıkçılığı yapan tekne", "Üzerinde yol olmayan trol ağları engelle takılmış tekne", "Üzerinde yol olmayan draft nedeniyle manevrası kısıtlı tekne", "Üzerinde yol olmayan manevrası kısıtlı tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 141,
+  question: "Kumanda altında olmayan tekneler hangi fener ve işaretleri gösterir?",
+  options: ["Yol varsa iki kırmızı fener + gündüz iki küre; yol yoksa iki kırmızı fener + gündüz iki küre", "Yol varsa iki kırmızı fener + gündüz iki küre; yol yoksa iki kırmızı fener + gündüz bir küre", "Yol varsa iki kırmızı fener + gündüz iki küre; yol yoksa iki kırmızı fener + demir fenerleri", "Yol varsa iki kırmızı fener + gündüz iki küre; yol yoksa iki kırmızı fener + gündüz pupa feneri", "Yol varsa iki kırmızı fener + gündüz iki küre; yol yoksa iki kırmızı fener + gündüz iki küre"],
+  correctIndex: 3
+},
+
+{
+  id: 142,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 m veya daha fazla karaya oturmuş gemi", "Boyu 50 m veya daha fazla demirli tekne", "Kumanda altında olmayan ve üzerinde yol bulunmayan tekne", "Üzerinde yol bulunan askeri gemi", "Mayın tarama işleri ile uğraşan tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 143,
+  question: "Boyu 50 m’den kısa olan demirli bir tekne, ____ gösterecektir.",
+  options: ["En iyi görülebilecek yerde bir beyaz fener", "En iyi görülebilecek yerde bir sarı fener", "Baştaki bir beyaz fener", "Başta bir sarı fener", "Hiçbiri"],
+  correctIndex: 0
+},
+
+{
+  id: 144,
+  question: "Demirli bir tekne baş tarafındaki bir beyaz fener dışında kıç tarafa yakın ____ fener daha gösterir.",
+  options: ["Bir sarı fener", "Bir kırmızı fener", "İki kırmızı fener", "İki sarı fener", "Bir beyaz fener"],
+  correctIndex: 4
+},
+
+{
+  id: 145,
+  question: "Demirli bir tekne baş tarafındaki bir beyaz fener dışında ____ daha gösterir.",
+  options: ["Kıçta bir sarı fener", "Kıçta bir kırmızı fener", "Başta bir sarı fener", "Vasatta bir sarı fener", "Kıçta bir beyaz fener"],
+  correctIndex: 4
+},
+
+{
+  id: 146,
+  question: "Boyu 50 metreden küçük demirli bir geminin gece ve gündüz göstermesi gereken işaretler nelerdir?",
+  options: ["Gece kırmızı fener, gündüz küre", "Gece iki kırmızı fener, gündüz aşağı bakan koni", "Gece beyaz fener, gündüz küre", "Gece beyaz fener, gündüz küre", "Gece baş ve kıçta beyaz fenerler, gündüz küre"],
+  correctIndex: 2
+},
+
+{
+  id: 147,
+  question: "____ tekne en iyi görülebilecek yerde başta bir beyaz fener veya siyah küre, kıçta daha alçakta bir beyaz fener gösterir.",
+  options: ["Seyir halinde kuvvetle yürütülen", "Kısıtlı görüşte karaya oturan", "Hava yastıklı", "Karaya oturan", "Demirli olan"],
+  correctIndex: 4
+},
+
+{
+  id: 148,
+  question: "Aşağıdaki teknelerden hangisinin demirdeyken demir feneri göstermesi zorunlu değildir?",
+  options: ["10 m kuvvetle yürütülen", "Balıkçılıkla uğraşan balıkçı teknesi", "8 m yelkenli tekne", "Kumanda altında olmayan tekne", "Tarama ve su altı işleri yapan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 149,
+  question: "Çatışmayı önleme kurallarına göre boyları kaç metre olan tekneler güvertelerini aydınlatacaktır?",
+  options: ["125 m ve üzeri", "50 m ve üzeri", "75 m ve üzeri", "150 m ve üzeri", "100 m ve üzeri"],
+  correctIndex: 4
+},
+
+{
+  id: 150,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 m’den kısa karaya oturmuş gemi", "Mayın tarama işleri ile uğraşan tekne", "Manevra gücü kısıtlı ve üzerinde yol bulunan tekne", "Kumanda altında olmayan ve üzerinde yol bulunmayan tekne", "Trol ağları engele takılmış balıkçı teknesi"],
+  correctIndex: 0
+},
+
+{
+  id: 151,
+  question: "Karaya oturan bir tekne ____ fener ve ____ gösterir.",
+  options: ["Üç kırmızı – iki koni", "Üç kırmızı – üç küre", "Üç kırmızı – üç koni", "İki kırmızı – iki küre", "İki kırmızı – üç küre"],
+  correctIndex: 4
+},
+
+{
+  id: 152,
+  question: "Gece demir fenerlerine ilaveten üst üste iki kırmızı fener gösteren gemi neyi belirtir?",
+  options: ["Demirli ve trol ağları engele takılmış tekne", "Demirli ve draftı nedeniyle manevrası kısıtlı tekne", "Demirli ve sualtı/tarama yapan tekne", "Karaya oturmuş tekne", "Demirli ve balıkçılık yapan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 153,
+  question: "Karaya oturan tekne gece ve gündüz hangi fener ve işaretleri gösterir?",
+  options: ["Gece beyaz demir fenerleri + iki kırmızı, gündüz üç siyah küre", "Gece beyaz demir fenerleri + iki kırmızı, gündüz iki siyah küre", "Gece beyaz demir fenerleri + iki kırmızı, gündüz üç siyah koni", "Gece beyaz demir fenerleri + iki kırmızı, gündüz üç siyah küre", "Gece beyaz demir fenerleri + iki kırmızı, gündüz iki siyah küre"],
+  correctIndex: 0
+},
+
+{
+  id: 154,
+  question: "____ bir tekne demir fenerlerini gösterecek, ek olarak gece iki kırmızı fener ve gündüz üç siyah küre gösterecektir.",
+  options: ["Demirli olan", "Kumanda altında bulunmayan", "Trol çekme dışında balıkçılıkla uğraşan", "Bir hava yastıklı", "Karaya oturan"],
+  correctIndex: 4
+},
+
+{
+  id: 155,
+  question: "Aşağıdaki şekildeki tekne için hangisi doğrudur?",
+  options: ["Karaya oturmuş gemi", "Su çekimi nedeniyle manevrası kısıtlı tekne", "Kumanda altında olmayan seyir halindeki gemi", "Boyu 50 m’den kısa kumanda altında olmayan gemi", "Kumanda altında olmayan demirli gemi"],
+  correctIndex: 1
+},
+
+{
+  id: 156,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Üzerinde yol bulunan askeri gemi", "Boyu 50 m’den kısa kılavuz görevi yapan tekne", "Üzerinde yol bulunmayan tarama veya sualtı işleri yapan tekne", "Boyu 50 m veya daha fazla demirli tekne", "Su çekimleri nedeniyle seyirleri kısıtlı tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 157,
+  question: "Çektiği su nedeniyle manevrası kısıtlı tekne gece hangi fenerleri gösterir?",
+  options: ["Borda + silyon + pupa + üç kırmızı/bir beyaz", "Borda + silyon + pupa + iki kırmızı", "Borda + silyon + pupa + üç beyaz", "Borda + silyon + pupa + bir kırmızı iki beyaz", "Borda + silyon + pupa + üç kırmızı bir yeşil"],
+  correctIndex: 1
+},
+
+{
+  id: 158,
+  question: "____ tekneler kuvvetle yürütülen fenerlere ek olarak üç kırmızı fener veya gündüz bir silindir gösterir.",
+  options: ["Demirli olan", "Kılavuzluk görevi yapan", "Su çekimleri nedeniyle seyirleri kısıtlı", "Karaya oturan", "Manevra yeteneği kısıtlı"],
+  correctIndex: 2
+},
+
+{
+  id: 159,
+  question: "Bir teknenin su çekimi nedeniyle kısıtlı sayılması için hangi kriterler dikkate alınır?",
+  options: ["I", "II – III", "I – III", "I – II – III", "I – II"],
+  correctIndex: 3
+},
+
+{
+  id: 160,
+  question: "Aşağıdaki fenerleri taşıyan gemi için hangisi doğrudur?",
+  options: ["Draft nedeniyle kısıtlı gemi kıçtan görülüyor", "Manevra yeteneği kısıtlı gemi kıçtan görülüyor", "Tarama gemisi ekipmanını sancaktan atmış", "Dalgıç gemisi beklemede", "Kumanda altında olmayan gemi pruvadan yaklaşıyor"],
+  correctIndex: 1
+},
+
+{
+  id: 161,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilen tekne hangisini ifade eder?",
+  options: ["Üzerinde yol bulunan tarama/sualtı işleri teknesi", "Üzerinde yol bulunmayan tarama/sualtı işleri teknesi", "Su çekimleri nedeniyle seyri kısıtlı tekne", "Üzerinde yol bulunan askeri gemi", "Manevra gücü kısıtlı ve üzerinde yol olan tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 162,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilen tekne hangisini ifade eder?",
+  options: ["Boyu 50 metreden uzun, manevrası kısıtlı, su altı çalışması yapan, seyir halinde, sancak tarafı engelli, iskele tarafı neta gemi", "Boyu 50 metreden uzun, kumanda altında olmayan, su altı çalışması yapan, seyir halinde, sancak tarafı engelli, iskele tarafı neta gemi", "Boyu 50 metreden kısa, manevrası kısıtlı, su altı çalışması yapan, seyir halinde, iskele tarafı engelli, sancak tarafı neta gemi", "Boyu 50 metreden kısa, draftı nedeniyle manevrası kısıtlı, su altı çalışması yapan, seyir halinde, sancak tarafı engelli, iskele tarafı neta gemi", "Boyu 50 metreden kısa, manevrası kısıtlı, su altı çalışması yapan, seyir halinde, sancak tarafı engelli, iskele tarafı neta gemi"],
+  correctIndex: 4
+},
+
+{
+  id: 163,
+  question: "Manevra gücü kısıtlı tekneler ilerlerken kırmızı-beyaz-kırmızıya ek olarak hangi fenerleri gösterir?",
+  options: ["Silyon", "Silyon ve borda", "Silyon, borda ve pupa", "Borda", "Borda ve pupa"],
+  correctIndex: 2
+},
+
+{
+  id: 164,
+  question: "Sualtı işleri yapan geminin iskele tarafı engelli ise hangi fenerleri gösterir?",
+  options: ["Işıklı işaret", "Tek kırmızı", "İki beyaz", "Projektör", "İki kırmızı"],
+  correctIndex: 4
+},
+
+{
+  id: 165,
+  question: "Gece bir adet pruva feneri, borda fenerleri ve pupa fenerine ek olarak, düşey bir doğrultuda, ufkun her yönünden görülür üstte kırmızı, ortada beyaz ve onun altında kırmızı fener bulunan geminin iskele bordasında, iskele borda fenerinden daha yukarıda, düşey bir doğrultuda yukarıdan aşağıya ufkun her yönünden görülür üstte iki adet yeşil fener gösteren bir tekne ile ilgili aşağıdaki tespitlerden hangisi doğrudur?",
+  options: ["Seyir halinde boyu elli metreden kısa su altı çalışması yapan bir gemi olup sancak tarafında geçiş uygundur", "Boyu 50 metreden kısa seyir halinde su altı çalışması yapan bir tekne olup iskele tarafından geçiş uygundur", "Seyir halinde boyu elli metreden kısa manevrası kısıtlı engelle takıldığı için kısıtlı bir trol çeken gemidir", "Seyir halinde boyu elli metreden kısa manevrası kısıtlı su altı çalışması yapan tarafa yaklaşması uygun olmayan bir gemidir", "Seyir halinde boyu elli metreden kısa mayın arama-tarama görevi yapan bir teknedir"],
+  correctIndex: 1
+},
+
+{
+  id: 166,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne, seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 metreden kısa karaya oturmuş gemi", "Trol çekmekte olan boyu 50 metreden kısa üzerinde yol olan tekne", "Boyu 50 metreden fazla karaya oturmuş gemi", "Boyu 50 metre veya daha fazla demirli gemi", "Mayın tarama işleri ile uğraşan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 167,
+  question: "Aşağıdaki şekilde görülen tekne için hangisi doğrudur?",
+  options: ["Boyu 50 metreden fazla trol balıkçılığı yapan ağlarını toplayan tekne", "Boyu 50 metreden kısa trol balıkçılığı yapan ağlarını atan tekne", "Boyu 50 metreden fazla mayın taraması yapan 100 metreden fazla yaklaşılması gereken tekne", "Boyu 50 metreden fazla iskeleden sualtı çalışması yapan sancak tarafı engelli tekne", "Boyu 50 metreden kısa mayın taraması yapan 1500 metreden fazla yaklaşılması gereken tekne"],
+  correctIndex: 2
+},
+
+{
+  id: 168,
+  question: "Mayın temizleme işleriyle uğraşan bir teknenin göstereceği alametlerden hangisi doğrudur?",
+  options: ["Gece üç kırmızı fener gündüz üç küre", "Gece üç kırmızı fener gündüz üç koni", "Gece üç yeşil fener gündüz üç koni", "Gece üç yeşil fener gündüz üç küre", "Gece iki yeşil fener gündüz iki küre"],
+  correctIndex: 3
+},
+
+{
+  id: 169,
+  question: "Aşağıda boş bırakılan yere uygun düşen seçeneği bulunuz.",
+  options: ["Mayın tarama işleri ile uğraşan", "Kılavuzluk görevi ile uğraşan", "Demirli olan", "Su çekimleri nedeniyle seyirleri kısıtlı", "Karaya oturan"],
+  correctIndex: 0
+},
+
+{
+  id: 170,
+  question: "Denizde Çatışmayı Önleme Tüzüğüne göre aşağıdaki ifadelerden hangisi yanlıştır?",
+  options: ["Kumanda altında bulunmayan tekne iki kırmızı fener gösterir", "Manevra gücü kısıtlı tekne kırmızı beyaz kırmızı fener gösterir", "Dalgıç işleri ile uğraşan tekne kırmızı beyaz kırmızı fener gösterir", "Kumanda altında bulunmayan tekne iki küre gösterir", "Manevra gücü kısıtlı tekne iki küre gösterir"],
+  correctIndex: 4
+},
+
+{
+  id: 171,
+  question: "Mayın temizleme faaliyetleri ile uğraşan bir tekne dışında manevra gücü kısıtlı bir teknenin göstereceği alametler hakkında aşağıdakilerden hangisi yanlıştır?",
+  options: ["En iyi görülebilecekleri bir yerde dikey bir doğru üzerinde her yönden görülür üç fener gösterecektir bu fenerlerden en üstteki ve en alttaki kırmızı ortadaki beyaz olacaktır", "En iyi görülebilecekleri bir yerde dikey bir doğru üzerinde üç şekil gösterecektir bu şekillerden en üstteki ve en alttaki küre ortadaki eşkenar dörtgen şeklinde olacaktır", "Su üzerinde ilerlerken a şıkkında belirtilen fenerlere ek olarak silüet borda fenerleri ile pupa fenerini gösterecektir", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 172,
+  question: "Aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+  options: ["Demirde iken dip taraması yapan manevrası kısıtlı tekneler baş ve kıç demir fenerlerini yakmazlar", "Kürekli bir tekne yelkenli tekne için gereken borda fenerleri ile pupa fenerini uygulayabildiği takdirde gösterebilir bu fenerleri gösteremediği takdirde çatışmayı önlemek için belirli bir süre gösterir", "Mayın temizleme işleri ile uğraşan bir tekne 1000 metreden fazla yaklaşmak tehlikelidir", "Boyu 12 m olan üzerinde yol bulunan bir yelkenli tekne borda fenerleri ile pupa fenerini gösterecektir", "Kumanda altında olmayan ve manevra gücü kısıtlı olan tekneler boyu 12 m den az olan tekneler gündüz ve gece göstermeye yükümlü oldukları şekil ve fenerleri göstermeyebilirler"],
+  correctIndex: 4
+},
+
+{
+  id: 173,
+  question: "Yandaki şekilde fenerleri görülen ne tip bir teknedir?",
+  options: ["Boyu 50 den kısa yedek boyu 200 den uzun yedekleme faaliyetiyle uğraşan tekne", "Boyu 50 den kısa yedek boyu 200 den kısa yedekleme faaliyetiyle uğraşan tekne", "Boyu 50 den kısa sualtı çalışması yapan tekne", "Boyu 50 den kısa ağ balıkçılığı faaliyetiyle uğraşan tekne", "Boyu 50 den kısa trol çeken tekne"],
+  correctIndex: 1
+},
+
+{
+  id: 174,
+  question: "Gece, aşağıdaki fenerleri gösteren gemilerin durumu nedir?",
+  options: ["Yedekleyen boyu 50 metreden kısa yedek boyu 200 metreden kısa yedekleme", "Yedekleyen boyu 50 metreden uzun yedek boyu 200 metreden kısa yedekleme", "Yedekleyen boyu 50 metreden uzun yedek boyu 150 metreden kısa yedekleme", "Yedekleyen boyu 50 metreden kısa yedek boyu 200 metreden uzun yedekleme", "Yedekleyen boyu 50 metreden kısa yedek boyu 150 metreden uzun yedekleme"],
+  correctIndex: 0
+},
+
+{
+  id: 175,
+  question: "Yukarıdaki şekildeki fenerleri gösteren gemiler için aşağıdakilerden hangisi doğru bir ifadedir?",
+  options: ["Yedek boyu 200 metreden kendisi 50 metreden kısa bir römorkör sancak tarafından görülmektedir", "Yedek boyu 200 metreden kendisi 50 metreden kısa bir römorkör sancak tarafından görülmektedir", "Yedek boyu 50 metreden kısa bir römorkördür", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 176,
+  question: "Aşağıdaki tekneler için hangisi doğrudur?",
+  options: ["Yedekleyenin boyu 50 metreden uzun yedek boyu 200 metreden kısa yedekleme", "Yedekleyenin boyu 50 metreden kısa yedek boyu 200 metreden kısa yedekleme", "Yedekleyenin boyu 50 metreden kısa yedek boyu 250 metre yedekleme", "Yedekleyenin boyu 50 metreden uzun yedek boyu 250 metreden kısa yedekleme", "Yedekleyenin boyu 50 metreden kısa yedek boyu 200 metreden uzun yedekleme"],
+  correctIndex: 4
+},
+
+{
+  id: 177,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Yedek çeken ve rotasından ayrılma gücü olmayan boyu 50 metreden kısa güçlü yürütülen tekne", "Yedek çeken ve rotasından ayrılma gücü olmayan boyu 50 metreden kısa güçlü yürütülen tekne", "Yedek çeken ve rotasından ayrılma gücü olmayan boyu 100 metreden fazla güçlü yürütülen tekne", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 178,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Yedek çeken ve rotasından ayrılma gücü olmayan boyu 50 metreden kısa güçlü yürütülen tekne", "Güçle yürütülen boyu 50 metreden az diğer bir gemiyi çekmekle meşgul gemi", "Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi çekmekle meşgul gemi", "Yedek çeken ve rotasından ayrılma gücü olmayan boyu 50 metre veya daha fazla güçlü yürütülen tekne", "Yedek çeken ve rotasından ayrılma gücü olmayan boyu 200 metreden kısa güçlü yürütülen tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 179,
+  question: "DÇÖT Kurallarına göre aşağıda verilen tanımlardan hangisi, pruvadan görünüşte yedekleme yapan teknenin durumunu doğru ifade eder?",
+  options: ["Yedek çeken ve boyu 50 metreden az olan yedek boyu 200 metreden az manevrası kısıtlı bir teknenin pruvadan görünüşü", "Yedek çeken ve boyu 50 metreden büyük yedek boyu 200 metreden fazla manevrası kısıtlı bir teknenin pruvadan görünüşü", "Yedek çeken ve boyu 50 metreden az olan yedek boyu 200 metreden fazla manevrası kısıtlı bir teknenin pruvadan görünüşü", "Yedek çeken ve boyu 50 metreden büyük yedek boyu 200 metreden az manevrası kısıtlı bir teknenin pruvadan görünüşü", "Yedek çeken ve boyu 50 metreden büyük yedek boyu 200 metreden fazla kuvvetle yürütülen bir teknenin pruvadan görünüşü"],
+  correctIndex: 1
+},
+
+{
+  id: 180,
+  question: "Aşağıda resmi bulunan ve üzerinde her yönden görünen beyaz 3 adet fener bulunan yan batık teknenin özelliği nedir?",
+  options: ["Boyu 100 metreden az eni 25 metreden fazla bir yan batık", "Boyu 100 metreden fazla eni 25 metreden az bir yan batık", "Boyu 100 metreden az eni 25 metreden az bir yan batık", "Boyu 100 metreden fazla eni 25 metreden fazla bir yan batık", "Hiçbiri"],
+  correctIndex: 1
+},
+
+{
+  id: 181,
+  question: "Aşağıda resmi bulunan ve üzerinde her yönden görünen beyaz 4 adet fener bulunan yarı batık teknenin özelliği nedir?",
+  options: ["Boyu 100 metreden az, eni 25 metreden fazla bir yarı batık", "Boyu 100 metreden fazla, eni 25 metreden az bir yarı batık", "Boyu 100 metreden az, eni 25 metreden az bir yarı batık", "Boyu 100 metreden fazla, eni 25 metreden fazla bir yarı batık", "Hiçbiri"],
+  correctIndex: 0
+},
+
+{
+  id: 182,
+  question: "Boyu 170 metre ve eni 27 metre olan kısmen batık bir tekne yedeklendiğinde bu teknede;",
+  options: ["Başta yada başa yakın bir yerde en az 2 milden ve her yönden görünür bir beyaz fener, kıçında ya da kıça yakın bir yerde en az 2 milden her yönden görünür bir beyaz fener gösterecektir", "Başta yada başa yakın bir yerde en az 3 milden her yönden görünür bir beyaz fener, kıçında ya da kıça yakın bir yerde en az 3 milden her yönden görünür bir beyaz fener gösterecektir", "Başta yada başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, kıçında ya da kıça yakın bir yerde en az 3 milden her yönden görünür bir beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerde en az 3 milden ve her yönden görünür fenerler gösterecektir", "Başta yada başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, baş kıç doğrultusunda 100 metreyi geçmemek üzere en az 3 milden her yönden görünür bir beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerde en az 3 milden ve her yönden görünür fenerler gösterecektir", "Başta yada başa yakın bir yerde en az 3 milden her yönden görünür beyaz fener, baş kıç doğrultusunda 100 metreyi geçmemek üzere en az 3 milden her yönden görünür beyaz fener, kıçında ya da kıça yakın bir yerde en az 3 milden ve her yönden görünür beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerde en az 3 milden her yönden görünür fenerler gösterecektir"],
+  correctIndex: 4
+},
+
+{
+  id: 183,
+  question: "Hangi gemi düşey bir doğrultu üzerinde iki adet silyon feneri göstermek zorundadır?",
+  options: ["Boyu 50 metreden kısa yedek boyu 200 metre olan kuvvetle yürütülen bir gemi", "Kıç tarafında küçük bir tekne çeken yelkenli bir gemi", "Kumanda altında olmayan bir gemi", "Manevra yeteneği sınırlı bir gemi", "Tarama işleriyle uğraşan bir gemi"],
+  correctIndex: 0
+},
+
+{
+  id: 184,
+  question: "Çekerek yedeklemede yedeklenen tekneler;",
+  options: ["Sadece silyon fenerlerini çekerler", "Borda fenerlerini çekerler", "Pupa fenerlerini çekerler", "Seyir fenerlerini (Silyon, borda ve pupa fenerlerini) çekerler", "Borda ve pupa fenerlerini çekerler"],
+  correctIndex: 4
+},
+
+{
+  id: 185,
+  question: "Çekerek yedeklemede yedek boyu 200 metreden kısa olan yedeklemede boyu 50 metreden kısa yedekleyen ve yedeklenen teknenin göstereceği fenerler hangisidir?",
+  options: ["Yedekleyende; pruvada alt alta iki silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; pruvada tek silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; pruvada alt alta üç silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; alt alta iki silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa, yedek feneri", "Yedekleyende; borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri"],
+  correctIndex: 0
+},
+
+{
+  id: 186,
+  question: "Çekerek yedeklemede yedek boyu 200 metreden kısa olan yedeklemede; Boyu 50 metreden uzun yedekleyen tekne ve yedeklenen teknede hangi fenerler vardır?",
+  options: ["Yedekleyende; pruvada alt alta üç silyon, borda, pupa feneri. Yedeklenende; borda, pupa, yedek feneri", "Yedekleyende; pruvada alt alta üç silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; pruvada alt alta iki silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; pruvada alt alta üç silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri", "Yedekleyende; pruvada alt alta iki silyon, grandine silyon, borda, pupa, yedek feneri. Yedeklenende; borda, pupa feneri"],
+  correctIndex: 4
+},
+
+{
+  id: 187,
+  question: "Çekerek yedekleyen boyu 50 m’den fazla kuvvetle yürütülen bir tekne, yedek boyu 200 metreden fazla ve manevrası kısıtlı değilse hangi fenerleri gösterirler?",
+  options: ["Yedekleyen tekne pruvada üst üste üç adet silyon fenerini, borda fenerlerini, pupa fenerini ve üstünde seyir yedek fenerini; çekilen yedeklenen tekne ise borda fenerlerini ve pupa fenerini gösterirler", "Yedekleyen tekne pruvada üst üste üç adet silyon, e grandisinde bir adet silyon fenerini ve üstünde sarı yedek fenerini, çekilen yedeklenen tekne ise borda fenerlerini ve pupa fenerini gösterirler", "Yedekleyen tekne pruvada üst üste üç adet silyon, grandisinde bir adet silyon fenerini ve sarı yedek fenerini, çekilen yedeklenen tekne ise silyon fenerini, borda fenerlerini ve pupa fenerini gösterirler", "Yedekleyen tekne pruvada üst üste iki adet silyon fenerini, grandisinde bir adet silyon fenerini, borda fenerlerini, pupa fenerini; çekilen yedeklenen tekne ise borda fenerlerini ve pupa fenerini gösterir", ""],
+  correctIndex: 1
+},
+
+{
+  id: 188,
+  question: "Gece aşağıda pruvadan görülen, birbirine sıkıca bağlı gemiler hangi işle uğraşmaktadır?",
+  options: ["Boyu 50 metreden uzun bir gemi, diğerini bordada yedekliyor", "Boyu 100 metreden uzun bir gemi, diğerini bordadan yedekliyor", "Boyu 50 metreden kısa gemi, diğerini bordadan yedekliyor", "Boyu 50 metreden kısa gemi, yedek boyu 200 metreden kısa olan, diğerini çekerek yedekliyor", "Boyu 50 metreden kısa gemi, diğerini sıkı sıkıya bağlı olarak iterek yedekliyor"],
+  correctIndex: 2
+},
+
+{
+  id: 189,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Güçle yürütülen boyu 50 metreden kısa diğer bir gemiyi bordasında yedeklemekle meşgul gemi", "Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi bordasında yedeklemekle meşgul gemi", "Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi itmekle meşgul gemi", "Boyu 50 metreden kısa güçle yürütülen gemi yedek boyu 200 metreden fazla", ""],
+  correctIndex: 0
+},
+
+{
+  id: 190,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Mayın tarama işleri ile meşgul gemi", "Güçle yürütülen, yedek boyu 200 metreden uzun, bordasında yedekleme ile meşgul gemi", "Manevra yeteneği kısıtlı, diğer gemiyi yedeklemekle meşgul gemi", "Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi bordasında yedeklemekle meşgul gemi", "Güçle yürütülen boyu 100 metre veya daha fazla diğer bir gemiyi çekmekle meşgul gemi"],
+  correctIndex: 3
+},
+
+{
+  id: 191,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi itmekle meşgul gemi", "Güçle yürütülen boyu 200 metre veya daha fazla diğer bir gemiyi itmekle meşgul gemi", "Güçle yürütülen boyu 50 metre veya daha fazla diğer bir gemiyi çekmekle meşgul gemi", "Güçle yürütülen boyu 100 metre veya daha fazla diğer bir gemiyi çekmekle meşgul gemi", "Yedek çeken ve rotasından ayrılma gücü olmayan, boyu 50 metreden kısa, güçle yürütülen tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 192,
+  question: "Aşağıda fenerleri pruvadan görülen tekneler ne işle uğraşmaktadır?",
+  options: ["Karaya oturmuş tekne", "Demirli tekne", "İterek yedekleme", "Trol çeken tekne", "Yedek boyu 200 metreden fazla olan çekerek yedekleme"],
+  correctIndex: 2
+},
+
+{
+  id: 193,
+  question: "Önündeki tekneleri, sıkıca bağlı olarak ileri iterek götüren 50 metre ve daha uzun tekne ile itilen teknelerin göstereceği fenerler aşağıdakilerden hangisidir?",
+  options: ["İleri iten teknede; pruvada alt alta üç silyon, borda, pupa feneri. İtilen teknede; pruvalya yakın borda, pupa feneri", "İleri iten teknede; pruvada alt alta iki silyon, borda, pupa feneri. İtilen teknede; pruvalya yakın borda, pupa feneri", "İleri iten teknede; pruvada alt alta iki silyon, bir grandis silyon, borda, pupa feneri. İtilen teknede; pruvalya yakın borda, pupa, yedek feneri", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 194,
+  question: "Önündeki tekneleri, sıkıca bağlı olarak ileri iterek götüren 50 metreden kısa tekne ile itilen teknelerin göstereceği fenerler aşağıdakilerden hangileridir?",
+  options: ["İleri iten teknede; pruvada, alt alta iki silyon, borda, pupa, yedek feneri ve itilen teknede; borda, pupa feneri", "İleri iten teknede; pruvada, alt alta iki silyon, borda, pupa feneri ve itilen teknede; borda, pupa, yedek feneri", "İleri iten teknede; pruvada, alt alta üç silyon, borda, pupa feneri ve itilen teknede; pruvalya yakın borda feneri", "İleri iten teknede; pruvada, alt alta üç silyon, borda, pupa, yedek feneri ve itilen teknede; pruvalya yakın borda feneri", ""],
+  correctIndex: 4
+},
+
+{
+  id: 195,
+  question: "Balıkçılık yapan bir tekne gece hangi fenerleri yakar?",
+  options: ["Üstte yeşil altta beyaz iki fener", "Üstte kırmızı altta yeşil iki fener", "Altta kırmızı üstte yeşil iki fener", "Üstte kırmızı altta beyaz iki fener", "Altta sarı üstte kırmızı iki fener"],
+  correctIndex: 3
+},
+
+{
+  id: 196,
+  question: "Trol çekme dışında balıkçılık yapan bir tekne gece hangi fenerleri yakar?",
+  options: ["Üstte kırmızı altta beyaz iki fener", "Altta sarı üstte kırmızı iki fener", "Altta kırmızı üstte yeşil iki fener", "Üstte beyaz altta kırmızı iki fener", "Üstüste iki sarı fener"],
+  correctIndex: 0
+},
+
+{
+  id: 197,
+  question: "…… bir tekne üstteki kırmızı, alttaki beyaz renkte olan ve dikey bir doğru üzerinde bulunan ufkun her tarafında görünür iki fener veya düşey bir doğrultuda ve birbirine bitişik iki koni gösterir. Boyu yirmi metreden kısa olan bir tekne bu şekli yerine bir sepet gösterebilecektir.",
+  options: ["Su çekimleri nedeniyle seyirleri kısıtlı", "Manevra gücü kısıtlı ve üzerinde yol bulunmayan", "Manevra gücü kısıtlı ve üzerinde yol bulunan", "Trol çekme dışında balıkçılıkla uğraşan", "Üzerinde yol bulunan ticari"],
+  correctIndex: 3
+},
+
+{
+  id: 198,
+  question: "Aşağıdaki şekilde görülen tekne için hangisi doğrudur?",
+  options: ["Boyu 50 metreden uzun, seyir halinde ağlarını atan, trol teknesi", "Boyu 50 metreden uzun, seyir halinde balıkçı teknesi", "Boyu 50 metreden uzun, seyir halinde ağlarını toplayan, trol teknesi", "Boyu 50 metreden uzun, seyir halinde trol çeken tekne", ""],
+  correctIndex: 3
+},
+
+{
+  id: 199,
+  question: "Yukarıdaki ışık işaretlerini COLREG’e göre tanımlayan ifade aşağıdakilerden hangisidir?",
+  options: ["Balıkçı gemisi seyir halindedir", "Yedek çeken 50 m’den kısa bir tekneyi pupa istikametinden görmektesiniz", "Trol çeken bir tekneyi kıç tarafından gözlemlemektesiniz", "Yelkenli ile seyreden bir tekne kıç istikametinden görülmektedir", "Trol ağlarını denize saldığı için beyaz ışık ile tanımlanan bir trol gemisidir"],
+  correctIndex: 2
+},
+
+{
+  id: 200,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Trol çekmekte olan boyu 50 metreden kısa üzerinde yol olan tekne", "Trol çekmekte olan boyu 50 metreden fazla üzerinde yol olan tekne", "Boyu 50 metre veya fazla olan demirli tekne", "Kumanda altında olmayan ve üzerinde yol bulunan tekne", "Mayın tarama işleriyle uğraşan tekne"],
+  correctIndex: 0
+},
+
+{
+  id: 201,
+  question: "…… tekne üstte yeşil, alttaki beyaz renkte olan ve dikey bir doğru üzerinde bulunan, ufkun her tarafından görünür iki fener veya düşey bir doğru üzerinde ve birbirine bitişik iki koni gösterir. Boyu yirmi metreden kısa olan bir tekne bu şekiller yerine bir sepet gösterebilecektir. Her yönden görünür silyon feneri gösterecektir. Borda fenerleri ve pupa fenerini de gösterecektir.",
+  options: ["Kumanda altında olmayan ve üzerinde yol bulunan", "Boyu 50 metre veya daha fazla olan demirli", "Mayın tarama işleri ile uğraşan", "Tarama ağları veya diğer takımları kullanarak trol çekme işi ile uğraşan bir balıkçı", "Su çekimleri nedeniyle seyirleri kısıtlı"],
+  correctIndex: 3
+},
+
+{
+  id: 202,
+  question: "Aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+  options: ["Trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte yeşil altta beyaz fener çekerler", "Trol balıkçılığı ile uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte yeşil altta beyaz fener çekerler", "Trol balıkçılığı demir üzerinde yapılamaz", "Trol balıkçılığı dışında balıkçılık demir üzerinde de yapılabilir. Demirde trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte kırmızı altta beyaz fener çekerler", "Trol balıkçılığı dışında balıkçılık demir üzerinde de yapılabilir. Demirde trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte kırmızı altta beyaz fener ve bu fenerlere ilaveten baş ve kıça demir fenerlerini çekerler"],
+  correctIndex: 4
+},
+
+{
+  id: 203,
+  question: "Balıkçı tekneleri ağlarını atarken hangi feneri gösterirler?",
+  options: ["Dikey bir doğru üzerinde iki beyaz fener", "Dikey bir doğru üzerinde iki yeşil fener", "Dikey bir doğru üzerinde iki sarı fener", "Dikey bir doğru üzerinde iki kırmızı fener", "Dikey bir doğru üzerinde üç kırmızı fener"],
+  correctIndex: 0
+},
+
+{
+  id: 204,
+  question: "DÇÖT Kurallarına göre aşağıda resmi verilmiş tekne seçeneklerden hangisini ifade etmektedir?",
+  options: ["Boyu 50 metreden kısa kılavuz görevi yapan tekne", "Boyu 50 metre veya daha fazla olan demirli tekne", "Kumanda altında olmayan ve üzerinde yol bulunmayan tekne", "Üzerinde yol bulunan askeri gemi", "Üzerinde yol bulunan ve trol ağı atan tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 205,
+  question: "Trol çekerek balıkçılık yapan boyu 50 metreden kısa bir tekne, seyir halinde ağlarını atarken, gece durumunu hangi fenerlerle belirtir?",
+  options: ["Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görülebilir üstte iki beyaz fener gösterir", "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde aşağıda ufkun her yönünden görülür üstte beyaz fener gösterir", "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında beyaz bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte iki kırmızı fener gösterir", "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görülür üstte kırmızı onun altında beyaz bir fener gösterir", "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte beyaz altta yeşil bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte kırmızı onun altında beyaz bir fener gösterir"],
+  correctIndex: 0
+},
+
+{
+  id: 206,
+  question: "Balıkçı tekneleri ağlarını toplarken hangi feneri gösterirler?",
+  options: ["Dikey bir doğru üzerinde bir kırmızı fener üstünde beyaz", "Dikey bir doğru üzerinde iki yeşil fener", "Dikey bir doğru üzerinde iki sarı fener", "Dikey bir doğru üzerinde iki beyaz fener", "Hiçbiri"],
+  correctIndex: 0
+},
+
+{
+  id: 207,
+  question: "Gece aşağıdaki fenerleri gösteren tekne ne işle uğraşmaktadır? (İskele Taraftan Görünüş)",
+  options: ["Boyu 50 metreden kısa, seyir halinde ağlarını toplayan balıkçı teknesi", "Boyu 50 metreden uzun, seyir halinde ağlarını atan balıkçı teknesi", "Boyu 50 metreden kısa, seyir halinde ağlarını atan balıkçı teknesi", "Boyu 50 metreden uzun, seyir halinde ağlarını toplayan trol teknesi", "Boyu 50 metreden kısa, seyir halinde ağlarını toplayan trol teknesi"],
+  correctIndex: 4
+},
+
+{
+  id: 208,
+  question: "Aşağıdaki tekne ne işle uğraşmaktadır?",
+  options: ["Ağ balıkçılığı yapan ve ağlarının uzunluğu tekneden 150 m.den fazla olan, üzerinde yol olan bir teknenin pruvadan görünüşü", "Trol balıkçılığı yapan, boyu 50 metreden kısa, ağlarının uzunluğu tekneden 150 m.den fazla olan, üzerinde yol olan bir teknenin pruvadan görünüşü", "Trol balıkçılığı yapan, boyu 50 metreden kısa, ağlarını atmakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü", "Trol balıkçılığı yapan, boyu 50 metreden uzun, trol ağlarını toplamakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü", "Trol balıkçılığı yapan, boyu 50 metreden kısa, trol ağlarını toplamakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü"],
+  correctIndex: 4
+},
+
+{
+  id: 209,
+  question: "Trol çekerek balıkçılık yapan boyu 50 metreden kısa bir tekne, seyir halinde ağlarını toplarken, gece durumunu hangi fenerlerle belirtir?",
+  options: ["Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte kırmızı fener gösterir", "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde aşağıda ufkun her yönünden görülür üstte beyaz fener gösterir", "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında beyaz bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte iki kırmızı fener gösterir", "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görülür üstte kırmızı onun altında beyaz bir fener gösterir", "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte beyaz altta yeşil bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte kırmızı onun altında beyaz bir fener gösterir"],
+  correctIndex: 0
+},
+
+{
+  id: 210,
+  question: "Seyir halinde, boyu 20 metreden uzun trol teknesinin ağlarını toplarken gece ve gündüz göstereceği fener ve işaretler nelerdir?",
+  options: ["Ufkun her tarafından 1 milden görülen, üstte yeşil altta beyaz fenerlere ilave olarak daha altta üstte beyaz altta kırmızı iki fener, borda, pupa fenerleri ve gündüz, tarakları bitişik iki koni gösterir", "Ufkun her tarafından 5 milden görülen, üstte beyaz altta yeşil fenerlere ilave olarak, daha altta üstte beyaz altta kırmızı iki fener, silyon, borda, pupa fenerleri ve gündüz, tepelere bitişik iki koni gösterir", "Ufkun her tarafından 0.9 milden görülen, üstte yeşil altta beyaz fenerlere ilave olarak, daha altta üstte beyaz altta kırmızı iki fener, silyon, borda, pupa fenerleri ve gündüz, tepelere bitişik iki koni gösterir", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 211,
+  question: "Uluslararası Denizde Çatışmayı Önleme Tüzüğü’ne göre boyu 12 metre veya daha uzun olan teknelerde bulunması zorunlu olan ve demirli iken sisli havalarda, yangın veya benzeri durumlarda uyarı maksadı ile kullanılan, paslanmaya dayanıklı malzemeden ve berrak bir ton verebilecek bir şekilde imal edilmiş çanlara ne ad verilir?",
+  options: ["Kampana", "Düdük", "Zil", "Kanpa", "Gong"],
+  correctIndex: 0
+},
+
+{
+  id: 212,
+  question: "Gemilerde uyarı için gerektiğinde kurallara uygun çalınan çanlara ne ad verilir?",
+  options: ["Kampana", "Kontra", "Kapella", "Kaloma", "Kastanyola"],
+  correctIndex: 0
+},
+
+{
+  id: 213,
+  question: "DÇÖT’de geçen “bir saniye süreli çalan düdük” deyimi aşağıdakilerden hangisidir?",
+  options: ["Uzun düdük", "Kısa düdük", "Çok kısa düdük", "Normal düdük", "Orta süreli düdük"],
+  correctIndex: 1
+},
+
+{
+  id: 214,
+  question: "“Kısa düdük” deyimi, ………… süreli bir düdük sesi anlamına gelecektir.",
+  options: ["İki saniye", "Bir saniye", "Üç saniye", "Dört saniye", "Dört–altı saniye"],
+  correctIndex: 1
+},
+
+{
+  id: 215,
+  question: "Rotamı sancak değiştiriyorum işareti hangisidir?",
+  options: ["İki uzun düdük", "Bir uzun düdük", "Üç kısa düdük", "İki kısa düdük", "Bir kısa düdük"],
+  correctIndex: 4
+},
+
+{
+  id: 216,
+  question: "Denizde Çatışmayı Önleme Tüzüğüne göre bir kısa düdüğün manası aşağıdakilerden hangisidir?",
+  options: ["Rotamı sancağa değiştiriyorum", "Rotamı iskeleye değiştiriyorum", "Makinemin tornistan çalıştırıyorum", "İskeleden geçmek istiyorum", "Sancağından geçmek istiyorum"],
+  correctIndex: 0
+},
+
+{
+  id: 217,
+  question: "Rotasını iskeleye değiştiren gemi hangi işareti verir?",
+  options: ["İki kısa", "İki uzun iki kısa", "Üç kısa", "Bir kısa", "İki uzun bir kısa"],
+  correctIndex: 0
+},
+
+{
+  id: 218,
+  question: "Rotasını iskeleye değiştiren gemi ………… düdük çalar.",
+  options: ["Bir kısa", "Üç kısa", "İki kısa", "İki uzun – bir kısa", "İki uzun – iki kısa"],
+  correctIndex: 2
+},
+
+{
+  id: 219,
+  question: "DÇÖT kurallarına göre “Uzun düdük” deyimi, ………… süreli bir düdük sesi anlamına gelir.",
+  options: ["6 – 8 saniye", "4 – 8 saniye", "4 saniye", "6 saniye", "4 – 6 saniye"],
+  correctIndex: 4
+},
+
+{
+  id: 220,
+  question: "Yaklaşan bir geminin hareketi anlaşılamadığı zaman verilen ses işareti ne olur?",
+  options: ["Ard arda en az 5 kısa düdük", "Fasılalı 4 kısa düdük", "Ard arda en az 3 kısa düdük", "Fasılalı 3 kısa düdük", "Düdük işareti verilmez"],
+  correctIndex: 0
+},
+
+{
+  id: 221,
+  question: "İskele 25 derecede gördüğünüz tekne sabit kerizde yaklaşıyor, niyetini veya hareketlerini anlamıyorsunuz ve tarafından çatışmayı önlemek üzere yeterli hareketin yapıldığı konusunda şüphe duyuyorsunuz. Hangi uyarma işaretini verirsiniz?",
+  options: ["Tek kısa düdük", "İki kısa düdük", "Üç kısa düdük", "Beş kısa düdük", "İki kısa iki uzun düdük"],
+  correctIndex: 3
+},
+
+{
+  id: 222,
+  question: "Birbirini geçen iki teknenin birbirlerine yaklaşması ve bu teknelerden birinin diğerinin niyetini anlayamaması veya çatışmayı önlemek üzere yeteri kadar hareket geçtiğinden tereddüde düşmesi halinde, tereddüde düşen tekne düdüğü ile derhal en az ………… düdük işareti vererek böyle bir tereddüt içinde bulunduğunu gösterecektir.",
+  options: ["4 kısa düdük", "4 uzun düdük", "5 kısa düdük", "5 uzun düdük", "6 kısa düdük"],
+  correctIndex: 2
+},
+
+{
+  id: 223,
+  question: "Boyu kaç metre arasındaki teknelerde seda işareti vermek için ses işareti veren aletlerden düdük ve kampana bulundurulması zorunludur?",
+  options: ["12 – 50 metre", "15 – 75 metre", "12 – 100 metre", "15 – 50 metre", "12 – 20 metre"],
+  correctIndex: 2
+},
+
+{
+  id: 224,
+  question: "Boyu 60 metre olan bir teknede Denizde Çatışmayı Önleme Tüzüğü gereği ses işareti vermek üzere kullanılması gerekli olan aygıtlar;",
+  options: ["Düdük, kampana ve gong bulunmalıdır", "Düdük ve gong bulunmalıdır", "Düdük ve kampana bulunmalıdır", "Sadece düdük bulunması yeterlidir", "Düdük ve ses işareti verebilecek herhangi bir cihaz bulunmalıdır"],
+  correctIndex: 2
+},
+
+{
+  id: 225,
+  question: "Boyu kaç metreden fazla olan bir teknede seda işareti veren aletlerden gongun bulundurulması zorunludur?",
+  options: ["50 m", "75 m", "100 m", "120 m", "150 m"],
+  correctIndex: 2
+},
+
+{
+  id: 226,
+  question: "Boyu 100 metre olan bir teknede Denizde Çatışmayı Önleme Tüzüğü gereği ses işareti vermek üzere kullanılması gerekli olan aygıtlar;",
+  options: ["Düdük ve kampana bulunmalıdır", "Düdük ve ses işareti verebilecek herhangi bir cihaz bulunmalıdır", "Sadece düdük bulunması yeterlidir", "Düdük ve gong bulunmalıdır", "Düdük, kampana ve gong bulunmalıdır"],
+  correctIndex: 4
+},
+
+{
+  id: 227,
+  question: "Boyu 150 metre olan bir teknede Denizde Çatışmayı Önleme Tüzüğü gereği ses işareti vermek üzere kullanılması gerekli olan aygıtlar;",
+  options: ["Düdük ve gong bulunmalıdır", "Sadece düdük bulunması yeterlidir", "Düdük ve ses işareti verebilecek herhangi bir cihaz bulunmalıdır", "Düdük ve kampana bulunmalıdır", "Düdük, kampana ve gong bulunmalıdır"],
+  correctIndex: 4
+},
+
+{
+  id: 228,
+  question: "Gemilere gerektiğinde birleşik düdük sistemi monte edilebilir. Denizde Çatışmayı Önleme Tüzüğü gereği, Birleşik Düdük Sistemine tek bir düdük gözü ile bakılacaktır. Ancak bu düdükler birbirlerinden;",
+  options: ["90 metreden daha uzak mesafeye konmayacaktır", "95 metreden daha uzak mesafeye konmayacaktır", "100 metreden daha uzak mesafeye konmayacaktır", "105 metreden daha uzak mesafeye konmayacaktır", "110 metreden daha uzak mesafeye konmayacaktır"],
+  correctIndex: 2
+},
+
+{
+  id: 229,
+  question: "Aşağıda verilmiş senaryoya göre “A” teknesi kanal veya geçidin dönüş yerine yaklaşırken ilerisini göremiyorsa aşağıdaki hangi işlemi yapmalıdır?",
+  options: ["Bir kısa düdük çalmalıdır", "Bir uzun düdük çalmalıdır", "İki uzun düdük çalmalıdır", "Bir kısa ve bir uzun düdük çalmalıdır", "İki kısa ve bir uzun düdük çalmalıdır"],
+  correctIndex: 1
+},
+
+{
+  id: 230,
+  question: "Dar bir yerde seyreden bir gemi aksi istikametten gelen geminin görünmeyeceği bir dönüş yerine yaklaşırken ne yapmalıdır?",
+  options: ["Bir uzun düdük işareti vermelidir", "İskele tarafa bir gözcü koymalıdır", "Hızını mümkün olduğunca azaltmalıdır", "Düdükle tehlike işareti vermelidir", "Makinelerini stop etmelidir"],
+  correctIndex: 0
+},
+
+{
+  id: 231,
+  question: "Bir nehirde seyrederken diğer tarafı göremediğiniz bir dönemece yaklaştığınızda diğer taraftan gelen bir uzun gemi düdüğü duyduğunuzda ne yaparsınız?",
+  options: ["Geçiş işaretlerini düdükle veririm", "Diğer taraftan gelen gemiyi görene kadar bir şey yapmam", "Bir uzun düdük çalarım", "Düdükle tehlike işareti veririm", "Ard arda üç uzun düdük çalarım"],
+  correctIndex: 2
+},
+
+{
+  id: 232,
+  question: "Dar bir kanal veya geçitte birbirini gören teknelerden diğerine yetişip sancak tarafından geçme niyetinde olan bir tekne düdükle aşağıdaki hangi işaretleri vererek niyetini bildirir?",
+  options: ["Üç kısa düdük", "İki kısa düdük", "İki uzun düdük", "İki uzun bir kısa düdük", "İki uzun iki kısa düdük"],
+  correctIndex: 3
+},
+
+{
+  id: 233,
+  question: "Dar kanalda seyirde aşağıdakilerden hangisi kurallara uygundur?",
+  options: ["Dar bir kanalda, önündeki tekneyi sancak tarafından geçmek isteyen tekne iki uzun bir kısa düdük çalacaktır", "Dar bir kanalda, karşıdan karşıya geçen tekne kanalda emniyetle seyreden bir tekneye mani oluyorsa beş kısa düdük çalacaktır", "Olan koşullar elverdiğince hiçbir tekne dar bir kanal içinde demirlemeyecektir", "Dar bir kanalda, yetişilen gemi yetişen geminin geçmek için verdiği düdük işaretine olumlu yanıt vermelidir", "Dar kanal veya geçitte ilerleyen tekne uygulayabildiği kadar kendi iskele tarafında seyredecektir"],
+  correctIndex: 0
+},
+
+{
+  id: 234,
+  question: "Dar bir kanalda seyreden ve önündeki diğer gemiye yetişen ve onun iskele tarafından geçmek isteyen gemi bu niyetini yetiştiği gemiye nasıl belirtecektir?",
+  options: ["Bir uzun düdüğün ardından iki kısa düdük işareti", "Bir kısa düdük", "İki uzun düdüğün ardından iki kısa düdük", "İki kısa düdük", "İki uzun düdüğün ardından üç kısa düdük"],
+  correctIndex: 2
+},
+
+{
+  id: 235,
+  question: "Denizde Çatışmayı Önleme Tüzüğüne göre yetişen gemi tarafından çalınan iki uzun iki kısa düdüğün manası aşağıdakilerden hangisidir?",
+  options: ["Rotamı sancak değiştiriyorum", "Makinem tornistan çalıştırıyorum", "Sancağından geçmek istiyorum", "İskeleden geçmek istiyorum", "Rotamı iskeleye değiştiriyorum"],
+  correctIndex: 3
+},
+
+{
+  id: 236,
+  question: "Dar bir kanal veya geçitte kendisini geçme niyetinde olan bir tekneye olumlu yanıt vermek isteyen bir gemi hangi seda işaretini verir?",
+  options: ["Gemi düdüğü ile iki uzun iki kısa düdük çalarak durumunu belirtir", "Gemi düdüğü ile en az beş kısa düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir uzun iki kısa düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir uzun düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir uzun bir kısa, bir uzun bir kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 4
+},
+
+{
+  id: 237,
+  question: "Dar bir kanalda seyir halindesiniz ve arkanızdan yetişen bir gemi sizi sancak tarafından geçmek istediğini belirten düdük işareti çalıyor. Buna onay verdiğinizi nasıl belirtirsiniz?",
+  options: ["İki uzun düdüğün ardından iki kısa düdük çalarak", "Peş peşe bir uzun, bir kısa, bir uzun, bir kısa düdük çalarak", "Bir kısa düdük çalarak", "İki uzun düdük çalarak", "İki kısa düdüğün ardından iki uzun düdük çalarak"],
+  correctIndex: 1
+},
+
+{
+  id: 238,
+  question: "Dar bir kanal veya geçitte kendisini geçme niyetinde olan bir tekneye olumsuz yanıt vermek isteyen bir gemi hangi seda işaretini verir?",
+  options: ["Gemi düdüğü ile iki uzun düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir kısa bir uzun bir kısa düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir uzun düdük çalarak durumunu belirtir", "Gemi düdüğü ile en az beş kısa düdük çalarak durumunu belirtir", "Gemi düdüğü ile bir uzun iki kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 3
+},
+
+{
+  id: 239,
+  question: "İstanbul boğazında kuzeye seyreden Üsküdar önlerinde karşıdan karşıya geçen bir yolcu motorunun niyetinden şüphe ettiğinizde yapmanız gereken nedir?",
+  options: ["Sancağa dönüş", "Crash stop manevrası", "Makineleri tornistan çalıştırır", "İskeleye dönüş", "5 kısa düdük"],
+  correctIndex: 4
+},
+
+{
+  id: 240,
+  question: "Dar bir kanal veya geçitte seyir ile ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+  options: ["Dar bir kanal veya geçit boyunca ilerleyen bir tekne geçit veya kanalın emniyetle gidişine engel olacak şekilde demirlemeyecektir", "Olan koşullar elverdiği takdirde, hiçbir tekne dar bir kanal veya geçit içinde demirlemeyecektir", "Balıkçılıkla uğraşan bir tekne, dar bir kanal veya geçitte seyreden bir teknenin geçişine mani olmayacaktır", "Boyu 20 m.den az olan bir tekne, dar bir kanal veya geçitte seyreden bir teknenin geçişine mani olmayacaktır", "Karşıdan karşıya geçen teknenin niyetinden şüphe eden bir tekne gemi düdüğü ile dört uzun düdük çalarak karşıdan karşıya geçen tekneyi uyaracaktır"],
+  correctIndex: 2
+},
+
+{
+  id: 241,
+  question: "Dar kanalda; yetişen geminin, yetişilen gemiyi geçmek için vereceği düdük işaretleri için aşağıdakilerden hangisi doğrudur?",
+  options: ["Yetişen gemi; yetişilen gemiyi sancak tarafından geçmek için 2 uzun 1 kısa, iskeleden geçmek için 1 uzun 2 kısa düdük çalar, kabul etmez ise 5 kısa", "Yetişen gemi; yetişilen gemiyi sancak tarafından geçmek için 2 uzun 2 kısa, iskeleden geçmek için 3 uzun 2 kısa düdük çalar, kabul etmez ise 5 kısa", "Yetişen gemi; yetişilen gemiyi sancak tarafından geçmek için 1 uzun 1 kısa, iskeleden geçmek için 3 uzun 2 kısa düdük çalar, kabul etmez ise 5 kısa", "Yetişen gemi; yetişilen gemiyi sancak tarafından geçmek için 2 uzun 1 kısa, iskeleden geçmek için 3 uzun 2 kısa düdük çalar, kabul etmez ise 5 kısa", "Yetişen gemi; kabul eder ise 2 uzun, kabul etmez ise 5 kısa"],
+  correctIndex: 0
+},
+
+{
+  id: 242,
+  question: "Kısıtlı görüş kumanda altında bulunmayan bir tekne aşağıdaki düdük işaretlerinden hangisini verir?",
+  options: ["İki kısa", "İki uzun", "Bir uzun", "Üç uzun", "Bir uzun iki kısa"],
+  correctIndex: 4
+},
+
+{
+  id: 243,
+  question: "Kısıtlı görüş koşullarında kumanda altında bulunmayan bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun, üç kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 2
+},
+
+{
+  id: 244,
+  question: "Kısıtlı görüş koşullarında manevrası kısıtlı bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla üç uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir kısa bir uzun bir kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 1
+},
+
+{
+  id: 245,
+  question: "Kısıtlı görüş koşullarında mayın döşeme, mayın arama-tarama işi yapan bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla üç uzun düdük çalarak durumunu belirtir"],
+  correctIndex: 2
+},
+
+{
+  id: 246,
+  question: "Kısıtlı görüş koşullarında su altı işi veya tarama yapan bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla üç uzun düdük çalarak durumunu belirtir"],
+  correctIndex: 0
+},
+
+{
+  id: 247,
+  question: "Demirli olarak su altı çalışması yapan boyu 100 metreden kısa bir tekne, kısıtlı görüş şartlarında durumunu hangi ses işaretiyle belirtir?",
+  options: ["Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli kısa gemi düdüğü çalar", "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli kısa gemi düdüğü çalar, bunu takiben bir kısa bir uzun gemi düdüğü çalar", "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli kısa gemi düdüğü çalar, bunu takiben bir uzun bir kısa gemi düdüğü çalar", "Bu tekne iki dakikayı geçmeyen aralıklarla bir uzun iki kısa gemi düdüğü çalar", "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli sürekli kampana çalar, bunu takiben beş saniye süreli gong çalar"],
+  correctIndex: 3
+},
+
+{
+  id: 248,
+  question: "Kısıtlı görüş koşullarında draftı (su çekimi) nedeniyle manevrası kısıtlı bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun, üç kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 3
+},
+
+{
+  id: 249,
+  question: "Kısıtlı görüşte yelkenli bir tekne aşağıdaki düdük işaretlerinden hangisini verir?",
+  options: ["Bir uzun iki kısa", "İki kısa", "İki uzun", "Bir uzun bir kısa bir uzun", "Bir uzun"],
+  correctIndex: 0
+},
+
+{
+  id: 250,
+  question: "Kısıtlı görüş koşullarında yelkenle seyreden bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla iki kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir"],
+  correctIndex: 0
+},
+
+{
+  id: 251,
+  question: "Kısıtlı görüş koşullarında ağ balıkçılığı yapan bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla üç uzun düdük çalarak durumunu belirtir"],
+  correctIndex: 0
+},
+
+{
+  id: 252,
+  question: "Kısıtlı görüş koşullarında trol ağ ile balıkçılık yapan ve üzerinde yol alan bir tekne bu durumunu nasıl belirtir?",
+  options: ["İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla iki uzun düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir", "Bir dakikayı geçmeyen aralıklarla bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir", "İki dakikayı geçmeyen aralıklarla üç uzun düdük çalarak durumunu belirtir"],
+  correctIndex: 0
+},
+
+{
+  id: 253,
+  question: "Trol balıkçılığı yapan, ağ balıkçılığı yapan ve demir üzerinde ağ balıkçılığı yapan teknelerin kısıtlı görüşte vereceği düdük işaretleri için aşağıdakilerden hangisi doğrudur?",
+  options: ["Trol ve ağ balıkçılığı yapan tekne 1 uzun 2 kısa, demirde ağ balıkçılığı yapan tekne 1 uzun 2 kısa düdük çalar", "Trol ve ağ balıkçılığı yapan tekne 2 dakika aralıklarla 1 uzun 2 kısa, demirde ağ balıkçılığı yapan tekne 1 uzun 2 kısa düdük çalar", "Trol ve ağ balıkçılığı yapan tekne ile demir üzerinde ağ balıkçılığı yapan tekneler 2 dakika aralıklarla 1 uzun 2 kısa düdük çalar", "Trol ve ağ balıkçılığı yapan tekne ile demir üzerinde ağ balıkçılığı yapan tekneler 2 dakika aralıklarla 2 uzun 1 kısa düdük çalar", "Trol ve ağ balıkçılığı yapan tekne ile demir üzerinde ağ balıkçılığı yapan tekneler 2 dakika aralıklarla 1 uzun 1 kısa düdük çalar"],
+  correctIndex: 2
+},
+
+{
+  id: 254,
+  question: "İterek yedekleme yapan ve bileşik bir gemi gibi hareket eden tekneler kısıtlı görüşte hangi düdük işaretini verir?",
+  options: ["İki kısa", "Bir uzun üç kısa", "Bir uzun iki kısa", "İki kısa bir uzun", "Bir uzun"],
+  correctIndex: 2
+},
+
+{
+  id: 255,
+  question: "Kısıtlı görüş şartlarında birbirine sıkıca bağlı olmadan diğer tekneyi çekerek veya iterek yedekleme işi ile uğraşan bir tekne;",
+  options: ["Aralarında iki dakikadan fazla süre olmayan aralıklarla dört düdükten biri ardından çalacak ve bu dört düdükten ikisi uzun olacak ve bunu bir kısa düdük takip edecektir", "Aralarında iki dakikadan fazla süre olmayan aralıklarla üç düdükten biri ardından çalacak ve bu üç düdükten ikisi uzun olacak ve bunu iki kısa düdük takip edecektir", "Aralarında iki dakikadan fazla süre olmayan aralıklarla üç düdükten biri ardından çalacak ve bu üç düdükten ikisi uzun olacak ve bunu bir kısa düdük takip edecektir", "Aralarında iki dakikadan fazla süre olmayan aralıklarla dört düdükten biri ardından çalacak ve bu dört düdükten ikisi uzun olacak ve bunu iki kısa düdük takip edecektir", "Aralarında iki dakikadan fazla süre olmayan aralıklarla üç düdükten biri ardından çalacak ve bu üç düdükten ikisi uzun olacak ve bunu bir uzun düdük takip edecektir"],
+  correctIndex: 1
+},
+
+{
+  id: 256,
+  question: "Kısıtlı görüş şartlarında yedekte çekilen bir tekne eğer içinde adam varsa kaç dakikadan fazla olmayan aralıklarla hangi ses işaretini verebilir?",
+  options: ["Bir dakikadan fazla olmayan aralıklarla bir uzun iki kısa düdük çalacaktır", "İki dakikadan fazla olmayan aralıklarla bir uzun iki kısa düdük çalacaktır", "İki dakikadan fazla olmayan aralıklarla iki uzun bir kısa düdük çalacaktır", "Bir dakikadan fazla olmayan aralıklarla iki uzun bir kısa düdük çalacaktır", "İki dakikadan fazla olmayan aralıklarla dört kısa düdük çalacaktır"],
+  correctIndex: 3
+},
+
+{
+  id: 257,
+  question: "Üzerinde yol olan ve boyu 50 metreden uzun yedek çeken kuvvetle yürütülen bir gemi, kısıtlı görüş koşullarında yedek uzunluğu 200 metreden uzun olan bir gemiyi yedeklemektedir. Bu gemiler durumlarını ve yaptıkları işi nasıl belirtirler?",
+  options: ["Yedekleyen gemi iki dakikayı geçmeyen aralıklarla iki uzun iki kısa düdük sesi verir, bunu takiben yedeklenen bir uzun iki kısa düdük sesi verir", "Yedekleyen tekne iki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük sesi verir, bunu takiben yedeklenen tekne bir uzun iki kısa düdük sesi verir", "Yedeklenen tekne bir dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük sesi verir, üstünde yol olmasa ise iki uzun düdük sesi verir", "Yedekleyen ve yedeklenen tekneler iki dakikayı aşmayan aralıklarla iki uzun düdük sesi verir", "Yedekleyen tekne bir dakikayı geçmeyen aralıklarla iki uzun bir kısa düdük sesi verir, bunu takiben yedeklenen tekne bir uzun üç kısa düdük sesi verir"],
+  correctIndex: 0
+},
+
+{
+  id: 258,
+  question: "Kuvvetle yürütülen bir gemi sis seyrederken aşağıdaki hangi düdük ses işaretlerini verir?",
+  options: ["İki dakikada bir, bir uzun düdük", "İki dakikada bir, bir kısa düdük", "Dakikada beş, kısa düdük", "İki dakikada bir, iki uzun düdük", "İki dakikada bir, bir kısa düdük"],
+  correctIndex: 0
+},
+
+{
+  id: 259,
+  question: "Balıkçılık ile uğraşmayan seyr halinde olan bir tekne kısıtlı görüşte hangi düdük işaretini verir?",
+  options: ["Bir uzun bir kısa", "Bir uzun", "İki uzun", "İki kısa bir uzun", "Üç uzun"],
+  correctIndex: 1
+},
+
+{
+  id: 260,
+  question: "Kısıtlı görüş şartlarında üzerinde yol bulunan kılavuzluk görevi yapan kuvvetle yürütülen bir tekne;",
+  options: ["Bir dakikadan fazla olmayan aralıklarla bir uzun düdük çalacaktır", "İki dakikadan fazla olmayan aralıklarla bir uzun düdük çalacak ve bu uzun düdüğü takiben dört kısa düdükten oluşan bir tanınma işareti verir", "İki dakikadan fazla olmayan aralıklarla iki uzun düdük çalacak ve takiben dört uzun düdükten oluşan bir tanınma işareti verir", "İki dakikadan fazla olmayan aralıklarla bir uzun düdük çalacak ve takiben dört kısa düdükten oluşan bir tanınma işareti verir", "İki dakikadan fazla olmayan aralıklarla iki uzun düdük çalacak ve bunu takiben dört kısa düdükten oluşan bir tanınma işareti verir"],
+  correctIndex: 3
+},
+
+{
+  id: 261,
+  question: "İterek yedekleme yapan ve bileşik bir gemi gibi hareket eden tekneler kısıtlı görüşte hangi ses işaretini verirler?",
+  options: ["Bir uzun iki kısa", "Bir uzun iki kısa", "Bir uzun", "İki kısa bir uzun", "İki kısa"],
+  correctIndex: 2
+},
+
+{
+  id: 262,
+  question: "Kısıtlı görüş koşullarında, bir diğerini tekne konumunda iterek yedekleyen tekne üstünde yol olduğunda nasıl bir seda işareti verir?",
+  options: ["İterek tek bir tekneyi yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalar", "İterek tek bir tekneyi yedekleyen bir tekne üstünde yol olduğunda bir dakikayı geçmeyen aralıklarla bir uzun düdük çalar", "İterek tek bir tekneyi yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun düdük çalar", "İterek tek bir tekneyi yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla iki uzun bir kısa düdük çalar", "İterek tek bir tekneyi yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun bir kısa düdük çalar"],
+  correctIndex: 1
+},
+
+{
+  id: 263,
+  question: "Kısıtlı görüşte; iterek yedekleyen ile önünde iterek yedeklenen tekne için verilecek ses işaretleri olarak aşağıdakilerden hangisi doğrudur?",
+  options: ["Üzerinde yol var iken; 1 dakika aralıklarla 1 uzun düdük, yedeklenen; 1 dakika aralıklarla 2 uzun düdük çalar", "Üzerinde yol var iken; 2 dakika aralıklarla 1 uzun düdük, yedeklenen; 2 dakika aralıklarla 1 kısa 2 uzun düdük çalar", "Üzerinde yol var iken; 2 dakika aralıklarla 1 uzun 2 kısa düdük çalar, yedeklenen; 2 dakika aralıklarla 1 kısa düdük çalar", "Üzerinde yol var iken; 2 dakika aralıklarla 1 uzun düdük çalar, yedeklenen; 2 dakika aralıklarla 2 kısa düdük çalar", "Üzerinde yol var iken; 2 dakika aralıklarla 2 uzun düdük çalar, yedeklenen; 2 dakika aralıklarla 1 kısa düdük çalar"],
+  correctIndex: 3
+},
+
+{
+  id: 264,
+  question: "Yedekleme işi ile uğraşmayan seyir halinde su üstünde durmuş ve ilerlemeyen bir 30 m. boyundaki bir römorkör kısıtlı görüşte hangi düdük işaretini verir?",
+  options: ["Bir uzun iki kısa", "İki uzun", "İki kısa bir uzun", "Bir uzun", "İki kısa"],
+  correctIndex: 1
+},
+
+{
+  id: 265,
+  question: "Kısıtlı görüş şartlarında iki dakikadan fazla olmayan aralıklarla çalınan iki uzun düdüğün anlamı aşağıdakilerden hangisidir?",
+  options: ["Yolda olan fakat durup su üzerinde ilerlemeyen tekne", "Karaya oturmuş tekne", "Demirli tekne", "Yolda olan fakat durup su üzerinde ilerlemeyen yelkenli", "Trol çeken balıkçı teknesi"],
+  correctIndex: 0
+},
+
+{
+  id: 266,
+  question: "Aşağıda boş bırakılmış olan yere uygun düşen seçeneği bulunuz. Alçak görüş şartlarında iki dakika ara ile iki uzun düdük çalan tekne ........ olabilir",
+  options: ["Kumanda altında olmayan tekne", "Su çekimi nedeniyle kısıtlı tekne", "Manevrası kısıtlı tekne", "Yolda olan fakat su üzerinde ilerlemeyen tekne", "Balıkçılıkla uğraşan tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 267,
+  question: "Kısıtlı görüş şartlarında seyir halinde ancak üzerinde yol olmayan (durup su üzerinde ilerlemeyen) kuvvetle yürütülen bir tekne;",
+  options: ["Bir dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında iki saniyelik bir ara bulunacaktır", "İki dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında iki saniyelik bir ara bulunacaktır", "Bir dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında bir saniyelik bir ara bulunacaktır", "Bir dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında üç saniyelik bir ara bulunacaktır", "İki dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacaktır"],
+  correctIndex: 3
+},
+
+{
+  id: 268,
+  question: "Kısıtlı görüşte aşağıdaki teknelerden hangisi/hangileri iki uzun düdük işareti verir? I- Su üzerinde duran ve ilerlemeyen seyir halinde bir tekne II- Kuvvetle yürütülen bir tekne III- Yelkenli bir tekne IV- Mayın tarama işi ile uğraşan bir tekne",
+  options: ["I-II-IV", "IV", "I-III", "I", "II-III-IV"],
+  correctIndex: 3
+},
+
+{
+  id: 269,
+  question: "Demirli bir tekne kısıtlı görüş şartlarında kampana ve/veya gong ile vereceği seda işaretlerine ilave olarak yaklaşan bir teknenin çatışma olasılığını fark etmek için;",
+  options: ["Bir kısa – bir uzun – bir kısa olmak üzere birbiri ardından üç düdük çalabilir", "Beş kısa düdük çalabilir", "Bir uzun – bir kısa – bir uzun olmak üzere birbiri ardından üç düdük çalabilir", "İki kısa – bir uzun olmak üzere birbiri ardından üç düdük çalabilir", "İki kısa – bir uzun olmak üzere birbiri ardından üç düdük çalabilir"],
+  correctIndex: 0
+},
+
+{
+  id: 270,
+  question: "Boyu 100 metreden kısa tekneler, kısıtlı görüşte, demirli iken vereceği ses işaretleri için aşağıdakilerden hangisi doğrudur?",
+  options: ["Demirli tekne; 2 dakika aralıklarla 3 saniye kampana ve hemen 1 uzun 1 kısa 1 uzun düdük çalar", "Demirli tekne; 1 dakika aralıklarla 5 saniye kampana darbesi ve hemen 1 uzun 1 kısa 1 uzun düdük çalar", "Demirli tekne; 1 dakika aralıklarla 3 saniye kampana ve hemen 1 uzun 1 kısa 1 uzun düdük çalar", "Demirli tekne; 2 dakika aralıklarla 5 saniye sürekli kampana ve hemen 1 kısa 1 uzun 1 kısa düdük çalar", "Demirli tekne; 1 dakika aralıklarla 5 saniye sürekli kampana çalar"],
+  correctIndex: 4
+},
+
+{
+  id: 271,
+  question: "Alargada demirli bir ticaret gemisinde vardiya zabitiniz. Görüş mesafesi 50 yarda düştü. DÇÖT uyarınca vermeniz gereken ses işaretleri arasında dakikadan fazla aralıklarla çalınan bir düdük işareti duydunuz ve ses şiddeti zamanla yükseliyor. Aşağıdaki hareket şekillerinden hangisini seçersiniz?",
+  options: ["5 kısa düdük çalarım", "5 uzun düdük çalarım", "Sis düdüğünü devamlı çalarım", "Çan ve gong çalmaya devam ederim. Bir kısa bir uzun bir kısa düdük çalarım", "Çan ve gong çalmaya devam ederim. Bir uzun bir kısa bir uzun düdük çalarım"],
+  correctIndex: 3
+},
+
+{
+  id: 272,
+  question: "Boyu 100 metre veya daha uzun teknelerin, kısıtlı görüşte, demirli iken vereceği ses işaretleri için aşağıdakilerden hangisi doğrudur?",
+  options: ["1 dakika aralıklarla tekne baş tarafından 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 1 kısa 1 uzun düdük çalar", "2 dakika aralıklarla tekne baş tarafından 3 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 1 uzun 1 kısa 1 uzun düdük çalar", "1 dakika aralıklarla tekne baş tarafından 3 saniye süreli kampana, kıç tarafından 3 saniye süreli gong, 1 kısa 1 uzun düdük çalar", "1 dakika aralıklarla tekne baş tarafından 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 1 kısa 1 uzun 1 kısa düdük çalar", "2 dakika aralıklarla tekne baş tarafından 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 1 uzun 1 kısa 1 uzun düdük çalar"],
+  correctIndex: 0
+},
+
+{
+  id: 273,
+  question: "Boyu 110 metre olan demirli bir tekne kısıtlı görüş şartlarında;",
+  options: ["Bir dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir kampana çalacaktır", "Bir dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir gong çalacaktır", "İki dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir kampana çalacaktır", "İki dakikadan daha uzun olmayan aralıklarla geminin baş tarafından seri bir şekilde beş saniye süre ile bir kampana çalınacak ve arkasından bir gong çalacaktır", "Bir dakikadan daha uzun olmayan aralıklarla geminin baş tarafından seri bir şekilde beş saniye süre ile bir kampana çalınacak ve arkasından bir gong çalacaktır"],
+  correctIndex: 4
+},
+
+{
+  id: 274,
+  question: "Sisli seyirden seri bir şekilde ve yaklaşık beş saniye süre ile çalan bir kampana sesi ve hemen ardından yaklaşık beş saniye süre ile çalan bir gong sesi duyunuz. Bu ses işaret hangi gemiyi belirtir?",
+  options: ["Demirli olan ve balıkçılıkla uğraşmakta olan bir gemi", "Karaya oturmuş bir gemi", "Manevrası kısıtlı olan 120 metre boyundaki bir gemi", "Demirli olan ve boyu 150 metre olan bir gemi", "Demirli olan yelkenli bir tekne"],
+  correctIndex: 3
+},
+
+{
+  id: 275,
+  question: "................ bir tekne kampana ve gong işaretlerini verecek, buna ek olarak kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına üç ayrı belirgin vuruş yapacaktır. Yukarıda boş bırakılan alana uygun düşen seçeneği bulunuz.",
+  options: ["Kısıtlı görüş halinde karaya oturan", "Manevra gücü kısıtlı ve üzerinde yol bulunan", "Boyu 50 metreden kısa kılavuz görevi yapan", "Trol ağları engelle takılmış", "Mayın tarama işleri ile uğraşan"],
+  correctIndex: 0
+},
+
+{
+  id: 276,
+  question: "Karaya oturan boyu 90 m. olan bir tekne kısıtlı görüş şartlarında;",
+  options: ["Aralarında iki dakikadan fazla olmayan aralıklarla seri bir şekilde yaklaşık beş saniye süre ile bir kampana çalacak ve kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına üç ayrı belirgin vuruş yapacaktır", "Aralarında iki dakikadan fazla olmayan aralıklarla seri bir şekilde yaklaşık beş saniye süre ile bir kampana çalacak ve kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına iki ayrı belirgin vuruş yapacaktır", "Aralarında iki dakikadan fazla olmayan aralıklarla seri bir şekilde yaklaşık beş saniye süre ile bir kampana çalacak ve kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına dört ayrı belirgin vuruş yapacaktır", "Aralarında iki dakikadan fazla olmayan aralıklarla seri bir şekilde yaklaşık beş saniye süre ile bir kampana çalacak ve kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına beş ayrı belirgin vuruş yapacaktır", "Aralarında iki dakikadan fazla olmayan aralıklarla seri bir şekilde yaklaşık beş saniye süre ile bir kampana çalacak ve kampanasını çalmaya başlamadan önce ve kampana çalması bittikten hemen sonra kampanasına bir ayrı belirgin vuruş yapacaktır"],
+  correctIndex: 1
+},
+
+{
+  id: 277,
+  question: "Kısıtlı görüş koşullarında Marmara’dan İzmit körfezine giriş yaparken çan sesleri duydunuz. Kırılança çıkıp dinlediğinizde 5 sn. süreli çan seslerinin başında ve sonunda belirgin olarak yalnızca 3 vuruş daha yapıldığını tespit ettiniz. Yorumunuz nedir?",
+  options: ["Boyu 100 m.den kısa demirli tekne", "Boyu 50 m.den kısa demirli tekne", "Trol ağları engele takılmış tekne", "Boyu 50 m.den kısa demirli tekne", "Boyu 100 m.den kısa karaya oturmuş tekne"],
+  correctIndex: 4
+},
+
+{
+  id: 278,
+  question: "Karaya oturmuş, 100 metreden uzun olan teknenin vereceği ses işaretleri için aşağıdakilerden hangisi doğrudur?",
+  options: ["1 dakika aralıkla, tekne baş tarafından 3 adet kampana, 3 saniye süreli kampana, kıç tarafından 3 saniye süreli gong, 3 adet kampana, 1 uzun 1 kısa 1 uzun düdük çalar", "1 dakika aralıkla, tekne baş tarafından 3 adet kampana, 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 3 adet kampana, 1 kısa 1 uzun 1 kısa düdük çalar", "2 dakika aralıkla, tekne baş tarafından 3 adet kampana, 3 saniye süreli kampana, kıç tarafından 3 saniye süreli gong, 3 adet kampana, 1 uzun 1 kısa 1 uzun düdük çalar", "2 dakika aralıkla, tekne baş tarafından 3 adet kampana, 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 3 adet kampana, 1 kısa 1 uzun 1 kısa düdük çalar", "1 dakika aralıkla, tekne baş tarafından 5 saniye süreli kampana, kıç tarafından 5 saniye süreli gong, 1 kısa 1 uzun 1 kısa düdük çalar"],
+  correctIndex: 3
+},
+
+{
+  id: 279,
+  question: "Kısıtlı görüş koşullarında boyu 200 metreden uzun ve karaya oturmuş bir gemi hangi seda işaretlerini verir?",
+  options: ["Bir dakikayı geçmeyen aralıklarla baş tarafta beş saniye süreli sürekli kampana ve bunu takiben kıç tarafta beş saniye süreli gong çalar", "İki dakikayı geçmeyen aralıklarla baş tarafta üç adet tek kampana darbesini takiben beş saniye süreli sürekli kampana ve hemen peşinden yine üç adet tek kampana darbesi vurur, bunu takiben gemi düdüğü ile bir kısa bir uzun bir kısa düdük çalar", "Bir dakikayı geçmeyen aralıklarla baş tarafından üç adet tek kampana darbesi ve hemen peşinden yine üç adet tek kampana darbesi vurur, bunu takiben gemi düdüğü ile bir kısa bir uzun bir kısa düdük çalar", "Bir dakikayı geçmeyen aralıklarla baş tarafından üç adet tek kampana darbesi, beş saniye süreli kampana ve hemen peşinden yine üç adet tek kampana darbesi vurur", "İki dakikayı geçmeyen aralıklarla bir uzun, bir kısa, bir uzun sürekli kampana çalar"],
+  correctIndex: 2
+},
+
+{
+  id: 280,
+  question: "Boyu 200 metre veya daha fazla olan bir teknenin düdüğünün deniz mili olarak duyulabilme mesafesi aşağıdakilerden hangisidir?",
+  options: ["0,5 mildir", "1 mildir", "1,5 mildir", "2 mildir", "2,5 mildir"],
+  correctIndex: 3
+},
+
+{
+  id: 281,
+  question: "18 m. büyüklüğündeki bir teknede kullanılan kampananın ağız çapı nedir?",
+  options: ["100 mm", "200 mm", "250 mm", "300 mm", "350 mm"],
+  correctIndex: 1
+},
+
+{
+  id: 282,
+  question: "Gemi düdüklerinin çalışma frekansları Denizde Çatışmayı Önleme Tüzüğü gereği;",
+  options: ["60 – 600 Hz bandı içerisinde olacaktır", "65 – 650 Hz bandı içerisinde olacaktır", "70 – 700 Hz bandı içerisinde olacaktır", "75 – 750 Hz bandı içerisinde olacaktır", "80 – 800 Hz bandı içerisinde olacaktır"],
+  correctIndex: 2
+},
+
+{
+  id: 283,
+  question: "Aşağıdaki paragraflardan doğru olanını işaretleyiniz.",
+  options: ["Gemilerin boyları arttıkça kullandıkları düdüklerin frekansları da değişir. Boyları 200 m. veya daha uzun gemilerde düdüklerin frekansları artar ve dolayısıyla düdük sesleri kalınlaşır", "Gemilerin boyları arttıkça kullandıkları düdüklerin frekansları da değişir. Boyları 100 m. veya daha uzun gemilerde düdüklerin frekansları azalır dolayısıyla düdük sesleri kalınlaşır", "Gemilerin boyları arttıkça kullandıkları düdüklerin frekansları da değişir. Boyları 100 m. veya daha kısa gemilerde düdüklerin frekansları artar dolayısıyla düdük sesleri kalınlaşır", "Gemilerin boyları arttıkça kullandıkları düdüklerin frekansları da değişir. Boyları 200 m. veya daha uzun gemilerde düdüklerin frekansları azalır ve dolayısıyla düdük sesleri kalınlaşır", "Hiçbiri"],
+  correctIndex: 3
+},
+
+{
+  id: 284,
+  question: "Aşağıdakilerden hangisi liman vardiyası tutulurken yapılacak görevler arasında yer almaz?",
+  options: ["Demir ve halatların kontrolü", "Gemi bordasının bakım ve tutumu", "Gemiye giren ve çıkan kişilerin kontrolü", "Ambar sintinelerinin kontrolü", "Draftların okunması"],
+  correctIndex: 3
+},
+
+{
+  id: 285,
+  question: "Aşağıdakilerden hangisi liman vardiyası tutulurken yapılacak görevler arasında yer almaz?",
+  options: ["Demir ve halatların kontrolü", "Gemi bordasının bakım ve tutumu", "Gemiye giren ve çıkan kişilerin kontrolü", "Ambar sintinelerinin kontrolü", "Draftların okunması"],
+  correctIndex: 1
+},
+
+{
+  id: 286,
+  question: "Liman vardiyası kontrol listesinde aşağıdakilerden hangisi yer almaz?",
+  options: ["Gözlem görevi kurallara uygun yapılıyor mu?", "Geminin pozisyonu, demir zinciri ve zincirin boşası düzgün mü?", "Sinyaller, bayraklar doğru şekilde gösteriliyor mu?", "Gemideki personel ve personel harici kişiler kontrol altında mı?", "VHF uygun kanalda dinleniyor mu?"],
+  correctIndex: 1
+},
+
+{
+  id: 287,
+  question: "Aşağıdakilerden hangisi limanda güverte vardiyası tutmakta olan zabitin vardiya teslim alırken öğreneceği bilgilerden biri değildir?",
+  options: ["Rıhtımdaki suyun derinliği, draft, yüksek ve alçak suların seviyesi", "Yükleme donanımlarının emniyetli taşıma sınırı", "Limana ait herhangi özel bir kural", "Gemide bulunması gereken tayfa sayısı", "Kaptandan devam eden emirleri"],
+  correctIndex: 3
+},
+
+{
+  id: 288,
+  question: "Aşağıdakilerden hangisi deniz haydutluğuna ve korsanlığa karşı limanda alınması gerekli tedbirler açısından yanlıştır?",
+  options: ["Saat/semt camı gibi bordadan gemiye çıkabilecek bir donanımın bulundurulmaması", "Güverte üzerinde rutin olmayan dolaşmalar yapmak", "Güverte üzerinde dolaşanları yapmak", "Gemiye giriş – çıkışları tek bir noktada kısıtlamak", "Güverte vardiyacıları ile gerekli VHF haberleşmesinin yapılması"],
+  correctIndex: 1
+},
+
+{
+  id: 289,
+  question: "Güverte vardiya zabiti liman vardiyası esnasında uygun periyotlarda gemiyi denetlemek için turlar atar. Bu turlar esnasında aşağıdakilerden hangisi dikkat edeceği şeylerden değildir?",
+  options: ["Gemiye girmeye çalışan kötü niyetli insanların varlığı", "Gemide denize herhangi bir sızıntı", "Rıhtımda kazaya uğramış bir liman işçisinin varlığı", "Palamar halatlarının aşınmış olması", "Kirliliğin önleme adına alınmış bir tedbirin ortadan kalkmış olduğu"],
+  correctIndex: 2
+},
+
+{
+  id: 290,
+  question: "Güverte liman vardiyasında vardiya zabiti aşağıdaki hususlardan hangisinden sorumlu değildir?",
+  options: ["Can güvenliği ve geminin güvenliğinden", "Yükün elleçlenmesine ilişkin tüm cihazların güverteden çıkartılmasının sağlanmasından", "Uluslararası, ulusal ve yerel kurallara uyulmasının sağlanmasından", "Liman postalarının zamanında baş ve paydos yapmalarının sağlanmasından", "Geminin normal iş programı ve sırasının sürdürülmesinden"],
+  correctIndex: 3
+},
+
+{
+  id: 291,
+  question: "Tehlikeli yük taşıyan bir gemide liman vardiyası tutulurken aşağıdaki önlemlerden hangisi diğerleri kadar önem taşımaz?",
+  options: ["Yangın söndürme cihazlarının hazır bulundurulması", "Gözcü “B” sancağının gece kırmızı ışığı yakılması", "Römorkör için çelme halatının hazır tutulması", "Güverte frengi deliklerinin kapatılması", "Kamara lumbuzlarının kapalı tutulması"],
+  correctIndex: 4
+},
+
+{
+  id: 292,
+  question: "Tehlikeli yük taşıyan gemilerde limanda uygulanacak prensipler arasında yer almayacak prensip aşağıdakilerden hangisidir?",
+  options: ["Güvertede kimse bırakılmamalıdır", "Güvenli makine vardiyasının tutulması sağlanmalıdır", "Isıtma ve geri dönüş fançları kullanılmalıdır", "Özel liman kuralları dikkate alınmış olmalıdır", "Çevre kirliliğinden kaçınma tedbirleri özellikle alınmış olmalıdır"],
+  correctIndex: 2
+},
+
+{
+  id: 293,
+  question: "Emniyetli liman vardiyasında aşağıdakilerden hangisi vardiya zabitinin görevlerinden değildir?",
+  options: ["Gemiye giriş çıkışı kontrol etmek", "Gemiye giren malzemeyi teslim almak ve teslim etmek", "Balast operasyonuna nezaret etmek", "Güverte ve makine liman vardiyası esaslarını ve kontrol listelerini hazırlamak", "Gemiyi seyir hazırlamak, seyir notası yapmak, makine, düdük, dümen provası yapıp jurnale kaydetmek"],
+  correctIndex: 4
+},
+
+{
+  id: 294,
+  question: "Limana girişte evvel liman ağzına demirlemiş bir geminin özellikle dikkat etmesi gereken şey hangi maddede verilmiştir?",
+  options: ["Demir durumunun sık sık kontrol edilmesi", "Meteorolojik durumların tespiti", "Olayların jurnale kaydı", "Liman kaidelerine uyum", "Geminin hangi demirini atmış olması"],
+  correctIndex: 3
+},
+
+{
+  id: 295,
+  question: "Uluslararası kurallar liman vardiyasında gemi lumbur ağzında ziyaretçi kaydı tutulmasını gerekli görür. Buna göre aşağıdakilerden hangisi böyle bir kaydın tutulmasının nedenlerinden değildir?",
+  options: ["Liman otoritesinin kontrol sıklığı", "Gemi teçhizat ve donanımlarının korunması", "Gemi adamlarının güvenliği", "Kaçak yolcunun engellenmesi", "Geminin korunması"],
+  correctIndex: 0
+},
+
+{
+  id: 296,
+  question: "Aşağıdakilerden hangisi vardiyanın tanımıdır?",
+  options: ["Gemilerin liman ve seyir faaliyetlerinin kesintisiz olarak yürütülmesini sağlamak maksadıyla belirlenen periyotlara göre gemi personeli tarafından dönüşümlü olarak tutulan nöbet", "Gemilerin liman ve seyir faaliyetlerinin kesintisiz olarak yürütülmesini sağlamak maksadıyla zabitlerce planlanan çalışma", "Gemilerin liman faaliyetlerinin kesintisiz olarak yürütülmesini sağlamak maksadıyla belirlenen periyotlara göre gemi personeli tarafından dönüşümlü olarak tutulan nöbet", "Gemilerin seyir faaliyetlerinin kesintisiz olarak yürütülmesini sağlamak maksadıyla belirlenen periyotlara göre liman personeli tarafından dönüşümlü olarak tutulan nöbet", "Gemilerin faaliyetlerinin kesintisiz olarak yürütülmesini sağlamak maksadıyla belirlenen periyotlara göre gemi personeli tarafından dönüşümlü olarak tutulan nöbet"],
+  correctIndex: 0
+},
+
+{
+  id: 297,
+  question: "Demir vardiyasını teslim alan zabit ilk olarak görevine hangi işi yaparak başlar?",
+  options: ["Deniz durumunu inceler", "Gemi çevresinin kirletilmesini önleyici tedbir alır", "Gemi fenerlerinin yanıp yanmadığının kontrolünü yapar", "Görüş durumunu inceler", "Geminin pozisyonunu, güvenli bir konumda kalıp kalmadığını kontrol eder"],
+  correctIndex: 4
+},
+
+{
+  id: 298,
+  question: "Demirleme planlaması yaparken aşağıdaki hususlardan hangisi/hangileri dikkate alınmalıdır? I-Demirleme pozisyonu II-Salınım alanı III-Gemi draftı",
+  options: ["I-II", "I-II-III", "I-III", "Yalnız I", "Yalnız II"],
+  correctIndex: 1
+},
+
+{
+  id: 299,
+  question: "Aşağıdakilerden hangisi demir yeri seçiminde göz önüne alınması gereken hususlardan değildir?",
+  options: ["Demirlenecek suyun derinliği ve dip yapısı", "Geminin boyu ve draftı", "Limandaki diğer gemilerin demirleme durumu", "Limandaki hâkim doğa koşulları (rüzgar, akıntı vs.)", "Deniz suyunun sıcaklığı"],
+  correctIndex: 4
+},
+
+{
+  id: 300,
+  question: "Aşağıdakilerden hangisi demire verilecek kaloma tespitinde göz önünde bulundurulacak hususlardan biri değildir?",
+  options: ["Demir yeri derinliği", "Demir üzerinde kalınacak zaman uzunluğu", "Demir yerinin deniz dibi tabiatı", "Deniz suyu sıcaklığı", "Demir yerinde olan veya olması beklenen hava durumu"],
+  correctIndex: 3
+},
+
+{
+  id: 301,
+  question: "Demir yerine inişte kullanılması gereken harita tipi nedir?",
+  options: ["Portolon haritaları", "Parya haritalar", "Kara haritaları", "Genel haritalar", "Açık deniz haritaları"],
+  correctIndex: 0
+},
+
+{
+  id: 302,
+  question: "Demir yerine yaklaşırken hâkim rüzgâr yönü geminin ______ olacak şekilde yaklaşarak demirlemek uygun olur.",
+  options: ["Sancak tarafından", "Bordasından", "Pupasından", "İskelesinden", "Pruvasından"],
+  correctIndex: 4
+},
+
+{
+  id: 303,
+  question: "Demir yerinden mesafe hangi uzunluk birimi ile rapor edilmelidir?",
+  options: ["Metre", "Kulaç", "Yarda", "Gomina", "Feet"],
+  correctIndex: 3
+},
+
+{
+  id: 304,
+  question: "Aşağıdakilerden hangisi/hangileri ile demir taraması kontrolü yapılabilir? I-Çıplak gözle II-GPS III-RADAR",
+  options: ["I-II-III", "I", "II-III", "II", "III"],
+  correctIndex: 0
+},
+
+{
+  id: 305,
+  question: "Vardiyasında demir taradığını fark eden zabitin ilk hareket tarzı ne olmalıdır?",
+  options: ["Hemen makinesinin hazırlanması talimatını verir", "Diğer gemilere gemisinin taradığını rapor eder", "Kaptana haber verir", "Bulunduğu bölgenin liman kontrolüne durumu rapor eder", "Gemi alarmını çalıştırır"],
+  correctIndex: 2
+},
+
+{
+  id: 306,
+  question: "Akıntısız bir demir yerinde rüzgâra tabi olan demirli gemiler rüzgâra pruvadan gösterirken bir tanesi borda göstermektedir. Bu gemi için aşağıdakilerden hangisi muhtemeldir?",
+  options: ["Gemi demir tarıyordur", "Gemi tonoz demiri kullanarak demirlemiştir", "Gemi tek demirle demirlemiştir", "Gemi çifte demirle demirlemiştir", "Gemi rüzgârdan etkilenmemiştir"],
+  correctIndex: 0
+},
+
+{
+  id: 307,
+  question: "Demir vardiyası tutma esasları çerçevesinde; aşağıdakilerden hangisi yanlıştır?",
+  options: ["Gemi çevresi belirli aralıklarla kontrol edilir", "Gözcülük görevi uygun olarak sürdürülür", "Meteorolojik şartlar ve gel-git durumu gözlemlenir", "Demir vardiyası II.zabit tarafından tutulur", "Görüş bozulduğunda kaptana haber verilir"],
+  correctIndex: 3
+},
+
+{
+  id: 308,
+  question: "Emniyetli demir vardiyası için aşağıdakilerden hangisi yanlıştır?",
+  options: ["Vardiya tutan zabit görüş bozulduğunda kaptanı haberdar eder", "Gemi çevresi kontrol edilir", "Gece gemi fenerleri kontrol edilir", "Ana makinelerin kaptan talimatına uygun olarak hazır durumu kontrol edilir", "Ambar sintineleri sık sık iskandil edilmelidir"],
+  correctIndex: 4
+},
+
+{
+  id: 309,
+  question: "Aşağıdakilerden hangisi demir vardiyası tutmakta olan zabitin yapması gerekenlerden değildir?",
+  options: ["Gemideki yüklerin durumunu araştırmak", "Gözcülük görevini yapıldığından emin olmak", "Gemi çevresini belirli aralıklarla kontrol etmek", "Gemi fenerlerinin yakılmasını sağlamak", "Meteorolojik durumları gözlemlemek"],
+  correctIndex: 0
+},
+
+{
+  id: 310,
+  question: "Demir vardiyasının tutulup tutulmayacağı STCW-95’e nasıl bir prensibe bağlanır?",
+  options: ["Demir vardiyası devamlı şekilde tutulacaktır", "Demir vardiyası demir mevkileri içindeki gemiler için devamlı tutulacaktır", "Kaptan gerekli gördüğü takdirde demir vardiyası devamlı tutulur", "Hava şartlarına göre demir vardiyasına gerek olup olmadığına I.Zabit karar verir", "Demir vardiyasına gerek yoktur"],
+  correctIndex: 2
+},
+
+{
+  id: 311,
+  question: "Emniyetli bir demir vardiyası için gemi kaptanı vardiya tutacak zabitlerini bazı konularda uyarır, onlara yazılı emir ve talimatlarını gemi jurnalinde sunar. Bu emir ve talimatlar arasında yer alamayacak madde aşağıdakilerden hangisidir?",
+  options: ["Mevki kontrolünün sıklığı hakkında uyarı", "Çevre gemilerin yoğunluğundan kaynaklanan uyarılar", "Telsiz çağrılarının anlaşılmaması durumunda kaptanın çağrılması", "Kıyı devleti özel kuralları", "Varış limanı kuralları"],
+  correctIndex: 4
+},
+
+{
+  id: 312,
+  question: "Demir vardiyası düzenlenirken bu düzenlemeye uygun düşmeyecek seçenek aşağıdakilerden hangisidir?",
+  options: ["Can güvenliği ve gemi güvenliği düşünülmüş bir düzenleme", "Uluslararası, ulusal ve yerel kurallara dikkat edilerek hazırlanmış vardiya sistemi", "Makine vardiyasının güvenliği düşünülmeden hazırlanmış vardiya sistemi", "Geminin normal iş programı ve sırasına göre hazırlanmış vardiya düzeni", "Köprü üstünde devamlı bir zabit gerektirecek vardiya düzeni"],
+  correctIndex: 2
+},
+
+{
+  id: 313,
+  question: "Bir demir vardiyasının düzenlenmesi görevinin özeti hangi maddede tam olarak verilmiştir?",
+  options: ["Uluslararası, ulusal ve yerel kuralları ve şartları gözeten, uygun gözcü ve personel dinlenmesine olanak sağlayan bir vardiya düzenlemesi", "Kaptanın her an köprü üstünde olmasını sağlayacak vardiya düzenlemesi", "Yürürlükteki çevre koruma kuralları çerçevesinde yeterli personelle donatılmış vardiya düzenlemesi", "Demirin taramaması için her türlü tedbirin alındığı vardiya düzenlemesi", "Liman kurallarının geçerli olduğu vardiya düzenlemesi"],
+  correctIndex: 0
+},
+
+{
+  id: 314,
+  question: "Demirli iken demir vardiyasından sorumlu zabitin bazı görevleri yapması gerekir. Demir vardiyasında görevli bir zabit olarak aşağıda belirtilen hususlardan hangisi en önemli ve en yüksek önceliğe sahiptir?",
+  options: ["Ana makine ve diğer makinelerin hazır olma durumunun mevcut talimatlara uygun bir şekilde olduğundan emin olmak", "Gemi tarafından çevrenin kirlenmeye karşı korunması ve geçerli kirlilik yönetmeliklerine uyarak gerekli önlemleri almak", "Meteorolojik, gel-git koşulları ve deniz durumunu gözlemlemek", "Sahilde kolayca tırmanılabilir kıyı nesnelerinden demir yeri kısıtlarının alınarak ve bunlar devamlı kontrol edilerek geminin güvenli bir şekilde demir üzerinde kalmasını sağlamak", "Geminin uygun fener ve işaretleri göstermesini ve ilgili tüm düzenlemelere uygun olmasını sağlamak"],
+  correctIndex: 1
+},
+
+{
+  id: 315,
+  question: "STCW 2010 kurallarına göre gemiadamlarının haftalık çalışma süresi en fazla ne olmalıdır?",
+  options: ["72", "77", "75", "66", "70"],
+  correctIndex: 0
+},
+
+{
+  id: 316,
+  question: "“İki Vardiya” ile seyir yapmak mecburiyetinde kalan gemilerde bir vardiya süresi en fazla ne kadar olmalıdır?",
+  options: ["4 saat", "8 saat", "5 saat", "6 saat", "2 saat"],
+  correctIndex: 3
+},
+
+{
+  id: 317,
+  question: "Bir gemi adamının gemide 24 saatlik bir çalışma periyodunda en az ne kadar süre dinlenmesi gereklidir?",
+  options: ["10", "8", "12", "14", "9"],
+  correctIndex: 0
+},
+
+{
+  id: 318,
+  question: "STCW kurallarına göre acil durumlar haricinde bir gemi adamının günde en az kaç saat istirahat etmesi uygun görülmüştür?",
+  options: ["16", "12", "10", "8", "6"],
+  correctIndex: 2
+},
+
+{
+  id: 319,
+  question: "Vardiya tutan gemiadamları acil durumlar hariç günde en az kaç saat dinlenir?",
+  options: ["6", "8", "9", "10", "12"],
+  correctIndex: 3
+},
+
+{
+  id: 320,
+  question: "İstirahat saatleri, biri _____ saatten az olmamak şartı ile en fazla ____’ye bölünebilir (STCW-95 Kısım A-VIII/1 Madde 2)",
+  options: ["5-4", "6-2", "4-3", "8-2", "8-3"],
+  correctIndex: 1
+},
+
+{
+  id: 321,
+  question: "Gemide gemi adamının 24 saatlik bir çalışma dilimi içerisinde günlük dinlenme süreleri en fazla kaça bölünebilir?",
+  options: ["1", "2", "3", "4", "5"],
+  correctIndex: 1
+},
+
+{
+  id: 322,
+  question: "Bir gemi adamının acil durumlarda veya her şeyden önemli olan amaçlarla yapılan ağır çalışma şartları haricinde STCW 2010 kurallarına göre bir haftalık toplam istirahat süresi en az kaç saat olmalıdır?",
+  options: ["55", "77", "70", "65", "40"],
+  correctIndex: 1
+},
+
+{
+  id: 323,
+  question: "Gemide vardiya tutan gemi adamları ve emniyet, kirliliğin önlenmesi ve güvenlikle ilgili görevleri bulunan gemi adamları günde en az ___ saat, yedi günlük bir periyot içerisinde en az ___ saat dinlendirilecektir",
+  options: ["6/40", "8/60", "7/55", "8/60", "9/75"],
+  correctIndex: 1
+},
+
+{
+  id: 324,
+  question: "Vardiya görevli tüm zabitlere 24 saat içinde en az 10 saatlik istirahat sağlanması gerekirken bu istirahat süresi biri 6 saatten az olmamak üzere ikiye bölünebilir. Zorunlu ağır koşullar dışında çıkılması durumunda, 10 saatlik istirahat süresi 6 saate indirilse de bu indirim ___ günden fazla sürmez ve ___ günde toplam ___ saattir.",
+  options: ["1-6-24", "2-7-77", "3-7-72", "2-7-48", "2-6-36"],
+  correctIndex: 1
+},
+
+{
+  id: 325,
+  question: "Seyir Planının temel amacı nedir?",
+  options: ["IMO kurallarını sağlamak", "Şirket kural ve talimatlarını karşılamak", "İyi gemicilik gereklerini sağlamak", "STCW gereklerini sağlamak", "Köprüüstü takım yönetimine yardımcı olmak"],
+  correctIndex: 4
+},
+
+{
+  id: 326,
+  question: "Varış limanı belirlenmemiş ise; Seyir Planı, gelecek kaç saati kapsayacak şekilde önceden hazırlanmalıdır?",
+  options: ["48", "36", "24", "72", "12"],
+  correctIndex: 3
+},
+
+{
+  id: 327,
+  question: "Seyir planı hangi süreçlerden oluşur?",
+  options: ["Hazırlık, Planlama, Uygulama ve İzleme", "Planlama ve Uygulama", "Planlama, Uygulama ve İzleme", "Planlama ve İzleme", "Planlama"],
+  correctIndex: 0
+},
+
+{
+  id: 328,
+  question: "Rotanın Sisteminde “Sefer Planı (Passage Plan)” aşağıdaki süreçlerin hangi dizilimidir?",
+  options: ["Değerlendirme (Appraisal), Planlama (Planning), Uygulama (Execution), İzleme (Monitoring)", "Değerlendirme, Planlama, İzleme, Uygulama", "Değerlendirme, Uygulama, Planlama, İzleme", "Planlama, Uygulama, İzleme, Değerlendirme", "Planlama, İzleme, Uygulama, Değerlendirme"],
+  correctIndex: 0
+},
+
+{
+  id: 329,
+  question: "Aşağıdakilerden hangisi uluslararası denizcilik standartlarına uygun seyir planlama uygulamalarından biri değildir?",
+  options: ["Değerlendirme (Appraisal)", "Planlama (Planning)", "Uygulama (Execution)", "Gözlem (Monitoring)", "Borda trofisi"],
+  correctIndex: 4
+},
+
+{
+  id: 330,
+  question: "Seyir Planının aşağıdakilerden hangisi yer almaz?",
+  options: ["Kurallar gereğini yerine getirmek", "Planlanan seyir için gerekli bilgilerin sağlanması", "STCW 95 gereklerini yerine getirilmesi", "Rüzgar, seyir, akıntı, vardiya düzenlemesi ve köprüüstü takım idaresi", "Liman devleti kontrollerine hazırlanması"],
+  correctIndex: 3
+},
+
+{
+  id: 331,
+  question: "Yapılan seferin sonunda; haritalardaki plotların ne zamana kadar silinmesi gerekir?",
+  options: ["48 saat", "6 ay", "72 saat", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 332,
+  question: "Sefer Planlaması Genel Kuralları uyarınca paralel indeksleme aşağıdakilerden hangisi yanlıştır?",
+  options: ["Daima sahil maddeleri esas alınmalıdır", "Zorunlu hallerde şamandıralar kullanılabilir", "Radar CU konumunda olmalıdır", "", ""],
+  correctIndex: 2
+},
+
+{
+  id: 333,
+  question: "Gece yapılacak olan kıyı seyri için rotalar çizilirken kıyıdan veya kıyıdaki cisimlerden açıkta geçecek şekilde rota nasıl belirlenmelidir?",
+  options: ["Dik sahillerden 1 mil alçak sahillerden 3 mil", "Dik sahillerden ½ mil alçak sahillerden 1 mil", "Kıyı şekillerinden veya kıyıya yakın cisimlerden yararlanabilecek kadar açık", "", ""],
+  correctIndex: 4
+},
+
+{
+  id: 334,
+  question: "BTM/BRM esasları uyarınca Sefer Planlaması yapılırken; gemi draftı 6-10 metre arasında ise rotalar en az hangi konut hattının dışından geçirilmelidir?",
+  options: ["20 metre", "30 metre", "25 metre", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 335,
+  question: "BTM/BRM esasları uyarınca Sefer Planlaması yapılırken emniyetli seyir rotalarının haritalara çizilme sürecinde aşağıdakilerden hangisi dikkate alınmaz?",
+  options: ["Makine hazırlık durumu", "Gel-Git durumu ve Akıntılar", "Geminin boyutları", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 336,
+  question: "Rotalama sistemi için yapılacak seyir planında aşağıdakilerden hangisi dikkate alınmaz?",
+  options: ["Sahilden uzak tehlikeler, seyir yardımcıları, IMO rotasyonları", "Okyanus geçiş rotasyonu (Büyük Daire, Kerte Hattı)", "Meteorolojik koşullar, okyanus akıntıları", "", ""],
+  correctIndex: 4
+},
+
+{
+  id: 337,
+  question: "Aşağıdakilerden hangisi rota bacağının tanımıdır?",
+  options: ["Bir önceki dönüş noktasının yönündeki hat", "İki dönüş noktasını birleştiren hattır", "Rotada iki son mevkinin birleşim hattıdır", "", ""],
+  correctIndex: 4
+},
+
+{
+  id: 338,
+  question: "IMO Karar A.285 (VIII), Annex A (V) ve STCW 78 konvansiyonu gereğince; nihai sorumluluğun gemi kaptanında olduğu Sefer Planındaki kriterler uyarınca aşağıdakilerden hangisi doğrudur?",
+  options: ["Sefer Planı, mendirek/liman ağzından mendirek/liman ağzına kadar hazırlanmalıdır", "Sefer Planı, birinci ve sonuncu WP’ler arasında hazırlanmalıdır", "Sefer Planı, ülkeler arası/çıkış-meydan arası hazırlanmalıdır", "", ""],
+  correctIndex: 4
+},
+
+{
+  id: 339,
+  question: "Sefer planlaması yapılırken ECDIS ve/veya Kağıt Harita üzerinde markalanan ve çoğunlukla rota değişikliği yapılacak mevkileri belirtmek için kullanılan WP’lerin diğer kullanımına amaç aşağıdaki seçeneklerin hangisinde tam olarak ifade edilmiştir?",
+  options: ["I Seferin başlangıç ve bitiş zamanını belirtmek II Gemi hakkındaki değişiklikleri belirtmek III Pilot alma-verme mevkilerini belirtmek IV Demirlenecek mevki/mevkileri belirtmek", "I – III – IV", "I – II – III – IV", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 340,
+  question: "Seyir planı ile ilgili olarak aşağıdakilerden hangisi doğrudur?",
+  options: ["Vardiya zabiti herhangi bir seyir tehlikesi veya çatışma riski ile karşılaştığında seyir planında belirtilen rota ve/veya süratte değişiklik ancak kaptandan izin alarak yapabilir", "Seyir planında değişiklik için Birinci Zabite bilgi verir", "Vardiya zabiti herhangi bir seyir tehlikesi veya çatışma riski ile karşılaştığında seyir planında belirtilen rota ve/veya süratte değişiklik yapmaz", "", ""],
+  correctIndex: 4
+},
+
+{
+  id: 341,
+  question: "Geminin genel olarak emniyetli seyrinden hangi gemi adamı öncelikli sorumludur?",
+  options: ["Geminin bağlı olduğu şirket", "Vardiyasını tutmakta olan zabit", "Gemi kaptanı", "", ""],
+  correctIndex: 2
+},
+
+{
+  id: 342,
+  question: "Seyir vardiyasında sorumlu zabit görevi esnasında geminin emniyetini zora sokacak önemli bir engel ile karşılaştığında hareket tarzı ne olur?",
+  options: ["Sorunu belirlemek için uğraşır", "Gemi düdüğünü çalar", "Gemi alarm sistemini çalıştırır", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 343,
+  question: "Seyir emniyeti açısından kaptanın köprüüstüne çağrılmasındaki şartlardan biri aşağıdakilerden hangisidir?",
+  options: ["Ambar sintineleri iskandil edildiğinde", "Gece sisli hava fark edildiğinde", "VHF cihazının bozulması durumunda", "", ""],
+  correctIndex: 2
+},
+
+{
+  id: 344,
+  question: "Kaç yaşından küçük gemi adamları gece vardiyalarında görevlendirilemez?",
+  options: ["19", "18", "16", "", ""],
+  correctIndex: 1
+},
+
+{
+  id: 345,
+  question: "Bir seyir için hangi tür doküman ve haritalar kullanılmalıdır?",
+  options: ["Sadece tamamen düzeltilmiş güncel harita ve yayınlar", "Sadece WGS84 datumuna göre kullanılan haritalar", "İngiliz harita ve dokümanları", "", ""],
+  correctIndex: 0
+},
+
+{
+  id: 346,
+  question: "Vardiya esnasında zabitin kullanması gereken haritanın özellikleri en iyi hangi şıkta verilmiştir?",
+  options: ["O bölgenin en genel haritası kullanılır", "En küçük ölçekli harita kullanmak seyir planlaması açısından elverişlidir", "En yeni harita kullanılır", "", ""],
+  correctIndex: 3
+},
+
+{
+  id: 347,
+  question: "Seyir vardiyasının emniyeti açısından köprüüstü düzenlemesinde olması gereken hangi seçenek doğru verilmiştir?",
+  options: ["Kaptan ve Gözcüler köprüüstünde bulunmalıdır", "Seyir ve hidrografik kayıtlar, tüm seyir cihazları tam ve eksiksiz olmalı, faal durumda olmalı köprüüstü adsız kalmamalıdır", "Mevki, Rota, Hız ve Hava raporları devamlı kontrol edilmelidir", "Her zaman en güncel ve büyük ölçekli seyir haritaları kullanılmalı, tereddütte düşünülen durumlarda kaptana haber verilmelidir", ""],
+  correctIndex: 1
+},
+
+{
+  id: 348,
+  question: "Bir geminin köprüüstünde aşağıdakilerden hangisinin asılı olması gerekir?",
+  options: ["Pyroteknik malzemelerin son kullanma tarihleri listesi", "Son liman devleti denetim raporu", "Bölgeye ait gelgit cetveli", "Gemi manevra karakteristikleri", "Zabit sertifikaları"],
+  correctIndex: 3
+},
+
+{
+  id: 349,
+  question: "DÇÖT’e göre “içinde bulunan durum ve koşullarda durumun ve çatışma tehlikesinin tamamen değerlendirilmesini sağlamak üzere elde bulunan tüm uygun araçları yanına alarak tekne her zaman ____ yapacaktır”.",
+  options: ["Tam bir görme ve işitme gözcülüğü", "Manevra", "İşitme gözcülüğü", "Görme gözcülüğü", "Gözcülük"],
+  correctIndex: 0
+},
+
+{
+  id: 350,
+  question: "Aşağıdakilerden hangisi seyir vardiyası sırasında zabitin potansiyel bir tehlikenin varlığını önceden fark etmesini sağlar?",
+  options: ["Pilot kitaplarının yerinde incelenmesi", "Uluslararası kuralların iyi bilinmesi", "Zamanında yapılan çatışmayı önleme hareketi", "Gözle görünür hedeflerden konulmuş fix mevki", "İyi bir gözcülük vardiyası"],
+  correctIndex: 4
+},
+
+{
+  id: 351,
+  question: "Köprüüstü gözcüsü gördüğü hedefleri nasıl rapor etmelidir?",
+  options: ["Hedefin gerçek kerterizi ile", "Hedefin manyetik kerterizi ile", "Cayrodan aldığı kerteriz ile", "Hedefin nispi kerterizi ile", "Hedefin yaklaş yönü ile"],
+  correctIndex: 3
+},
+
+{
+  id: 352,
+  question: "Köprüüstünde bulunan gözcü hangi durumda köprüüstünü terk edebilir?",
+  options: ["Gözcülük yapacak durum ortadan kalktığında", "Vardiya bitiminden 15 dakika sonra", "Vardiya bitiminden 15 dakika önce", "Görevde işi olduğunda", "Vardiyasını diğer gözcüye teslim ettiğinde"],
+  correctIndex: 4
+},
+
+{
+  id: 353,
+  question: "Aşağıdakilerden hangisi BRM’e yardımcı seyir cihazlarından değildir?",
+  options: ["DGPS", "RADAR", "Cayro Pusula", "EPIRB", "GPS"],
+  correctIndex: 3
+},
+
+{
+  id: 354,
+  question: "Aşağıdakilerden hangisi BRM’in unsurlarından değildir?",
+  options: ["GPS", "DGPS", "RADAR", "EPIRB", "VHF"],
+  correctIndex: 3
+},
+
+{
+  id: 355,
+  question: "Serdümene verilen “Viya” komutu ne anlam taşır?",
+  options: ["Dümen nerde", "Geminin pruvasının bulunduğu noktada seyre", "Serdümen iyi dümen tutmadığında", "Geminin dönüşünü durdurur", "Dümen açısını sıfırlar"],
+  correctIndex: 1
+},
+
+{
+  id: 356,
+  question: "Gidilmek istenen rota için dümenin basılmaya başlanması gereken pozisyon nedir?",
+  options: ["Abort point", "Drift point", "Wheel over position", "Way point", "Non return point"],
+  correctIndex: 2
+},
+
+{
+  id: 357,
+  question: "Seyir ekipmanları ile ilgili kontroller ne zaman yapılmalıdır?",
+  options: ["Düzenli olarak limana ve denize hazırlık zamanlarında", "Zamanı geldikçe", "Hata verdikleri zaman", "Herhangi bir zaman planlanmaz, uygun olduğunda arada bir", "Günde bir defa"],
+  correctIndex: 0
+},
+
+{
+  id: 358,
+  question: "Oto-pilot ile seyir yapılırken elle dümen kontrolü hangi sıklıkta yapılmalıdır?",
+  options: ["Her gün", "Her hafta", "Her vardiyada", "Günde 2 defa", "Kontrol etmeye gerek yok"],
+  correctIndex: 2
+},
+
+{
+  id: 359,
+  question: "IMO STCW Konvansiyonu 1978 Kural II/2 Ek-A’da belirtilen tavsiye kararları uyarınca; seyir halindeki bir gemide Vardiya Zabiti tarafından Otomatik Pilot aygıtının elle test kontrolü ne kadar aralıklarla yapılmalıdır?",
+  options: ["Vardiyaya teslim alırken ve teslim ederken", "Vardiya süresince iki saatte bir", "Vardiya süresince yarım saatte bir", "Vardiya süresince her saat başında", "Vardiya süresince en az bir defa"],
+  correctIndex: 4
+},
+
+{
+  id: 360,
+  question: "Aşağıdaki durumların hangisinde dümen otopilottan ele alınmalıdır? I – Fırtınalı havalarda II – Kısıtlı görüşte III – Boğaz ve kanal geçişlerinde",
+  options: ["I, II", "III", "I", "II, III", "I, II, III"],
+  correctIndex: 3
+},
+
+{
+  id: 361,
+  question: "ARPA RADAR’da plotlanan gemiye ait gösterilen bilgilerden hangisi yer almaz?",
+  options: ["Geminin bağlama limanı", "Geminin hızı", "Çatışma anı", "Geminin rotası", "Yaklaşma mesafesi"],
+  correctIndex: 0
+},
+
+{
+  id: 362,
+  question: "AIS donanımlı bir ARPA Radar ile plotlanan hedefin hangi bilgisine ulaşılamaz?",
+  options: ["ENI bilgileri", "Geminin çağrı işareti", "Kalkış-varış limanı", "Personel sayısı", "Şirket bilgileri"],
+  correctIndex: 4
+},
+
+{
+  id: 363,
+  question: "Radarla mevki koyarken;",
+  options: ["Kertezide daha fazla güvenilir", "Mesafeye daha fazla güvenilir", "Her ikisine de aynı derecede güven duyulur", "Radarla konulan mevkinin yukarıdakilerle ilgisi yoktur", "Hepsi yanlıştır"],
+  correctIndex: 2
+},
+
+{
+  id: 364,
+  question: "Seyir halindeki bir gemide radar ile izlediğiniz bir temasın hem kerterizi hem de mesafesi son 12 dakikadır sabit ise;",
+  options: ["Temasın sürati sizden farklı, rotası aynıdır", "Temasın rotası sizden farklı, sürati aynıdır", "Temas demirdedir", "Çatışma olacaktır", "Temas sizinle aynı rota ve süratte seyir halindedir"],
+  correctIndex: 4
+},
+
+{
+  id: 365,
+  question: "Geminin seyir emniyetinin sağlanması maksadıyla vardiya zabitinin köprüüstündeki ana görevi?",
+  options: ["Vardiya nöbeti tutmaktır", "Vardiya nöbeti tutmak ve seyir işlemlerini yürütmek", "Vardiya nöbeti tutmak ve seyir işlemlerini yürütmek ve GMDSS radyo nöbeti tutmaktır", "Seyir işlemlerini yürütmek", ""],
+  correctIndex: 2
+},
+
+{
+  id: 366,
+  question: "Seyir vardiyasının emniyeti açısından aşağıdakilerden hangisi dikkate alınmayacak türden bir seçenektir?",
+  options: ["Gemide otomatik dümen donanımının varlığı", "Seyir yayınları, katalog ve haritaların varlığı", "Elektronik radar gözleme cihazlarının varlığı", "Manyetik pusulanın, hata düzeltilmiş uzun süre yapılmamış oluşu", "Geminin taşımakta olduğu yükü"],
+  correctIndex: 4
+},
+
+{
+  id: 367,
+  question: "Emniyetli bir seyir vardiyasının değerlendirilmesinin ölçütü aşağıdakilerden hangisi olamaz?",
+  options: ["Seyir bilgileri ve tüm olaylar kayıt edilmektedir", "Gözcülük devamlı olarak kurallara uygun yerine getirilmektedir", "Güverte çalışma performansı yakından takip edilmektedir", "Vardiya kabul edilmiş prensip ve kaidelere teslim alınıp teslim edilmektedir", "Fenerler, cisimler ve ses işaretleri hatasız tanınmaktadır"],
+  correctIndex: 2
+},
+
+{
+  id: 368,
+  question: "Vardiya Zabiti; geminin seyir emniyetini muhafaza etmek ve gemiyi tehlikelerden sakınmakta sorumludur. Aşağıdaki görevlerinden hangisi bu kapsam dahilindeki görevlerinden değildir?",
+  options: ["Mevcut durumu kavramak için bir çevresel gözcülük (görme ve işitme) yaptırmak ve buna dair mevcut gemiler ile kara işaretlerini dahil etmelidir", "Geminin çatma riskini, karaya oturma olasılığını ve diğer seyir tehlikelerini tam ve doğru olarak tahmin etmek", "Yaklaşan gemilerin kerterizlerini ve hareketlerini yakından takip etmelidir", "Gemi tarafından çevrenin kirlenmeye karşı korunması ve gerekli kirlilik yönetmeliklerine uymak gereklidir", "Güvertede çalışan personeli izlemeli ve yük ile yük elleçleme teçhizatını kontrol altında tutmalıdır"],
+  correctIndex: 2
+},
+
+{
+  id: 369,
+  question: "Emniyetli seyir vardiyasının yeterliliğinin sağlanmasında gerekli olmayacak seçenek hangisidir?",
+  options: ["Yapılacak sefer önceden planlanmalıdır", "Vardiya tutacak personel uygun belge ve sertifikalara sahip olmalıdır", "Zabit köprüüstü cihazlarının yerlerini ve çalışma prensiplerini iyi biliyor olmalıdır", "Seyir vardiyasından sorumlu zabite başka görevler verilmemelidir", "Seyir vardiyasından sorumlu zabitin yanı sıra kaptan da devamlı köprüüstünde bulunmalıdır"],
+  correctIndex: 4
+},
+
+{
+  id: 370,
+  question: "Kıyıya yakın ve kısıtlı sularda seyirden Vardiya Zabiti gerekli seyir işaret ve yardımcılarını kesin olarak saptamalı, muntazam aralıklarla mevki koymalıdır. Bu bağlamda aşağıdakilerden hangisi mevki koyma aralığını etkileyen hususlardan değildir?",
+  options: ["Bölgede gelgit olayının yönü ve şiddeti", "Makinenin durumu", "Hava ve deniz koşulları", "Sahilin yakınlığı", "Geminin hızı"],
+  correctIndex: 0
+},
+
+{
+  id: 371,
+  question: "Geminiz ile seyrederken köprü üstünde vardiyada bulunmaktasınız. Geminiz stop pozisyonundan ileri harekete geçtiğinde aşağıdakilerden hangisi doğrudur?",
+  options: ["Geminin pivot noktası değişmez", "Geminin pivot noktası kıça doğru yer değiştirir", "Geminin pivot noktası başa doğru yer değiştirir", "Geminin pivot noktası kullanıldığı makinenin aksı tarafına doğru sancak veya iskele yönüne değiştirir", "Hepsi yanlıştır"],
+  correctIndex: 2
+},
+
+{
+  id: 372,
+  question: "Beklenmedik bir şekilde kara görünürse veya bir seyir işareti ortaya çıkarsa veya iskandilde değişiklik olursa kaptana haber verilecek zaman ne olabilir?",
+  options: ["Kaptanın gece emirleri arasında", "Vardiya teslim eden zabitin teslim ederken söylemesi", "Kaptanı çağırma kuralları arasında", "Özel bir bölge için yazılmış bir pilot kitabında", "Harita üzerinde, bilgilerin yer aldığı bölümde"],
+  correctIndex: 0
+},
+
+{
+  id: 373,
+  question: "Vardiya Zabiti’nin köprüüstünde iki Genel Nezaret Görevi;",
+  options: ["Güvertede çalışan personelin kontrolü", "Güvertede çalışan personelin, yük ve yük elleçleme cihazlarının kontrolü", "Güvertede çalışan personelin, yük ve yük elleçleme cihazlarının kontrolü, korsanlık ve silahlı saldırıların yapıldığı denizlerde bu tip olaylara karşı dikkatli olunması", "Korsanlık ve silahlı saldırıların yapıldığı denizlerde bu tip olaylara karşı dikkatli olunması", ""],
+  correctIndex: 2
+},
+
+{
+  id: 374,
+  question: "Seyir güvenliği açısından gemide bulunması gereken personel sayısı ve personelin sahip olması gereken ehliyet derecelerini gösteren “Gemi Adamı Donatımında Asgari Emniyet Belgesi”nin geçerlilik süresi ne kadardır?",
+  options: ["1 yıl", "2 yıl", "3 yıl", "5 yıl", "Süresiz"],
+  correctIndex: 3
+},
+
+{
+  id: 375,
+  question: "Kıçtan/kıçtan yanaşırken, aborada/avra ederken personelin en çok dikkat etmesi gereken prensip ne olmalıdır?",
+  options: ["En çabuk şekilde manevrayı tamamlamak", "Bordaların zarar görmesini engellemek", "Sahile en az halat vererek gemiyi bağlamak", "Emniyet", "Usturmaçaları korumak"],
+  correctIndex: 3
+},
+
+{
+  id: 376,
+  question: "Ağır denizlerde geminize aborada olması gereken en küçük tekne hangi taraftan yanaşmalıdır?",
+  options: ["Sancak taraftan", "İskele taraftan", "Rüzgâr altı taraftan", "Rüzgâr üstü taraftan", "Kıç taraftan"],
+  correctIndex: 2
+},
+
+{
+  id: 377,
+  question: "Gemi boyu ile dalga boyu birbirlerine yakın değerlerde ise aşağıdakilerden hangisinin yapılması tehlikeli bir durum ortaya çıkmasına neden olur?",
+  options: ["Denizleri sancak baş omuzluktan alacak şekilde seyretmek", "Denizleri iskele baş omuzluktan alacak şekilde seyretmek", "Denizleri dik veya dike yakın bir rotada seyretmek", "Denizleri sancak kıç omuzluktan alacak şekilde seyretmek", "Denizleri iskele kıç omuzluktan alacak şekilde seyretmek"],
+  correctIndex: 2
+},
+
+{
+  id: 378,
+  question: "Aşağıdakilerden hangisi geminin dönüşe başlayacağı noktanın (wheel over point) hesaplanmasında etkili değildir?",
+  options: ["Geminin hızı", "Su derinliği", "Gemi boyu", "Geminin yüklü olması", "Rüzgâr yönü ve hızı"],
+  correctIndex: 4
+},
+
+{
+  id: 379,
+  question: "Rota değiştirme süreci ile ilgili olarak aşağıdaki ifadelerden hangisi yanlıştır?",
+  options: ["Dönüş yerine gelmeden önce mevki konulmalıdır", "Dönüş yerine gelindiğinde dönüşe geçilmelidir", "Dönüş, dönüş noktasına varmadan yeni rotaya mesafe cetvelinden yararlanılarak belirlenecek mesafeden yapılmalıdır", "Rota değişikliği yapıldıktan sonra mevki konulmalıdır", "Dönüş mümkün olduğunca küçük dümen açısı ile yapılmalıdır"],
+  correctIndex: 1
+},
+
+{
+  id: 380,
+  question: "Kanallarda ve dar sularda yedekte gemi çekerken yedekleme halat uzunluğu nasıl olmalıdır?",
+  options: ["Mümkün olduğu kadar kısa", "Mümkün olduğu kadar uzun", "İki gemi boyu kadar", "Bir gemi boyu kadar", "Hiçbiri"],
+  correctIndex: 0
+},
+
+{
+  id: 381,
+  question: "Mayın temizleme işleri ile uğraşan bir tekneye aşağıda belirtilen mesafeden daha fazla yaklaşılmayacaktır.",
+  options: ["800 m", "1000 m", "1200 m", "1400 m", "1600 m"],
+  correctIndex: 1
+},
+
+{
+  id: 382,
+  question: "Yanaşma manevrası sırasında zabit, kaptana bazı bilgileri devamlı vermelidir. Aşağıdakilerden hangisi bunlardan biri olamaz?",
+  options: ["Bir sonraki gemi veya rıhtımdan olan mesafe", "Römorkörlerin konumu ve hızları hakkında bilgi", "Funda demirin durumu", "Halatların pervaneden ne zaman neta olacağı", "Gemiden verilecek halatın niteliği"],
+  correctIndex: 4
+},
+
+{
+  id: 383,
+  question: "DÇÖT’e göre rotasını iskeleye değiştiren bir tekne hangi ışıklı işareti gösterir?",
+  options: ["Üç çakarlı fener", "Dört çakarlı fener", "Bir çakarlı fener", "Hiçbiri", "İki çakarlı fener"],
+  correctIndex: 4
+},
+
+{
+  id: 384,
+  question: "Kuvvetle yürütülen ve seyir halinde bulunan bir tekne diğer tekneyi gördüğü zaman, manevra yaptığında vereceği düdük işaretlerine ek olarak, manevra esnasında uygun bir surette tekrarlanacak olan ışıklı bir işaret de gösterebilir. Bu ışıklı işaret çakar şeklinde olacaktır. Her çakar ___ saniye, iki çakar arasında ise ___ saniye olacaktır. Birbirini ardında verilecek işaretler arasındaki süre ___ saniyeden az olmayacaktır.",
+  options: ["1,2,5", "2,1,10", "1,1,10", "2,2,10", "1,1,5"],
+  correctIndex: 2
+},
+
+{
+  id: 385,
+  question: "Aşağıdaki kılavuzluk sistemlerinden hangisi Türkiye’de bulunmamaktadır?",
+  options: ["Liman kılavuzluğu", "Mecburi müsavir (danışman) kılavuzluk", "İhtiyari kılavuzluk", "Mecburi seyir ve idare kılavuzluğu", "Boğaz kılavuzluğu"],
+  correctIndex: 3
+},
+
+{
+  id: 386,
+  question: "Geminiz ile İstanbul Boğazı’na giriş yapacaksınız. Gemiye gelecek olan pilot’u güvertede zabitlerden kim karşılayacaktır?",
+  options: ["Birinci Zabit", "Reis", "İkinci Zabit", "Kaptanın uygun göreceği güverte zabiti", "Gemi Kaptanı"],
+  correctIndex: 3
+},
+
+{
+  id: 387,
+  question: "Kılavuz kaptanın gemiye gelişinde karşılanması ve köprüüstüne kadar refakat edilmesi gereklidir. Bu işlem kaptan tarafından görevlendirilir:",
+  options: ["Miço tarafından yapılır", "Serdümen tarafından yapılır", "Usta gemici tarafından yapılır", "Güverte lostromosu tarafından yapılır", "Güverte vardiya zabiti tarafından yapılır"],
+  correctIndex: 4
+},
+
+{
+  id: 388,
+  question: "Pilot gelecek olan bir gemide pilot çarmıhı başında hazırlıklar yapılırken aşağıdakilerden hangisi mahalde bulundurulması gereken donanımlardan değildir?",
+  options: ["Can simidi", "El maytabı ve paraşütlü işaret fişeği", "El incisi", "Aydınlatma", "Köprüüstü ve güverte arası telsiz iletişimi"],
+  correctIndex: 1
+},
+
+{
+  id: 389,
+  question: "Ağır denizlerin devam ettiği bir liman yaklaşma bölgesinde geminize aborada olacak kılavuz teknesi hangi taraftan yanaştırılır?",
+  options: ["Sancak taraftan", "İskele taraftan", "Rüzgârüstü taraftan", "Rüzgâraltı taraftan", "Kıç taraftan"],
+  correctIndex: 3
+},
+
+{
+  id: 390,
+  question: "Eğer kılavuz kaptan tarafından başka türlü istenmediyse kılavuz kaptan motorunun bordaya emniyetle yanaşabilmesi için rüzgâr, akıntı ve deniz durumu, kılavuz kaptan pilot motorunun hız ve yapısı dikkate alınarak genellikle hangi hızla yaklaşmakta fayda vardır?",
+  options: ["40–50 mil/saat", "30–40 mil/saat", "20–30 mil/saat", "10–20 mil/saat", "3–10 mil/saat"],
+  correctIndex: 4
+},
+
+{
+  id: 391,
+  question: "Kılavuz kaptanı almak ve indirmek için pilot çarmıhı ile birlikte (kombine) kullanılan borda iskelesi geminin ____ doğru bakar. Oysa ki limana yanaşan gemide kullanılan borda iskelesi başa doğru bakar. Her iki borda iskelesi birbiri yerine kullanılamaz. Yukarıdaki cümlede boşluklara gelebilecek en uygun ifade aşağıdakilerden hangisidir?",
+  options: ["Başına / kıçına", "Kıçına / başına", "Başına / başına", "Kıçına / kıçına", "Başına / bordasına"],
+  correctIndex: 1
+},
+
+{
+  id: 392,
+  question: "Aşağıdakilerden hangisi “trafik ayrım düzeni”ni belirtir?",
+  options: ["TSZ", "TSS", "TRZON", "TRZN", "TZ"],
+  correctIndex: 1
+},
+
+{
+  id: 393,
+  question: "TSS açılımı aşağıdakilerden hangisidir?",
+  options: ["Trafik separasyon hattı", "Trafik ayırım hattı", "Trafik ayırım düzeni", "Trafik separasyon bölgesi", "Trafik ayırım bölgesi"],
+  correctIndex: 2
+},
+
+{
+  id: 394,
+  question: "Aşağıdaki teknelerden hangisi trafik ayırım hattında yer alabilir?",
+  options: ["Boyu 20 m'den küçük tekne", "Yelkenli tekne", "Deniz uçağı", "Kuvvetle yürütülen tekne", "Balık teknesi"],
+  correctIndex: 3
+},
+
+{
+  id: 395,
+  question: "Kılavuz kaptan almak için pilot motoruna rüzgar altı oluşturmak için manevra yapan gemiye yol vermek, sabitlenen trafik ayırım düzeni içinde diğer gemileri yanıltmamak için ____ manevrası konusunda bilgilendirme yapılır.",
+  options: ["Açık deniz / Liman Başkanlığı", "Trafik Ayırım Düzeni / Liman Pilot", "Gemi Trafik Hizmetleri (GTH) / Trafik Ayırım Düzeni (TAD)", "İç sular / Sahil Sıhhiye", "Trafik Ayırım Düzeni (TAD) / Gemi Trafik Hizmetleri (GTH)"],
+  correctIndex: 4
+},
+
+{
+  id: 396,
+  question: "Aşağıdakilerden hangisi trafik ayırım düzeni kurallarına aykırıdır?",
+  options: ["Trafik ayırım düzeni içine demirlenmez", "Trafik ayırım düzenine giren bir gemi mümkün olduğunca dik açı ile düzene girer", "Trafik ayırım düzeni başlangıcı ve sonuna demirlenmez", "Karşıdan karşıya trafik ayırım düzeni hattına dik açı ile geçilir", "İç bölgelerde seyir yapılamaz"],
+  correctIndex: 1
+},
+
+{
+  id: 397,
+  question: "Trafik ayırım düzenini kullanan teknelerin uyacağı kurallardan aşağıdakilerden hangisi yanlıştır?",
+  options: ["Bir gemi trafik ayırım düzenini kullanıyorsa uygun trafik şeridinde o şeridin genel trafik akım yönünde ilerleyecektir", "Bir gemi şeridin bitiminde trafik şeridini terk etmek zorunda kalırsa en kısa açı ile çıkış yapacaktır", "Bir gemi trafik ayırım düzenini kullanmayan tekne mümkün olduğunca uzak duracaktır", "Bir tekne trafik şeridinde karşıdan karşıya geçmek zorunda kalırsa her iki trafik akımını en küçük açı ile yapacaktır", "Bir gemi trafik ayırım düzenini kullanıyorsa trafik ayırım hattı veya ayırım bölgesinden uzak bulunacaktır"],
+  correctIndex: 1
+},
+
+{
+  id: 398,
+  question: "Aşağıdaki ifadelerden hangisi trafik ayırım düzenine uyulması gereken kurallardan değildir?",
+  options: ["Trafik düzeninin bulunduğu bir yerde karşıdan karşıya geçişler mümkün olduğunca genel trafik akım yönüne yakın açılarla yapılmalıdır", "Trafik düzenine girilen şeritte dönüşler olmamalıdır", "Rotalar trafik ayırım düzenine uygun olmalıdır", "İç bölgede seyir yapılmamalıdır", "Trafik ayırım bölgesinde seyir yapılmamalıdır"],
+  correctIndex: 0
+},
+
+{
+  id: 399,
+  question: "Trafik Ayırım Düzenlerinde uygulanacak Kural 10 gereğince; aşağıdakilerden hangisi yanlıştır?",
+  options: ["Balıkçılıkla uğraşan bir tekne, bir trafik şeridini takip eden herhangi bir teknenin geçişini engelleyemez", "Trafik ayırım düzeni içinde denizaltı kablosu döşeyen manevra yeteneği kısıtlı bir tekne bu kuralı uygulamak zorunda değildir", "Boyu 50 metreden az olan ve yelkenli bir tekne, trafik şeridini takip eden kuvvetle yürütülen teknenin geçişini engelleyemez", "Acil durumlarda ani bir tehlikeden kaçınmak için trafik ayırım bölgesine girilebilir", "Boyu 20 metreden az olan ve yelkenli bir tekne, trafik şeridini takip eden kuvvetle yürütülen teknenin geçişini engelleyemez"],
+  correctIndex: 1
+},
+
+{
+  id: 400,
+  question: "Dar bir kanalda seyir halinde iken kanalın hangi tarafından gidilmelidir?",
+  options: ["Kanalın ortasından", "Kanalın sancak tarafından", "Kanalın iskele tarafından", "En geniş dönüş yerlerine sahip olan taraftan", "Kanal ortasının az iskele tarafından"],
+  correctIndex: 1
+},
+
+{
+  id: 401,
+  question: "Dar bir kanal veya geçit boyunca ilerleyen bir tekne geçit veya kanalın emniyet ve uygulanabildiği kadar;",
+  options: ["Orta hattında seyredecektir", "Karşıdan gelen gemiye tehlike oluşturmayacak bir rotada seyredecektir", "Kendi sancak tarafındaki dış sınırına yakın seyredecektir", "Emniyetli bir rotada seyredecektir", "Kendi iskele tarafındaki dış sınırına yakın seyredecektir"],
+  correctIndex: 2
+},
+
+{
+  id: 402,
+  question: "Bir gemi dar su yolunda, dar suyun olumsuz etkilerini yenmek için ne şekilde seyretmelidir?",
+  options: ["Dar su yolunun sancak tarafına yakın ve çok yavaş seyretmelidir", "Dar su yolunun boş olan kısmından kanal çabuk terk etmek için mümkün olduğunca süratli seyretmelidir", "Dar su yolunun iskele tarafına yakın ve çok yavaş seyretmelidir", "Sualtı banklarının görecek az iz düşü ve yüzerine göre ölçülen emniyetli hızla seyretmelidir", "Sualtı banklarının görecek az iz düşü ve yüzerine göre ölçülen emniyetli hızla seyretmelidir"],
+  correctIndex: 4
+},
+
+{
+  id: 403,
+  question: "Dar kanalda seyir yapan tekneler için aşağıdaki kurallardan hangisi yanlıştır?",
+  options: ["Bir dar kanal veya geçit boyunca ilerleyen bir tekne geçit veya kanalın kendi sancak tarafındaki dış sınırına uygulanabildiği kadar yakın seyredecektir", "Balıkçılıkla uğraşan bir tekne dar bir kanal veya geçitte seyreden bir teknenin geçişini engelleyemez", "Boyu 20 metreden az olan bir tekne ve yelkenli bir tekne, bir kanal veya geçitte emniyetle seyreden bir teknenin geçişini engelleyemez", "Bir tekne dar kanal veya geçitte karşıdan karşıya geçmek zorunda kaldığında dik açı ile geçiş yapacaktır", "Bir dar kanal veya geçitte kesinlikle karşıdan karşıya geçiş yapılmayacaktır"],
+  correctIndex: 2
+},
+
+{
+  id: 404,
+  question: "Dar kanallarda hangi tip tekneler emniyetli geçişe engel olmamalıdır?",
+  options: ["Yelkenli tekneler", "Manevra yeteneği kısıtlı tekneler", "Su çekimi nedeniyle kısıtlı tekneler", "Kumanda altında bulunmayan tekneler", "Bir iş ile uğraşan tekneler"],
+  correctIndex: 0
+},
+
+{
+  id: 405,
+  question: "Dar bir kanal veya geçitte emniyetle seyreden bir teknenin geçişine mani olmayacak teknelerin tümü aşağıdaki paragraflardan hangisinde belirtilmiştir?",
+  options: ["Boyu 20 m'den az olan tekneler", "Boyu 20 m'den az olan tekneler ve balıkçılar", "Boyu 20 m'den az olan tekneler, balıkçılar ve yelkenli tekneler", "Boyu 20 m'den az olan tekneler, balıkçılar, yelkenli tekneler ve karşıdan karşıya geçen tekneler", "Boyu 20 m'den az olan tekneler, yelkenli tekneler ve karşıdan karşıya geçen tekneler"],
+  correctIndex: 3
+},
+
+{
+  id: 406,
+  question: "15 metre boyundaki teknenizle dar bir kanal karşıdan karşıya geçiyorsunuz. Kanalda seyreden ve sancak tarafından gelen büyük bir yük gemisi rotalarını kesmektedir. Bu durumda ne yapmalısınız?",
+  options: ["Rota ve süratimi muhafaza etmek", "Düdükle tehlike işareti vermek", "Yük gemisinin yolundan çıkmak", "Kanalı geçmek", "Geçmek istediğinizi belirten işaretler vermelisiniz"],
+  correctIndex: 2
+},
+
+{
+  id: 407,
+  question: "Aşağıdakilerden hangisi veya hangileri, Dar kanallarda dar kanal boyunca ilerleyen tekneyi engellemesi gereken teknelerdendir? I- Karşıdan karşıya geçen kuvvetle yürütülen tekne II- Yelkenli tekne III- Balıkçılıkla uğraşan tekne IV- Kuvvetle yürütülen tekne",
+  options: ["I", "I-II", "I-III", "II-III", "I-II-III-IV"],
+  correctIndex: 3
+},
+
+{
+  id: 408,
+  question: "Dar kanalda aynı yönde giden gemilerin birbirini geçmesi durumunda iki rotaları karşılaştıklarındaki temel kaide dikkate alınmalıdır?",
+  options: ["Geçen gemiler karşılaşanlara göre daha zor manevra yapar", "Birbirini geçen gemiler karşılaşanlara nispeten daha az iletişim kurarlar", "Geçen gemiler birbirini daha çok engeller", "Karşılaşan gemiler geçen gemilerden daha az manevra alanına ihtiyaç duyarlar", "Geçilen geminin yardımı olmadan geçiş tamamlanamaz"],
+  correctIndex: 2
+},
+
+{
+  id: 409,
+  question: "250 metre boyunda ve draftının büyüklüğü nedeniyle manevranız kısıtlanmış olarak dar bir kanaldan geçiyorsunuz. Sancak baş omuzluğunuzda yaklaşık 50 metre ileride balık tutmakla meşgul olan bir balıkçı teknesi gördünüz. Kurallara göre aşağıdakilerden hangisini yapmanız doğru olur?",
+  options: ["Balıkçı gemisinin maksadı hakkında şüphem oluşursa peş peşe kısa olarak 5 kısa düdük çalarım", "Balıkçı teknesine çarpışırsa manevraya çalışırım", "Balıkçı teknesinden neta olana kadar hızımı ancak dümeni dinleyecek kadar azaltırım", "Hızımı “yarım yol”a indiririm", "Balıkçı gemisini uyarmak için bir uzun düdük çalarım"],
+  correctIndex: 0
+},
+
+{
+  id: 410,
+  question: "Kanalda seyrederken ortaya çıktığı görülen Gömülme, Bank Emisi, Bank Püskürtmesi gibi olumsuz etkileri artıran en önemli faktör aşağıdakilerden hangisidir?",
+  options: ["Trafiğin yoğunluğu", "Geminin yere göre hızı", "Kanalın derinliği", "Kanalın eni", "Geminin suya göre hızı"],
+  correctIndex: 4
+},
+
+
+];
+
+    // ---- Genel değişkenler ----
+    let quizQuestions = [];   // Kullanıcının seçeceği kadar soru
+    let currentIndex = 0;
+    let selectedIndex = null;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    let timerInterval = null;
+    let startTime = null;
+
+    // ---- DOM referansları ----
+    const questionHeader  = document.getElementById("questionHeader");
+    const questionProgress= document.getElementById("questionProgress");
+    const questionText    = document.getElementById("questionText");
+    const questionSub     = document.getElementById("questionSub");
+    const metaLine        = document.getElementById("metaLine");
+    const optionsGrid     = document.getElementById("optionsGrid");
+    const feedbackEl      = document.getElementById("feedback");
+
+    const statCorrectEl   = document.getElementById("statCorrect");
+    const statWrongEl     = document.getElementById("statWrong");
+    const statTotalEl     = document.getElementById("statTotal");
+    const statTotal2El    = document.getElementById("statTotal2");
+    const statCurrentEl   = document.getElementById("statCurrent");
+    const timerEl         = document.getElementById("timer");
+
+    const btnShowAnswer   = document.getElementById("btnShowAnswer");
+    const btnNext         = document.getElementById("btnNext");
+
+    // ---- Yardımcı: Diziyi karıştır (Fisher–Yates) ----
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // ---- Zaman formatı ----
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      const mm = String(m).padStart(2, "0");
+      const ss = String(s).padStart(2, "0");
+      return mm + ":" + ss;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTime(elapsed);
+      }, 1000);
+    }
+
+    // ---- Skor güncelle ----
+    function updateStats() {
+      statCorrectEl.textContent = correctCount;
+      statWrongEl.textContent   = wrongCount;
+      statTotalEl.textContent   = quizQuestions.length;
+      statTotal2El.textContent  = quizQuestions.length;
+      statCurrentEl.textContent = currentIndex + 1;
+    }
+
+    // ---- Soru çiz ----
+    function renderQuestion() {
+      const q = quizQuestions[currentIndex];
+      questionHeader.querySelector("span").textContent = "Soru " + (currentIndex + 1);
+      questionProgress.textContent = "Soru " + (currentIndex + 1) + " / " + quizQuestions.length;
+
+      metaLine.textContent = (q.subtitle ? q.subtitle + " – " : "") + (q.category || "");
+      questionText.textContent = q.question || "";
+      questionSub.textContent  = q.sub || "";
+
+      feedbackEl.textContent = "";
+      feedbackEl.className = "feedback";
+
+      selectedIndex = null;
+      optionsGrid.innerHTML = "";
+
+      q.options.forEach((opt, idx) => {
+        const row = document.createElement("div");
+        row.className = "option-row";
+        row.dataset.index = idx;
+
+        row.innerHTML = `
+          <div class="radio-circle"></div>
+          <div>${opt}</div>
+        `;
+
+        row.addEventListener("click", () => handleOptionClick(idx));
+        optionsGrid.appendChild(row);
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevap seçildiğinde ----
+    function handleOptionClick(idx) {
+      if (selectedIndex !== null) return; // Soruya yalnızca bir kez cevap
+
+      selectedIndex = idx;
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+
+      optionRows.forEach(r => r.classList.add("disabled"));
+
+      if (idx === q.correctIndex) {
+        correctCount++;
+        feedbackEl.textContent = "Doğru! ✅";
+        feedbackEl.classList.add("correct");
+      } else {
+        wrongCount++;
+        feedbackEl.textContent = "Yanlış. ❌";
+        feedbackEl.classList.add("incorrect");
+      }
+
+      optionRows.forEach((row, i) => {
+        if (i === q.correctIndex) row.classList.add("correct");
+        if (i === idx && i !== q.correctIndex) row.classList.add("incorrect");
+        if (i === idx) row.classList.add("selected");
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevabı göster (puan değiştirmeden) ----
+    function showAnswer() {
+      if (!quizQuestions.length) return;
+      if (selectedIndex !== null) return;
+
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+      optionRows.forEach((row, i) => {
+        row.classList.add("disabled");
+        if (i === q.correctIndex) {
+          row.classList.add("correct");
+        }
+      });
+      feedbackEl.textContent = "Doğru cevap gösterildi.";
+      feedbackEl.classList.remove("correct", "incorrect");
+    }
+
+    // ---- Sonraki soru ----
+    function nextQuestion() {
+      if (currentIndex < quizQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        feedbackEl.textContent = "Sınav bitti, tebrikler.";
+        feedbackEl.classList.remove("incorrect");
+        feedbackEl.classList.add("correct");
+      }
+    }
+
+    // ---- Kullanıcıdan kaç soru çözeceğini iste ----
+    function initQuiz() {
+      if (!questions.length) {
+        alert("Henüz soru tanımlı değil.");
+        return;
+      }
+
+      const max = questions.length;
+      let count = parseInt(
+        prompt("Kaç soru çözmek istiyorsunuz? (1-" + max + ")", Math.min(20, max)),
+        10
+      );
+      if (isNaN(count) || count < 1 || count > max) {
+        count = max;
+      }
+
+      const shuffled = shuffle(questions);
+      quizQuestions = shuffled.slice(0, count);
+
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      startTimer();
+      renderQuestion();
+    }
+
+    btnShowAnswer.addEventListener("click", showAnswer);
+    btnNext.addEventListener("click", nextQuestion);
+
+    // Sayfa açıldığında başlat
+    initQuiz();
+  </script>
+
+<script>
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("fma_demo_authed");
+      window.location.href = "login.html";
+    });
+  }
+</script>
+</body>
+</html>
+
+ <script>
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("fma_demo_authed");
+    window.location.href = "login.html";
+  });
+ </script>
+</body>
+</html>
+
+
+
+
+
