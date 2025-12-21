@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>40_Yönetim Düzeyi - Deniz Hukuku, Uluslararası Denizcilik Sözleşmeleri Deneme Sınavı_R</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+
+    .header {
+  max-width: 900px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header img {
+  height: 42px;
+}
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #e0e0e0;            /* gri arka plan (görseldeki gibi) */
+      color: #222;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .exam-box {
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .question-header {
+      background: #98dfa1;            /* açık yeşil şerit */
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-body {
+      padding: 16px 18px 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .question-text {
+      margin-bottom: 12px;
+    }
+
+    .meta-line {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .section-label {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 sütun */
+      column-gap: 60px;
+      row-gap: 8px;
+      padding: 0 10px 12px;
+      font-size: 14px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .option-row.disabled {
+      cursor: default;
+    }
+
+    .radio-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #c4c4c4;
+      background: #f9f9f9;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .option-row.selected .radio-circle::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: #007bff;
+    }
+
+    .option-row.correct .radio-circle {
+      border-color: #1f9d55;
+    }
+
+    .option-row.incorrect .radio-circle {
+      border-color: #e3342f;
+    }
+
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 18px 12px;
+      border-top: 1px solid #dddddd;
+      font-size: 13px;
+      background: #f5f5f5;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stats-block {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .timer-line {
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    button {
+      border-radius: 4px;
+      border: 1px solid #b0b0b0;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #ffffff;
+      margin-left: 4px;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+    }
+
+    .feedback {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .feedback.correct { color: #1f9d55; }
+    .feedback.incorrect { color: #e3342f; }
+
+    @media (max-width: 700px) {
+      .options-grid {
+        grid-template-columns: 1fr;  /* mobilde tek sütun */
+        column-gap: 20px;
+      }
+      .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+ <script>
+(function () {
+  const SESSION_KEY = "fma_demo_authed";
+  const SESSION_TTL = 6 * 60 * 60 * 1000; // 6 saat
+  const t = Number(localStorage.getItem(SESSION_KEY) || 0);
+
+  // ✅ login sayfasına, geri döneceği sayfayı da ekleyerek gönder
+  if (!t || (Date.now() - t) > SESSION_TTL) {
+    const loginUrl = new URL("login.html", window.location.href);
+    loginUrl.searchParams.set("next", window.location.pathname + window.location.search + window.location.hash);
+    window.location.replace(loginUrl.toString());
+  }
+})();
+</script>
+
+ </head>
+<body>
+
+ <div class="header">
+  <img src="assets/friendsmarin-logo.png" alt="Friends Marin Akademi">
+  <div class="page-title">40_Yönetim Düzeyi - Deniz Hukuku, Uluslararası Denizcilik Sözleşmeleri Deneme Sınavı_R</div>
+ </div>
+
+  <div class="exam-box">
+    <div class="question-header" id="questionHeader">
+      <span>Soru 1</span>
+      <span id="questionProgress"></span>
+    </div>
+
+    <div class="question-body">
+      <div class="meta-line" id="metaLine"></div>
+
+      <div class="question-text" id="questionText"></div>
+
+      <div id="questionSub" style="font-size:13px;color:#666;margin-bottom:8px;"></div>
+
+      <div class="section-label">cevap seçenekleri</div>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- JS ile doldurulacak -->
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="stats-block">
+        <div>Doğru cevap sayısı : <span id="statCorrect">0</span></div>
+        <div>Yanlış cevap sayısı : <span id="statWrong">0</span></div>
+        <div>Toplam soru sayısı : <span id="statTotal">0</span></div>
+        <div>Şu anki soru : <span id="statCurrent">1</span>/<span id="statTotal2">0</span></div>
+        <div class="timer-line">Geçen süre : <span id="timer">00:00</span></div>
+      </div>
+
+      <div>
+        <button id="btnShowAnswer" type="button">Cevabı Göster</button>
+        <button id="btnNext" type="button">Sonraki Soru</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 
+      BURASI SORU BANKASI
+      Excel dosyandaki yapı şöyleydi:
+      Question, 1 st Choice, 2 nd Choice, 3 rd Choice, 4 th Choice, 5 th Choice,
+      Subtitle, Correct Answer (Letter)
+
+      */
+const questions = [
+
+{
+  id: 11,
+  question: "ISPS Code kapsamında gemi güvenlik sertifikasının geçerlilik süresi genellikle ne kadardır?",
+  options: ["1 yıl", "2 yıl", "3 yıl", "5 yıl", "Süresiz"],
+  correctIndex: 3
+},
+
+{
+  id: 12,
+  question: "Aşağıdakilerden hangisi navlun kapsamında değerlendirilmez?",
+  options: ["Taşıma bedeli", "Gecikme ücreti (demuraj)", "Yükleme bedeli", "Tahliye bedeli", "Sigorta primi"],
+  correctIndex: 4
+},
+
+{
+  id: 13,
+  question: "4922 sayılı Kanun’a göre idari para cezasını yazmaya yetkili makam aşağıdakilerden hangisidir?",
+  options: ["Kaptan", "Donatan", "Liman Başkanlığı", "Gemi acentesi", "Sigorta şirketi"],
+  correctIndex: 2
+},
+
+{
+  id: 14,
+  question: "Uluslararası kurallara göre bir geminin yolcu gemisi sayılabilmesi için kaç kişiden fazla yolcu taşıması gerekir?",
+  options: ["10", "11", "12", "13", "15"],
+  correctIndex: 2
+},
+
+{
+  id: 15,
+  question: "Aşağıdakilerden hangisi deniz ticaret hukukunun konularından biridir?",
+  options: ["Miras hukuku", "Aile hukuku", "Navlun sözleşmeleri", "Ceza hukuku", "İdare hukuku"],
+  correctIndex: 2
+},
+
+{
+  id: 16,
+  question: "Kurtarma yardımı ücretinin belirlenmesinde aşağıdakilerden hangisi dikkate alınmaz?",
+  options: ["Kurtarılan gemi ve yükün değeri", "Kurtarma faaliyetinin başarı derecesi", "Kurtarma sırasında karşılaşılan tehlikenin büyüklüğü", "Kurtarma yapanların harcadığı emek ve zaman", "Kurtarılan geminin seferden elde edeceği navlun geliri"],
+  correctIndex: 4
+},
+
+{
+  id: 17,
+  question: "Kulüp sigortası feshi ne zamana kadar bildirilir?",
+  options: ["20 Mart", "20 Aralık", "Hiçbiri", "20 Ocak", "20 Şubat"],
+  correctIndex: 4
+},
+
+{
+  id: 18,
+  question: "Aşağıdakilerden hangisi fazla çalışma sayılır?",
+  options: ["Kaptanın, geminin selameti için yapılmasını zorunlu gördüğü işler", "Kaptanın, yükün selameti için yapılmasını zorunlu gördüğü işler", "Kaptanın gemi adamlarının menfaati için yapılmasını zorunlu gördüğü işler", "Kaptanın donatanın menfaati için yapılmasını zorunlu gördüğü işler", "Kaptanın gümrükle ilgili işlemler nedeniyle yapılmasını zorunlu gördüğü işler"],
+  correctIndex: 3
+},
+
+{
+  id: 19,
+  question: "Aşağıdakilerin hangisi “Gemi Sicili” ile ilgili değildir?",
+  options: ["Resmi sicildir", "Gemi adamlarının sayısı ve yeterliklerini düzenler", "Alenidir, yani ilgili herkese açıktır", "Devletin bayrağını taşıyan gemilerin kaydını tutmaya yarar", "Mülkiyet, ipotek, intifa gibi özel hukuk ilişkilerini düzenler"],
+  correctIndex: 1
+},
+
+{
+  id: 20,
+  question: "Hangisi Deniz özel hukuku içinde yer alır?",
+  options: ["Deniz iş hukuku", "Deniz ceza hukuku", "Deniz idare hukuku", "Deniz sosyal güvenlik hukuku", "Deniz kamu hukuku"],
+  correctIndex: 0
+},
+
+{
+  id: 21,
+  question: "Aşağıdaki sözleşmelerden hangisi, Türk Hukukuna göre navlun sözleşmesi değildir?",
+  options: ["Kırkambar sözleşmeleri", "Time charter sözleşmeleri", "Tam çarter sözleşmeleri", "Kısmi çarter sözleşmeleri", "Bare boat charter sözleşmeleri"],
+  correctIndex: 4
+},
+
+{
+  id: 22,
+  question: "CLC Sözleşmesinin uygulanması halinde zararların tazmininde hangi mali birim geçerlidir?",
+  options: ["ABD Doları", "Altın Frank", "Euro", "Türk Bayraklı gemiler için Türk lirası", "Özel Çekme Hakkı (SDR)"],
+  correctIndex: 4
+},
+
+{
+  id: 23,
+  question: "Aşağıdakilerden hangisi “Voyage Charter” de kullanılan “charter party” formlarından değildir?",
+  options: ["Gencon charter party", "Newyork Produce Exchange charter party", "Gasvoy charter party", "Asbatankvoy charter party", "Bimchemvoy charter party"],
+  correctIndex: 1
+},
+
+{
+  id: 24,
+  question: "Tenzili muafiyette ödeme nasıl yapılır?",
+  options: ["Hasarın muafiyet miktarını aşan kısmı ödenir", "Hasarın muafiyet miktarının altında kalan hasarlar ödenir", "Hasarın tümü ödenir", "Sigortanın belirlediği oranda", "Hasarın tamamı sigortalı tarafından karşılanır"],
+  correctIndex: 0
+},
+
+{
+  id: 25,
+  question: "854 sayılı Deniz İş Kanununa göre iş akdinin yurtdışında feshi halinde gemi adamının iade edileceği yer neresidir?",
+  options: ["Gemiadamının ikametgah adresi", "Geminin bağlama limanı", "Gemi adamının ikametgahının bulunduğu yere yakın olan liman", "Geminin sicil kaydının olduğu liman", "Geminin ikmal yapacağı liman"],
+  correctIndex: 2
+},
+
+{
+  id: 26,
+  question: "Kirlenme durumunda aykırı kaptan talimatı olmadıkça kesilmesi gereken işlerden olamaz?",
+  options: ["Yük operasyonu", "Gemiye insan giriş çıkışı", "Gemi müştehlik malzemesi ve yüklenmesi", "Gemi bakım ve tamir çalışmaları", "Balast operasyonu"],
+  correctIndex: 1
+},
+
+{
+  id: 27,
+  question: "Deniz kirliliği durumunda müdahale edecek ekip görevini yazılı olarak hangi çizelgede bulur?",
+  options: ["Gemi yağ kirliliği acil planındaki listeden", "Role cetvelinden", "SOLAS kaidelerinden", "Uluslararası Petrol Kirliliğini Önleme Belgesinden", "MARPOL Sözleşmesi’nin ilgili bölümünden"],
+  correctIndex: 1
+},
+
+{
+  id: 28,
+  question: "Türk Ticaret Kanunu'na göre kaptanın hakları ile ilgili düzenlemelerden hangisi yanlıştır?",
+  options: ["Hastalanması halinde tedavi ve ilaç giderlerini donatan öder", "Kaptan, donatanın izni olmadan kendi hesabına yük taşıyamaz", "Kaptan yükle ilgililerden gerekirse prim ikramiye alabilir", "Belirli durumlarda yurda dönüş masraflarını donatan öder", "Gemide iaşe edilme hakkı vardır"],
+  correctIndex: 2
+},
+
+{
+  id: 29,
+  question: "Gemiadamları ve Kılavuz Kaptanlar Yönetmeliği’ne göre ilk yardım eğitimini alması zorunlu olanlar hangileridir?",
+  options: ["Tüm zabitan sınıfı", "Kaptan ve birinci zabitler", "Sadece güverte zabitleri", "Sadece makine zabitleri", "Sadece stajyerler"],
+  correctIndex: 0
+},
+
+{
+  id: 30,
+  question: "Aşağıdakilerden hangisi kurtarma ücretinin tayininde dikkate alınması gereken unsurlardan değildir?",
+  options: ["Harcanan zaman", "Emek", "Kullanılan malzemenin değeri", "Kurtarma form sözleşmesinin mevcudiyeti", "Kurtarılan geminin özel maksatlı olması"],
+  correctIndex: 3
+},
+
+
+];
+
+    // ---- Genel değişkenler ----
+    let quizQuestions = [];   // Kullanıcının seçeceği kadar soru
+    let currentIndex = 0;
+    let selectedIndex = null;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    let timerInterval = null;
+    let startTime = null;
+
+    // ---- DOM referansları ----
+    const questionHeader  = document.getElementById("questionHeader");
+    const questionProgress= document.getElementById("questionProgress");
+    const questionText    = document.getElementById("questionText");
+    const questionSub     = document.getElementById("questionSub");
+    const metaLine        = document.getElementById("metaLine");
+    const optionsGrid     = document.getElementById("optionsGrid");
+    const feedbackEl      = document.getElementById("feedback");
+
+    const statCorrectEl   = document.getElementById("statCorrect");
+    const statWrongEl     = document.getElementById("statWrong");
+    const statTotalEl     = document.getElementById("statTotal");
+    const statTotal2El    = document.getElementById("statTotal2");
+    const statCurrentEl   = document.getElementById("statCurrent");
+    const timerEl         = document.getElementById("timer");
+
+    const btnShowAnswer   = document.getElementById("btnShowAnswer");
+    const btnNext         = document.getElementById("btnNext");
+
+    // ---- Yardımcı: Diziyi karıştır (Fisher–Yates) ----
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // ---- Zaman formatı ----
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      const mm = String(m).padStart(2, "0");
+      const ss = String(s).padStart(2, "0");
+      return mm + ":" + ss;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTime(elapsed);
+      }, 1000);
+    }
+
+    // ---- Skor güncelle ----
+    function updateStats() {
+      statCorrectEl.textContent = correctCount;
+      statWrongEl.textContent   = wrongCount;
+      statTotalEl.textContent   = quizQuestions.length;
+      statTotal2El.textContent  = quizQuestions.length;
+      statCurrentEl.textContent = currentIndex + 1;
+    }
+
+    // ---- Soru çiz ----
+    function renderQuestion() {
+      const q = quizQuestions[currentIndex];
+      questionHeader.querySelector("span").textContent = "Soru " + (currentIndex + 1);
+      questionProgress.textContent = "Soru " + (currentIndex + 1) + " / " + quizQuestions.length;
+
+      metaLine.textContent = (q.subtitle ? q.subtitle + " – " : "") + (q.category || "");
+      questionText.textContent = q.question || "";
+      questionSub.textContent  = q.sub || "";
+
+      feedbackEl.textContent = "";
+      feedbackEl.className = "feedback";
+
+      selectedIndex = null;
+      optionsGrid.innerHTML = "";
+
+      q.options.forEach((opt, idx) => {
+        const row = document.createElement("div");
+        row.className = "option-row";
+        row.dataset.index = idx;
+
+        row.innerHTML = `
+          <div class="radio-circle"></div>
+          <div>${opt}</div>
+        `;
+
+        row.addEventListener("click", () => handleOptionClick(idx));
+        optionsGrid.appendChild(row);
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevap seçildiğinde ----
+    function handleOptionClick(idx) {
+      if (selectedIndex !== null) return; // Soruya yalnızca bir kez cevap
+
+      selectedIndex = idx;
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+
+      optionRows.forEach(r => r.classList.add("disabled"));
+
+      if (idx === q.correctIndex) {
+        correctCount++;
+        feedbackEl.textContent = "Doğru! ✅";
+        feedbackEl.classList.add("correct");
+      } else {
+        wrongCount++;
+        feedbackEl.textContent = "Yanlış. ❌";
+        feedbackEl.classList.add("incorrect");
+      }
+
+      optionRows.forEach((row, i) => {
+        if (i === q.correctIndex) row.classList.add("correct");
+        if (i === idx && i !== q.correctIndex) row.classList.add("incorrect");
+        if (i === idx) row.classList.add("selected");
+      });
+
+      updateStats();
+    }
+
+    // ---- Cevabı göster (puan değiştirmeden) ----
+    function showAnswer() {
+      if (!quizQuestions.length) return;
+      if (selectedIndex !== null) return;
+
+      const q = quizQuestions[currentIndex];
+      const optionRows = optionsGrid.querySelectorAll(".option-row");
+      optionRows.forEach((row, i) => {
+        row.classList.add("disabled");
+        if (i === q.correctIndex) {
+          row.classList.add("correct");
+        }
+      });
+      feedbackEl.textContent = "Doğru cevap gösterildi.";
+      feedbackEl.classList.remove("correct", "incorrect");
+    }
+
+    // ---- Sonraki soru ----
+    function nextQuestion() {
+      if (currentIndex < quizQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        feedbackEl.textContent = "Sınav bitti, tebrikler.";
+        feedbackEl.classList.remove("incorrect");
+        feedbackEl.classList.add("correct");
+      }
+    }
+
+    // ---- Kullanıcıdan kaç soru çözeceğini iste ----
+    function initQuiz() {
+      if (!questions.length) {
+        alert("Henüz soru tanımlı değil.");
+        return;
+      }
+
+      const max = questions.length;
+      let count = parseInt(
+        prompt("Kaç soru çözmek istiyorsunuz? (1-" + max + ")", Math.min(20, max)),
+        10
+      );
+      if (isNaN(count) || count < 1 || count > max) {
+        count = max;
+      }
+
+      const shuffled = shuffle(questions);
+      quizQuestions = shuffled.slice(0, count);
+
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      startTimer();
+      renderQuestion();
+    }
+
+    btnShowAnswer.addEventListener("click", showAnswer);
+    btnNext.addEventListener("click", nextQuestion);
+
+    // Sayfa açıldığında başlat
+    initQuiz();
+  </script>
+
+<script>
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("fma_demo_authed");
+      window.location.href = "login.html";
+    });
+  }
+</script>
+</body>
+</html>
+
+ <script>
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("fma_demo_authed");
+    window.location.href = "login.html";
+  });
+ </script>
+</body>
+</html>
+
+
+
+
+
